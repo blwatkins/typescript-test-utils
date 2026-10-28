@@ -1,17 +1,17 @@
 ---
-title: 'npm TypeScript Package Template'
+title: 'TypeScript Test Utilities'
 layout: 'page'
-description: 'A template project for creating a TypeScript package for npm.'
+description: 'A toolkit of library-agnostic TypeScript and JavaScript utilities for unit testing.'
 ---
 
 ## About This Project
 
-A template project for creating a TypeScript package for npm.
+A toolkit of library-agnostic TypeScript and JavaScript utilities for unit testing.
 
 ## Documentation
 
-- [Sample Documentation](./doc/index.html)
-- [Sample Releases](./releases.md)
+- [Latest Release](./doc/index.html)
+- [Documentation by Version Number](./releases.md)
 
 ## License
 
@@ -20,50 +20,50 @@ The full text of the license is included with the project source code.
 
 ## Project Links and Status Badges
 
-### [npm](https://www.npmjs.com/package/@blwatkins/template)
+### [npm](https://www.npmjs.com/package/@blwatkins/test-utils)
 
-![npm License](https://badgen.net/npm/license/@blwatkins/template/alpha)
-![npm Version](https://badgen.net/npm/v/@blwatkins/template)
-![npm @alpha Version](https://badgen.net/npm/v/@blwatkins/template/alpha)
-![npm Types](https://badgen.net/npm/types/@blwatkins/template)
-![npm Node Version](https://badgen.net/npm/node/@blwatkins/template)
-![npm Weekly Downloads](https://badgen.net/npm/dw/@blwatkins/template)
-![npm Total Downloads](https://badgen.net/npm/dt/@blwatkins/template)
-![npm Last Update](https://img.shields.io/npm/last-update/%40blwatkins%2Ftemplate)
-![npm Unpacked Size](https://img.shields.io/npm/unpacked-size/%40blwatkins%2Ftemplate)
+![npm License](https://badgen.net/npm/license/@blwatkins/test-utils/alpha)
+![npm Version](https://badgen.net/npm/v/@blwatkins/test-utils)
+![npm @alpha Version](https://badgen.net/npm/v/@blwatkins/test-utils/alpha)
+![npm Types](https://badgen.net/npm/types/@blwatkins/test-utils)
+![npm Node Version](https://badgen.net/npm/node/@blwatkins/test-utils)
+![npm Weekly Downloads](https://badgen.net/npm/dw/@blwatkins/test-utils)
+![npm Total Downloads](https://badgen.net/npm/dt/@blwatkins/test-utils)
+![npm Last Update](https://img.shields.io/npm/last-update/%40blwatkins%2Ftest-utils)
+![npm Unpacked Size](https://img.shields.io/npm/unpacked-size/%40blwatkins%2Ftest-utils)
 
-### [Socket](https://socket.dev/npm/package/@blwatkins/template)
+### [Socket](https://socket.dev/npm/package/@blwatkins/test-utils)
 
-![Socket Score](https://badge.socket.dev/npm/package/@blwatkins/template)
+![Socket Score](https://badge.socket.dev/npm/package/@blwatkins/test-utils)
 
 ### Bundlephobia
 
-- [Bundlephobia - `@blwatkins/template`](https://bundlephobia.com/package/@blwatkins/template)
+- [Bundlephobia - `@blwatkins/test-utils`](https://bundlephobia.com/package/@blwatkins/test-utils)
 
-### [Package Phobia](https://packagephobia.com/result?p=%40blwatkins%2Ftemplate)
+### [Package Phobia](https://packagephobia.com/result?p=%40blwatkins%2Ftest-utils)
 
-![Package Phobia Install Size](https://badgen.net/packagephobia/install/@blwatkins/template)
-![Package Phobia Publish Size](https://badgen.net/packagephobia/publish/@blwatkins/template)
+![Package Phobia Install Size](https://badgen.net/packagephobia/install/@blwatkins/test-utils)
+![Package Phobia Publish Size](https://badgen.net/packagephobia/publish/@blwatkins/test-utils)
 
-### [GitHub](https://github.com/blwatkins/npm-typescript-package-template)
+### [GitHub](https://github.com/blwatkins/typescript-test-utils)
 
-![GitHub License](https://badgen.net/github/license/blwatkins/npm-typescript-package-template)
-![GitHub Dependabot](https://badgen.net/github/dependabot/blwatkins/npm-typescript-package-template)
-![GitHub Latest Release](https://badgen.net/github/release/blwatkins/npm-typescript-package-template)
-![GitHub Releases](https://badgen.net/github/releases/blwatkins/npm-typescript-package-template)
-![GitHub Last Commit](https://badgen.net/github/last-commit/blwatkins/npm-typescript-package-template)
-![GitHub Commits](https://badgen.net/github/commits/blwatkins/npm-typescript-package-template)
-![GitHub Commit Activity](https://img.shields.io/github/commit-activity/y/blwatkins/npm-typescript-package-template)
-![GitHub Code Size in Bytes](https://img.shields.io/github/languages/code-size/blwatkins/npm-typescript-package-template)
-![GitHub Repo Size](https://img.shields.io/github/repo-size/blwatkins/npm-typescript-package-template)
-![GitHub Repo File or Directory Count](https://img.shields.io/github/directory-file-count/blwatkins/npm-typescript-package-template)
-![GitHub Language Count](https://img.shields.io/github/languages/count/blwatkins/npm-typescript-package-template)
+![GitHub License](https://badgen.net/github/license/blwatkins/typescript-test-utils)
+![GitHub Dependabot](https://badgen.net/github/dependabot/blwatkins/typescript-test-utils)
+![GitHub Latest Release](https://badgen.net/github/release/blwatkins/typescript-test-utils)
+![GitHub Releases](https://badgen.net/github/releases/blwatkins/typescript-test-utils)
+![GitHub Last Commit](https://badgen.net/github/last-commit/blwatkins/typescript-test-utils)
+![GitHub Commits](https://badgen.net/github/commits/blwatkins/typescript-test-utils)
+![GitHub Commit Activity](https://img.shields.io/github/commit-activity/y/blwatkins/typescript-test-utils)
+![GitHub Code Size in Bytes](https://img.shields.io/github/languages/code-size/blwatkins/typescript-test-utils)
+![GitHub Repo Size](https://img.shields.io/github/repo-size/blwatkins/typescript-test-utils)
+![GitHub Repo File or Directory Count](https://img.shields.io/github/directory-file-count/blwatkins/typescript-test-utils)
+![GitHub Language Count](https://img.shields.io/github/languages/count/blwatkins/typescript-test-utils)
 
 ### GitHub Actions
 
-![CodeQL](https://github.com/blwatkins/npm-typescript-package-template/actions/workflows/codeql.yml/badge.svg)
-![npm Validate](https://github.com/blwatkins/npm-typescript-package-template/actions/workflows/npm-validate.yml/badge.svg)
-![Deploy GitHub Pages with Jekyll](https://github.com/blwatkins/npm-typescript-package-template/actions/workflows/gh-pages-jekyll.yml/badge.svg)
+![CodeQL](https://github.com/blwatkins/typescript-test-utils/actions/workflows/codeql.yml/badge.svg)
+![npm Validate](https://github.com/blwatkins/typescript-test-utils/actions/workflows/npm-validate.yml/badge.svg)
+![Deploy GitHub Pages with Jekyll](https://github.com/blwatkins/typescript-test-utils/actions/workflows/gh-pages-jekyll.yml/badge.svg)
 
 ## Sources and Technical Notes
 
