@@ -1,0 +1,26 @@
+*.DS_Store
+
+# JetBrains IDEs
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Claude Code
+.claude/
+
+# Node.js and npm
+node_modules/
+
+# Jekyll
+_site/
+.bundle/
+.jekyll-cache/
+.sass-cache/
+vendor/
+
+# Compiling, bundling, testing, and coverage output
+_compiled/
+_coverage/
+_dist/
+_doc/
