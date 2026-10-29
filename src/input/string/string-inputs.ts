@@ -208,7 +208,7 @@ const acceptedLatin1UppercaseLetters: string = acceptedLatin1Characters.filter((
 }).join('');
 
 /**
- * Words with no cased letters: digits, symbols, the bullet (•), and emoji.
+ * Words with no cased letters: digits, symbols, the bullet (U+2022), and emoji.
  *
  * @type {string[]}
  * @private

@@ -219,7 +219,7 @@ export const hexColorFailureInputs: string[] = [
     '#FFFFF@',
     '#ABCDE?',
     '#1A2B3]',
-    '#aaaaaë',
+    '#aaaaa\u00EB',
     '#fffffg',
     '#abcde\u{1F3A8}',
     '#1a2b3$',
@@ -231,7 +231,7 @@ export const hexColorFailureInputs: string[] = [
     '#FFFFFFF@',
     '#ABCDEFB?',
     '#1A2B3C4]',
-    '#aaaaaaaë',
+    '#aaaaaaa\u00EB',
     '#fffffffg',
     '#abcdefb\u{1F3A8}',
     '#1a2b3c4$',
@@ -259,5 +259,5 @@ export const hexColorFailureInputs: string[] = [
     '#ffffff\n\t',
     '    #abcdef',
     '#1a2b3c    ',
-    '#ëëëëëë'
+    '#\u00EB\u00EB\u00EB\u00EB\u00EB\u00EB'
 ];
