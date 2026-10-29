@@ -20,6 +20,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * Inputs that are not primitive booleans, including boolean-like strings and numbers, and boxed `Boolean` objects.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonBooleanInputs: unknown[] = [
     null,
@@ -64,6 +70,12 @@ export const nonBooleanInputs: unknown[] = [
     Symbol('test')
 ];
 
+/**
+ * The inputs in {@link nonBooleanInputs}, excluding `undefined`.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const definedNonBooleanInputs: unknown[] = nonBooleanInputs.filter((input: unknown): boolean => {
     return input !== undefined;
 });

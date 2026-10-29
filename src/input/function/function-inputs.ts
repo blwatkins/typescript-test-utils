@@ -20,6 +20,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * Inputs that are not functions.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonFunctionInputs: unknown[] = [
     null,
@@ -64,6 +70,12 @@ export const nonFunctionInputs: unknown[] = [
     Symbol('test')
 ];
 
+/**
+ * The inputs in {@link nonFunctionInputs}, excluding `undefined`.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const definedNonFunctionInputs: unknown[] = nonFunctionInputs.filter((input: unknown): boolean => {
     return input !== undefined;
 });

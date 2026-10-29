@@ -20,6 +20,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * Inputs that are not primitive numbers, including bigints, numeric strings, functions, and boxed `Number` objects.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonNumberInputs: unknown[] = [
     null,
@@ -58,35 +64,77 @@ export const nonNumberInputs: unknown[] = [
     Symbol('test')
 ];
 
+/**
+ * The inputs in {@link nonNumberInputs}, excluding `undefined`.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const definedNonNumberInputs: unknown[] = nonNumberInputs.filter((input: unknown): boolean => {
     return input !== undefined;
 });
 
+/**
+ * Numbers that are not finite: `NaN`, `Infinity`, and `-Infinity`.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const nonFiniteNumberInputs: number[] = [
     NaN,
     Infinity,
     -Infinity
 ];
 
+/**
+ * Positive and negative zero.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const zeroInputs: number[] = [0, -0];
 
+/**
+ * Finite negative numbers below `Number.MIN_SAFE_INTEGER`.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const negativeUnsafeNumberInputs: number[] = [
     -Number.MAX_VALUE,
     Number.MIN_SAFE_INTEGER - 1,
     Number.MIN_SAFE_INTEGER - 1.5
 ];
 
+/**
+ * Finite positive numbers above `Number.MAX_SAFE_INTEGER`.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const positiveUnsafeNumberInputs: number[] = [
     Number.MAX_VALUE,
     Number.MAX_SAFE_INTEGER + 1,
     Number.MAX_SAFE_INTEGER + 1.5
 ];
 
+/**
+ * Finite numbers outside the safe integer range, combining {@link negativeUnsafeNumberInputs} and {@link positiveUnsafeNumberInputs}.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const unsafeNumberInputs: number[] = [
     ...negativeUnsafeNumberInputs,
     ...positiveUnsafeNumberInputs
 ];
 
+/**
+ * Negative non-integer numbers within the safe integer range.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const negativeSafeFloatInputs: number[] = [
     -Number.MIN_VALUE,
     -Number.EPSILON,
@@ -95,6 +143,12 @@ export const negativeSafeFloatInputs: number[] = [
     -(1.0 / 3)
 ];
 
+/**
+ * Positive non-integer numbers within the safe integer range.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const positiveSafeFloatInputs: number[] = [
     Number.MIN_VALUE,
     Number.EPSILON,
@@ -103,11 +157,23 @@ export const positiveSafeFloatInputs: number[] = [
     (1.0 / 3)
 ];
 
+/**
+ * Non-integer numbers within the safe integer range, combining {@link negativeSafeFloatInputs} and {@link positiveSafeFloatInputs}.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const safeFloatInputs: number[] = [
     ...negativeSafeFloatInputs,
     ...positiveSafeFloatInputs
 ];
 
+/**
+ * Negative safe integers, down to `Number.MIN_SAFE_INTEGER`.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const negativeSafeIntegerInputs: number[] = [
     Number.MIN_SAFE_INTEGER,
     -1,
@@ -117,6 +183,12 @@ export const negativeSafeIntegerInputs: number[] = [
     -1000.0
 ];
 
+/**
+ * Positive safe integers, up to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const positiveSafeIntegerInputs: number[] = [
     Number.MAX_SAFE_INTEGER,
     1,
@@ -126,38 +198,88 @@ export const positiveSafeIntegerInputs: number[] = [
     1000.0
 ];
 
+/**
+ * Nonzero safe integers, combining {@link negativeSafeIntegerInputs} and {@link positiveSafeIntegerInputs}.
+ *
+ * @remarks Zero is not included. See {@link zeroInputs}.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const safeIntegerInputs: number[] = [
     ...negativeSafeIntegerInputs,
     ...positiveSafeIntegerInputs
 ];
 
+/**
+ * Positive safe numbers, combining {@link positiveSafeFloatInputs} and {@link positiveSafeIntegerInputs}.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const positiveSafeNumberInputs: number[] = [
     ...positiveSafeFloatInputs,
     ...positiveSafeIntegerInputs
 ];
 
+/**
+ * Negative safe numbers, combining {@link negativeSafeFloatInputs} and {@link negativeSafeIntegerInputs}.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const negativeSafeNumberInputs: number[] = [
     ...negativeSafeFloatInputs,
     ...negativeSafeIntegerInputs
 ];
 
+/**
+ * Nonzero safe numbers, combining {@link positiveSafeNumberInputs} and {@link negativeSafeNumberInputs}.
+ *
+ * @remarks Zero is not included. See {@link zeroInputs}.
+ *
+ * @type {number[]}
+ * @since 0.1.0
+ */
 export const safeNumberInputs: number[] = [
     ...positiveSafeNumberInputs,
     ...negativeSafeNumberInputs
 ];
 
+/**
+ * Inputs that are not safe numbers, combining {@link nonNumberInputs}, {@link nonFiniteNumberInputs}, and {@link unsafeNumberInputs}.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const invalidSafeNumberInputs: unknown[] = [
     ...nonNumberInputs,
     ...nonFiniteNumberInputs,
     ...unsafeNumberInputs
 ];
 
+/**
+ * Inputs that are not safe positive integers, combining {@link invalidSafeNumberInputs}, {@link safeFloatInputs}, and {@link negativeSafeIntegerInputs}.
+ *
+ * @remarks Zero is not included. See {@link zeroInputs}.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const invalidSafePositiveIntegerInputs: unknown[] = [
     ...invalidSafeNumberInputs,
     ...safeFloatInputs,
     ...negativeSafeIntegerInputs
 ];
 
+/**
+ * The inputs in {@link invalidSafePositiveIntegerInputs}, excluding `undefined`.
+ *
+ * @remarks Zero is not included. See {@link zeroInputs}.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const definedInvalidSafePositiveIntegerInputs: unknown[] = invalidSafePositiveIntegerInputs.filter((input: unknown): boolean => {
     return input !== undefined;
 });
