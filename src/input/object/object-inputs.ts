@@ -25,6 +25,7 @@
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Object
  */
 export const nonObjectInputs: unknown[] = [
     null,
@@ -69,6 +70,7 @@ export const nonObjectInputs: unknown[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Object
  */
 export const definedNonObjectInputs: unknown[] = nonObjectInputs.filter((input: unknown): boolean => {
     return input !== undefined;

@@ -25,6 +25,7 @@
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Number
  */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonNumberInputs: unknown[] = [
@@ -69,6 +70,7 @@ export const nonNumberInputs: unknown[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Number
  */
 export const definedNonNumberInputs: unknown[] = nonNumberInputs.filter((input: unknown): boolean => {
     return input !== undefined;
@@ -79,6 +81,7 @@ export const definedNonNumberInputs: unknown[] = nonNumberInputs.filter((input: 
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const nonFiniteNumberInputs: number[] = [
     NaN,
@@ -91,6 +94,7 @@ export const nonFiniteNumberInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const zeroInputs: number[] = [0, -0];
 
@@ -99,6 +103,7 @@ export const zeroInputs: number[] = [0, -0];
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const negativeUnsafeNumberInputs: number[] = [
     -Number.MAX_VALUE,
@@ -111,6 +116,7 @@ export const negativeUnsafeNumberInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const positiveUnsafeNumberInputs: number[] = [
     Number.MAX_VALUE,
@@ -123,6 +129,7 @@ export const positiveUnsafeNumberInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const unsafeNumberInputs: number[] = [
     ...negativeUnsafeNumberInputs,
@@ -134,6 +141,7 @@ export const unsafeNumberInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const negativeSafeFloatInputs: number[] = [
     -Number.MIN_VALUE,
@@ -148,6 +156,7 @@ export const negativeSafeFloatInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const positiveSafeFloatInputs: number[] = [
     Number.MIN_VALUE,
@@ -162,6 +171,7 @@ export const positiveSafeFloatInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const safeFloatInputs: number[] = [
     ...negativeSafeFloatInputs,
@@ -173,6 +183,7 @@ export const safeFloatInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const negativeSafeIntegerInputs: number[] = [
     Number.MIN_SAFE_INTEGER,
@@ -188,6 +199,7 @@ export const negativeSafeIntegerInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const positiveSafeIntegerInputs: number[] = [
     Number.MAX_SAFE_INTEGER,
@@ -205,6 +217,7 @@ export const positiveSafeIntegerInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const safeIntegerInputs: number[] = [
     ...negativeSafeIntegerInputs,
@@ -216,6 +229,7 @@ export const safeIntegerInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const positiveSafeNumberInputs: number[] = [
     ...positiveSafeFloatInputs,
@@ -227,6 +241,7 @@ export const positiveSafeNumberInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const negativeSafeNumberInputs: number[] = [
     ...negativeSafeFloatInputs,
@@ -240,6 +255,7 @@ export const negativeSafeNumberInputs: number[] = [
  *
  * @type {number[]}
  * @since 0.1.0
+ * @category Number
  */
 export const safeNumberInputs: number[] = [
     ...positiveSafeNumberInputs,
@@ -251,6 +267,7 @@ export const safeNumberInputs: number[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Number
  */
 export const invalidSafeNumberInputs: unknown[] = [
     ...nonNumberInputs,
@@ -265,6 +282,7 @@ export const invalidSafeNumberInputs: unknown[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Number
  */
 export const invalidSafePositiveIntegerInputs: unknown[] = [
     ...invalidSafeNumberInputs,
@@ -279,6 +297,7 @@ export const invalidSafePositiveIntegerInputs: unknown[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Number
  */
 export const definedInvalidSafePositiveIntegerInputs: unknown[] = invalidSafePositiveIntegerInputs.filter((input: unknown): boolean => {
     return input !== undefined;

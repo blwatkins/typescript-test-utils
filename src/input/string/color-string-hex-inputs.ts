@@ -25,6 +25,7 @@
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorRGBNumberInputs: string[] = [
     '#000000',
@@ -38,6 +39,7 @@ export const hexColorRGBNumberInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorRGBANumberInputs: string[] = [
     '#00000000',
@@ -51,6 +53,7 @@ export const hexColorRGBANumberInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorRGBUppercaseInputs: string[] = [
     '#AAAAAA',
@@ -64,6 +67,7 @@ export const hexColorRGBUppercaseInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorRGBAUppercaseInputs: string[] = [
     '#AAAAAAAA',
@@ -77,6 +81,7 @@ export const hexColorRGBAUppercaseInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorRGBLowercaseInputs: string[] = [
     '#aaaaaa',
@@ -90,6 +95,7 @@ export const hexColorRGBLowercaseInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorRGBALowercaseInputs: string[] = [
     '#aaaaaaaa',
@@ -103,6 +109,7 @@ export const hexColorRGBALowercaseInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorRGBMixedCaseInputs: string[] = [
     '#aAaAaA',
@@ -116,6 +123,7 @@ export const hexColorRGBMixedCaseInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorRGBAMixedCaseInputs: string[] = [
     '#aAaAaAaA',
@@ -131,6 +139,7 @@ export const hexColorRGBAMixedCaseInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorSameCaseInputs: string[] = [
     ...hexColorRGBNumberInputs,
@@ -146,6 +155,7 @@ export const hexColorSameCaseInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorMixedCaseInputs: string[] = [
     ...hexColorRGBMixedCaseInputs,
@@ -157,6 +167,7 @@ export const hexColorMixedCaseInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const hexColorFailureInputs: string[] = [
     '000000',
