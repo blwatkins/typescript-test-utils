@@ -24,6 +24,7 @@ import { describe, test, expect } from 'vitest';
 
 export function testInputArrayDuplicates(inputs: unknown[]): void {
     test('Should not contain any duplicates', (): void => {
+        expect(inputs.length).not.toBe(0);
         expect(inputs.filter((input: unknown, index: number): boolean => {
             return inputs.findIndex((other: unknown): boolean => {
                 return Object.is(other, input);
@@ -35,6 +36,8 @@ export function testInputArrayDuplicates(inputs: unknown[]): void {
 export function testNonTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
     describe(`Is a non-${type} input array`, (): void => {
         test(`Should not contain ${type} elements`, (): void => {
+            expect(inputs.length).not.toBe(0);
+
             expect(inputs.filter((input: unknown): boolean => {
                 return typeCheck(input);
             })).toEqual([]);
@@ -47,6 +50,8 @@ export function testNonTypeInputArray(inputs: unknown[], type: string, typeCheck
 export function testTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
     describe(`Is a ${type} input array`, (): void => {
         test(`Should only contain ${type} elements`, (): void => {
+            expect(inputs.length).not.toBe(0);
+
             expect(inputs.filter((input: unknown): boolean => {
                 return !typeCheck(input);
             })).toEqual([]);
@@ -58,6 +63,7 @@ export function testTypeInputArray(inputs: unknown[], type: string, typeCheck: (
 
 export function testDefinedInputArray(inputs: unknown[]): void {
     test(`Should not have undefined elements`, (): void => {
+        expect(inputs.length).not.toBe(0);
         expect(inputs).not.toContain(undefined);
     });
 }
