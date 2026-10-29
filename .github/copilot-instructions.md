@@ -144,7 +144,7 @@ This is the guard-pair application of the suffix guidance under ["Code Style Pre
 **The optional `message` contract.** An `assert*` method may take an optional `message` that replaces its default error message.
 A custom `message` is used only when it is a string; any other value falls through to the default message.
 
-**Which failures a custom `message` covers.** A classifying pair has one failure, so `message` covers it.
+**How far `message` reaches.** A classifying pair has one failure, so `message` covers it.
 A constraint pair can have multiple, and `message` covers only the constraint the pair is named for.
 Argument validation runs first, inside the guard, so a caller's `message` never reaches the argument failure path.
 This is deliberate rather than a gap: the caller's message describes the constraint it expected, which says nothing useful about an argument that was wrong before the constraint was checked.
