@@ -28,14 +28,14 @@ minima:
       icon: 'envelope'
       icon_pack: 'regular'
       url: 'https://brittniwatkins.beehiiv.com/'
-    - title: '@blwatkins/template'
+    - title: '@blwatkins/test-utils'
       icon: 'npm'
       icon_pack: 'brands'
       url: '#'
     - title: 'Source Code'
       icon: 'git-alt'
       icon_pack: 'brands'
-      url: 'https://github.com/blwatkins/npm-typescript-package-template'
+      url: 'https://github.com/blwatkins/typescript-test-utils'
     - title: 'GitHub'
       icon: 'github'
       icon_pack: 'brands'
@@ -52,8 +52,8 @@ minima:
     - 'index.md'
     - 'releases.md'
 
-title: 'npm TypeScript Package Template'
-description: 'A template project for creating a TypeScript package for npm.'
+title: 'TypeScript Test Utilities'
+description: 'A toolkit of library-agnostic TypeScript and JavaScript utilities for unit testing.'
 show_downloads: true
 
 sass:
