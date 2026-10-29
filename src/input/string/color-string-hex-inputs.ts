@@ -20,6 +20,9 @@
  * SPDX-License-Identifier: MIT
  */
 
+import * as arrayUtils from '../../array';
+import * as stringUtils from '../../string';
+
 /**
  * Six-digit hex color strings (`#RRGGBB`) that use only digits.
  *
@@ -163,112 +166,83 @@ export const hexColorMixedCaseInputs: string[] = [
 ];
 
 /**
+ * Six-digit hex color strings (`#RRGGBB`) to build failure inputs from, with one digit-only, one uppercase, and one lowercase color.
+ *
+ * @type {string[]}
+ * @private
+ */
+const hexColorRGBSeeds: string[] = ['#123456', '#ABCDEF', '#abcdef'];
+
+/**
+ * Eight-digit hex color strings (`#RRGGBBAA`) to build failure inputs from, with one digit-only, one uppercase, and one lowercase color.
+ *
+ * @type {string[]}
+ * @private
+ */
+const hexColorRGBASeeds: string[] = ['#12345678', '#ABCDEFBC', '#abcdefbc'];
+
+/**
+ * Six-digit and eight-digit hex color strings to build failure inputs from, combining {@link hexColorRGBSeeds} and {@link hexColorRGBASeeds}.
+ *
+ * @type {string[]}
+ * @private
+ */
+const hexColorSeeds: string[] = [...hexColorRGBSeeds, ...hexColorRGBASeeds];
+
+/**
+ * Characters that are not hex digits: letters past `F`, ASCII symbols, a Latin-1 letter, and an emoji.
+ *
+ * @type {string[]}
+ * @private
+ */
+const nonHexCharacters: string[] = [
+    'G',
+    'g',
+    'Z',
+    '!',
+    '@',
+    '?',
+    ']',
+    '$',
+    '\u00EB', // ë - Latin small e with diaeresis
+    '\u{1F3A8}' // 🎨 - Palette
+];
+
+/**
+ * Whitespace characters to insert into hex color strings: a space, a tab, and a line feed.
+ *
+ * @type {string[]}
+ * @private
+ */
+const hexWhitespaceCharacters: string[] = [' ', '\t', '\n'];
+
+/**
  * Strings that are not six-digit or eight-digit hex colors, because of a missing `#`, the wrong number of digits, a non-hex character, or whitespace.
  *
  * @type {string[]}
  * @since 0.1.0
  * @category String
  */
-export const hexColorFailureInputs: string[] = [
-    '000000',
-    '999999',
-    '123456',
-    '987654',
-    'AAAAAA',
-    'FFFFFF',
-    'ABCDEF',
-    '1A2B3C',
-    'aaaaaa',
-    'ffffff',
-    'abcdef',
-    '1a2b3c',
-    '#000',
-    '#AAA',
-    '#FFF',
-    '#1A2',
-    '#aaa',
-    '#fff',
-    '#abc',
-    '#1a2',
-    '#00',
-    '#AA',
-    '#FF',
-    '#1A',
-    '#aa',
-    '#ff',
-    '#ab',
-    '#1a',
-    '#0000000',
-    '#9999999',
-    '#1234567',
-    '#9876543',
-    '#AAAAAAA',
-    '#FFFFFFF',
-    '#ABCDEFB',
-    '#1A2B3C4',
-    '#aaaaaaa',
-    '#fffffff',
-    '#abcdefb',
-    '#1a2b3c4',
-    '#000000000',
-    '#999999999',
-    '#123456789',
-    '#987654321',
-    '#AAAAAAAAA',
-    '#FFFFFFFFF',
-    '#ABCDEFBCD',
-    '#1A2B3C4D5',
-    '#aaaaaaaaa',
-    '#fffffffff',
-    '#abcdefbcd',
-    '#1a2b3c4d5',
-    '#00000G',
-    '#99999H',
-    '#12345Z',
-    '#98765\u{1F3A8}',
-    '#AAAAA!',
-    '#FFFFF@',
-    '#ABCDE?',
-    '#1A2B3]',
-    '#aaaaa\u00EB',
-    '#fffffg',
-    '#abcde\u{1F3A8}',
-    '#1a2b3$',
-    '#0000000G',
-    '#9999999H',
-    '#1234567Z',
-    '#9876543\u{1F3A8}',
-    '#AAAAAAA!',
-    '#FFFFFFF@',
-    '#ABCDEFB?',
-    '#1A2B3C4]',
-    '#aaaaaaa\u00EB',
-    '#fffffffg',
-    '#abcdefb\u{1F3A8}',
-    '#1a2b3c4$',
-    '#000 000',
-    '#99 9999',
-    '#123 456',
-    '#987 654',
-    '#AAAA AA',
-    '# FFFFFF',
-    '#ABCDE F',
-    '#1A2 3C',
-    '#aaaa aa',
-    '# ffffff',
-    '  #abcdef',
-    '#1a2b3c  ',
-    '#00\n0000',
-    '#9999\n99',
-    '#12345\t6',
-    '#987654\n',
-    '#AAAAAA    ',
-    '#F\nFFFFF',
-    '\n\t#ABCDEF',
-    '#1\tA2B3C',
-    '#aaa\n\taaa',
-    '#ffffff\n\t',
-    '    #abcdef',
-    '#1a2b3c    ',
+export const hexColorFailureInputs: string[] = arrayUtils.unique([
+    ...hexColorSeeds.map((color: string): string => {
+        return color.slice(1);
+    }),
+    ...hexColorRGBSeeds.flatMap((color: string): string[] => {
+        return [color.slice(0, 3), color.slice(0, 4)];
+    }),
+    ...hexColorRGBASeeds.flatMap((color: string): string[] => {
+        return [color.slice(0, -1), `${color}${color.slice(-1)}`];
+    }),
+    ...hexColorSeeds.flatMap((color: string): string[] => {
+        return nonHexCharacters.map((character: string): string => {
+            return `${color.slice(0, -1)}${character}`;
+        });
+    }),
+    ...stringUtils.pairStrings(hexColorSeeds, hexWhitespaceCharacters),
+    ...hexColorSeeds.flatMap((color: string): string[] => {
+        return hexWhitespaceCharacters.map((whitespace: string): string => {
+            return `${color.slice(0, 4)}${whitespace}${color.slice(4)}`;
+        });
+    }),
     '#\u00EB\u00EB\u00EB\u00EB\u00EB\u00EB'
-];
+]);
