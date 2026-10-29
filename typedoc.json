@@ -6,7 +6,9 @@
   },
 
   "entryPoints": [
-    "./src/input/index.ts"
+    "./src/array/index.ts",
+    "./src/input/index.ts",
+    "./src/string/index.ts"
   ],
 
   "out": "./_doc",
