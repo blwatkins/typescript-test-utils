@@ -20,6 +20,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * Six-digit hex color strings (`#RRGGBB`) that use only digits.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorRGBNumberInputs: string[] = [
     '#000000',
     '#999999',
@@ -27,6 +33,12 @@ export const hexColorRGBNumberInputs: string[] = [
     '#987654'
 ];
 
+/**
+ * Eight-digit hex color strings (`#RRGGBBAA`) that use only digits.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorRGBANumberInputs: string[] = [
     '#00000000',
     '#99999999',
@@ -34,6 +46,12 @@ export const hexColorRGBANumberInputs: string[] = [
     '#98765432'
 ];
 
+/**
+ * Six-digit hex color strings (`#RRGGBB`) that use uppercase letters.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorRGBUppercaseInputs: string[] = [
     '#AAAAAA',
     '#FFFFFF',
@@ -41,6 +59,12 @@ export const hexColorRGBUppercaseInputs: string[] = [
     '#1A2B3C'
 ];
 
+/**
+ * Eight-digit hex color strings (`#RRGGBBAA`) that use uppercase letters.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorRGBAUppercaseInputs: string[] = [
     '#AAAAAAAA',
     '#FFFFFFFF',
@@ -48,6 +72,12 @@ export const hexColorRGBAUppercaseInputs: string[] = [
     '#1A2B3C4D'
 ];
 
+/**
+ * Six-digit hex color strings (`#RRGGBB`) that use lowercase letters.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorRGBLowercaseInputs: string[] = [
     '#aaaaaa',
     '#ffffff',
@@ -55,6 +85,12 @@ export const hexColorRGBLowercaseInputs: string[] = [
     '#1a2b3c'
 ];
 
+/**
+ * Eight-digit hex color strings (`#RRGGBBAA`) that use lowercase letters.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorRGBALowercaseInputs: string[] = [
     '#aaaaaaaa',
     '#ffffffff',
@@ -62,6 +98,12 @@ export const hexColorRGBALowercaseInputs: string[] = [
     '#1a2b3c4d'
 ];
 
+/**
+ * Six-digit hex color strings (`#RRGGBB`) that mix uppercase and lowercase letters.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorRGBMixedCaseInputs: string[] = [
     '#aAaAaA',
     '#FfFfFf',
@@ -69,6 +111,12 @@ export const hexColorRGBMixedCaseInputs: string[] = [
     '#1a2B3c'
 ];
 
+/**
+ * Eight-digit hex color strings (`#RRGGBBAA`) that mix uppercase and lowercase letters.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorRGBAMixedCaseInputs: string[] = [
     '#aAaAaAaA',
     '#FfFfFfFf',
@@ -76,6 +124,14 @@ export const hexColorRGBAMixedCaseInputs: string[] = [
     '#1a2B3c4D'
 ];
 
+/**
+ * Six-digit and eight-digit hex color strings that use only digits, only uppercase letters, or only lowercase letters.
+ *
+ * @remarks Mixed-case hex colors are in {@link hexColorMixedCaseInputs}.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorInputs: string[] = [
     ...hexColorRGBNumberInputs,
     ...hexColorRGBANumberInputs,
@@ -85,11 +141,23 @@ export const hexColorInputs: string[] = [
     ...hexColorRGBALowercaseInputs
 ];
 
+/**
+ * Six-digit and eight-digit hex color strings that mix uppercase and lowercase letters, combining {@link hexColorRGBMixedCaseInputs} and {@link hexColorRGBAMixedCaseInputs}.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorMixedCaseInputs: string[] = [
     ...hexColorRGBMixedCaseInputs,
     ...hexColorRGBAMixedCaseInputs
 ];
 
+/**
+ * Strings that are not six-digit or eight-digit hex colors, because of a missing `#`, the wrong number of digits, a non-hex character, or whitespace.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const hexColorFailureInputs: string[] = [
     '000000',
     '999999',
@@ -151,7 +219,7 @@ export const hexColorFailureInputs: string[] = [
     '#FFFFF@',
     '#ABCDE?',
     '#1A2B3]',
-    '#aaaaaë',
+    '#aaaaa\u00EB',
     '#fffffg',
     '#abcde\u{1F3A8}',
     '#1a2b3$',
@@ -163,7 +231,7 @@ export const hexColorFailureInputs: string[] = [
     '#FFFFFFF@',
     '#ABCDEFB?',
     '#1A2B3C4]',
-    '#aaaaaaaë',
+    '#aaaaaaa\u00EB',
     '#fffffffg',
     '#abcdefb\u{1F3A8}',
     '#1a2b3c4$',
@@ -191,5 +259,5 @@ export const hexColorFailureInputs: string[] = [
     '#ffffff\n\t',
     '    #abcdef',
     '#1a2b3c    ',
-    '#ëëëëëë'
+    '#\u00EB\u00EB\u00EB\u00EB\u00EB\u00EB'
 ];

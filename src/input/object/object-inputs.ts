@@ -20,6 +20,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * Inputs that are not objects, including `null`, `undefined`, primitives, functions, and symbols.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const nonObjectInputs: unknown[] = [
     null,
     undefined,
@@ -58,6 +64,12 @@ export const nonObjectInputs: unknown[] = [
     Symbol('test')
 ];
 
+/**
+ * The inputs in {@link nonObjectInputs}, excluding `undefined`.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const definedNonObjectInputs: unknown[] = nonObjectInputs.filter((input: unknown): boolean => {
     return input !== undefined;
 });

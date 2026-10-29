@@ -20,6 +20,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * Inputs that are not arrays, including `null`, `undefined`, primitives, functions, plain and boxed objects, symbols, and typed arrays.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonArrayInputs: unknown[] = [
     null,
@@ -70,10 +76,22 @@ export const nonArrayInputs: unknown[] = [
     new Int32Array([1, 2, 3])
 ];
 
+/**
+ * The inputs in {@link nonArrayInputs}, excluding `undefined`.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const definedNonArrayInputs: unknown[] = nonArrayInputs.filter((input: unknown): boolean => {
     return input !== undefined;
 });
 
+/**
+ * Dense arrays, where every index from `0` to `length - 1` holds an element, including empty arrays, nested arrays, arrays of `undefined`, and an `Array` subclass instance.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const denseArrayInputs: unknown[] = [
     [],
     [1, 2, 3],
@@ -85,6 +103,12 @@ export const denseArrayInputs: unknown[] = [
     Array.from({ length: 2 })
 ];
 
+/**
+ * Sparse arrays, which have at least one empty slot between `0` and `length - 1`.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const sparseArrayInputs: unknown[] = [
     new Array(1),
     new Array(3),

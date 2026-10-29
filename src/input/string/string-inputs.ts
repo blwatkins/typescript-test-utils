@@ -20,6 +20,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * Inputs that are not primitive strings, including boxed `String` objects.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonStringInputs: unknown[] = [
     null,
@@ -63,8 +69,20 @@ export const nonStringInputs: unknown[] = [
     Symbol('test')
 ];
 
+/**
+ * Whitespace allowed in text: space, tab, line feed, and a carriage return followed by a line feed.
+ *
+ * @type {string[]}
+ * @private
+ */
 const textWhitespaceCharacters: string[] = [' ', '\t', '\n', '\r\n'];
 
+/**
+ * RGI emoji, including skin tone, zero width joiner, flag, tag, keycap, and variation selector sequences.
+ *
+ * @type {string[]}
+ * @private
+ */
 const emojiInputs: string[] = [
     '\u{1F3A8}', // 🎨 - Palette
     '\u{1F44D}\u{1F3FD}', // 👍🏽 - Thumbs up with skin tone
@@ -76,6 +94,12 @@ const emojiInputs: string[] = [
     '\u2122\uFE0F' // ™️ - Trademark
 ];
 
+/**
+ * Latin-1 Supplement characters that are not text characters.
+ *
+ * @type {string[]}
+ * @private
+ */
 const rejectedLatin1Characters: string[] = [
     '\u00A6',
     '\u00A8',
@@ -107,48 +131,130 @@ const rejectedLatin1Characters: string[] = [
     '\u00FE'
 ];
 
+/**
+ * The inputs in {@link nonStringInputs}, excluding `undefined`.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ */
 export const definedNonStringInputs: unknown[] = nonStringInputs.filter((input: unknown): boolean => {
     return input !== undefined;
 });
 
+/**
+ * Builds one character for every code point in an inclusive range.
+ *
+ * @param {number} start - The first code point in the range.
+ * @param {number} end - The last code point in the range.
+ *
+ * @returns {string[]} The characters, in code point order.
+ *
+ * @private
+ */
 function charactersFromCodePointRange(start: number, end: number): string[] {
     return Array.from({ length: end - start + 1 }, (_value: unknown, index: number): string => {
         return String.fromCodePoint(start + index);
     });
 }
 
+/**
+ * Every printable ASCII character that is not a letter, joined into one string.
+ *
+ * @type {string}
+ * @private
+ */
 const asciiSymbols: string = charactersFromCodePointRange(0x0021, 0x007E).filter((character: string): boolean => {
     return !/[A-Za-z]/.test(character);
 }).join('');
 
+/**
+ * Latin-1 Supplement characters from U+00A1 to U+00FF that are text characters.
+ *
+ * @type {string[]}
+ * @private
+ */
 const acceptedLatin1Characters: string[] = charactersFromCodePointRange(0x00A1, 0x00FF).filter((character: string): boolean => {
     return !rejectedLatin1Characters.includes(character);
 });
 
+/**
+ * The accepted Latin-1 Supplement characters that are not letters, joined into one string.
+ *
+ * @type {string}
+ * @private
+ */
 const acceptedLatin1Symbols: string = acceptedLatin1Characters.filter((character: string): boolean => {
     return !/\p{L}/u.test(character);
 }).join('');
 
+/**
+ * The accepted Latin-1 Supplement lowercase letters, joined into one string.
+ *
+ * @type {string}
+ * @private
+ */
 const acceptedLatin1LowercaseLetters: string = acceptedLatin1Characters.filter((character: string): boolean => {
     return /\p{Ll}/u.test(character);
 }).join('');
 
+/**
+ * The accepted Latin-1 Supplement uppercase letters, joined into one string.
+ *
+ * @type {string}
+ * @private
+ */
 const acceptedLatin1UppercaseLetters: string = acceptedLatin1Characters.filter((character: string): boolean => {
     return /\p{Lu}/u.test(character);
 }).join('');
 
+/**
+ * Words with no cased letters: digits, symbols, the bullet (U+2022), and emoji.
+ *
+ * @type {string[]}
+ * @private
+ */
 const caselessWords: string[] = ['1234567890', asciiSymbols, acceptedLatin1Symbols, '\u2022', ...emojiInputs];
 
+/**
+ * Words that contain both lowercase and uppercase letters.
+ *
+ * @type {string[]}
+ * @private
+ */
 const mixedCaseWords: string[] = ['Example', 'wOrD', 'CaF\u00E9', `${acceptedLatin1UppercaseLetters}${acceptedLatin1LowercaseLetters}`];
 
+/**
+ * Words whose letters are all lowercase.
+ *
+ * @type {string[]}
+ * @private
+ */
 const lowercaseWords: string[] = ['example', 'word', 'caf\u00E9', acceptedLatin1LowercaseLetters];
 
+/**
+ * Words whose letters are all uppercase.
+ *
+ * @type {string[]}
+ * @private
+ */
 const uppercaseWords: string[] = ['EXAMPLE', 'WORD', 'CAF\u00C9', acceptedLatin1UppercaseLetters];
 
+/**
+ * Every Basic Multilingual Plane character that matches `\s`.
+ *
+ * @type {string[]}
+ * @private
+ */
 const allWhitespaceCharacters: string[] = charactersFromCodePointRange(0x0000, 0xFFFF).filter((character: string): boolean => {
     return /^\s$/.test(character);
 });
 
+/**
+ * Characters that are not text characters, including a lone carriage return, control and format characters, non-text whitespace, combining marks, look-alike letters, private use, unassigned, and lone surrogate code points.
+ *
+ * @type {string[]}
+ * @private
+ */
 const nonTextCharacters: string[] = [
     '\r',
     ...charactersFromCodePointRange(0x0000, 0x009F).filter((character: string): boolean => {
@@ -196,10 +302,29 @@ const nonTextCharacters: string[] = [
     '\uDC00'
 ];
 
+/**
+ * Removes duplicate strings, keeping the first occurrence of each.
+ *
+ * @param {string[]} inputs - The strings to deduplicate.
+ *
+ * @returns {string[]} The unique strings, in their original order.
+ *
+ * @private
+ */
 function unique(inputs: string[]): string[] {
     return [...new Set(inputs)];
 }
 
+/**
+ * Joins every string in `inputsA` with every string in `inputsB`, in both orders.
+ *
+ * @param {string[]} inputsA - The first set of strings.
+ * @param {string[]} inputsB - The second set of strings.
+ *
+ * @returns {string[]} The unique joined strings.
+ *
+ * @private
+ */
 function pairStrings(inputsA: string[], inputsB: string[]): string[] {
     return unique(inputsA.flatMap((inputA: string): string[] => {
         return inputsB.flatMap((inputB: string): string[] => {
@@ -208,8 +333,24 @@ function pairStrings(inputsA: string[], inputsB: string[]): string[] {
     }));
 }
 
+/**
+ * Every pair of text whitespace characters, in both orders.
+ *
+ * @type {string[]}
+ * @private
+ */
 const consecutiveTextWhitespace: string[] = pairStrings(textWhitespaceCharacters, textWhitespaceCharacters);
 
+/**
+ * Joins every string in `inputsA` with every string in `inputsB` as `AB`, `BA`, `ABA`, and `BAB`.
+ *
+ * @param {string[]} inputsA - The first set of strings.
+ * @param {string[]} inputsB - The second set of strings.
+ *
+ * @returns {string[]} The unique joined strings.
+ *
+ * @private
+ */
 function mixStrings(inputsA: string[], inputsB: string[]): string[] {
     return unique(inputsA.flatMap((inputA: string): string[] => {
         return inputsB.flatMap((inputB: string): string[] => {
@@ -218,6 +359,15 @@ function mixStrings(inputsA: string[], inputsB: string[]): string[] {
     }));
 }
 
+/**
+ * Builds text strings that are not single-line, by joining each token with a tab, a line break, consecutive whitespace, or a leading or trailing space.
+ *
+ * @param {string[]} tokens - The single-line strings to build from.
+ *
+ * @returns {string[]} The strings that are not single-line.
+ *
+ * @private
+ */
 function buildSingleLineFailureInputs(tokens: string[]): string[] {
     return [
         ...mixStrings(
@@ -231,6 +381,15 @@ function buildSingleLineFailureInputs(tokens: string[]): string[] {
     ];
 }
 
+/**
+ * Builds single-line strings from each token alone and from all tokens joined by single spaces.
+ *
+ * @param {string[]} tokens - The single-line strings to build from.
+ *
+ * @returns {string[]} The single-line strings.
+ *
+ * @private
+ */
 function buildSingleLineInputs(tokens: string[]): string[] {
     return [
         ...tokens,
@@ -238,6 +397,12 @@ function buildSingleLineInputs(tokens: string[]): string[] {
     ];
 }
 
+/**
+ * Strings that are empty or contain only whitespace.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const emptyStringInputs: string[] = unique([
     '',
     ...allWhitespaceCharacters,
@@ -246,22 +411,78 @@ export const emptyStringInputs: string[] = unique([
     ...mixStrings(allWhitespaceCharacters, textWhitespaceCharacters)
 ]);
 
+/**
+ * Single-line text strings with no cased letters, such as digits, symbols, and emoji.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineCaselessInputs: string[] = buildSingleLineInputs(caselessWords);
 
+/**
+ * Single-line text strings that contain both lowercase and uppercase letters.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineMixedCaseInputs: string[] = buildSingleLineInputs(mixedCaseWords);
 
+/**
+ * Single-line text strings whose letters are all lowercase.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineLowercaseInputs: string[] = buildSingleLineInputs(lowercaseWords);
 
+/**
+ * Single-line text strings whose letters are all uppercase.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineUppercaseInputs: string[] = buildSingleLineInputs(uppercaseWords);
 
+/**
+ * Text strings with no cased letters that are not single-line.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineFailureCaselessInputs: string[] = buildSingleLineFailureInputs([caselessWords.join(' ')]);
 
+/**
+ * Text strings that contain both lowercase and uppercase letters and are not single-line.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineFailureMixedCaseInputs: string[] = buildSingleLineFailureInputs([mixedCaseWords.join(' ')]);
 
+/**
+ * Text strings whose letters are all lowercase and are not single-line.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineFailureLowercaseInputs: string[] = buildSingleLineFailureInputs([lowercaseWords.join(' ')]);
 
+/**
+ * Text strings whose letters are all uppercase and are not single-line.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineFailureUppercaseInputs: string[] = buildSingleLineFailureInputs([uppercaseWords.join(' ')]);
 
+/**
+ * Single-line text strings: one or more words separated by single spaces, with no other whitespace.
+ *
+ * @remarks Combines {@link singleLineCaselessInputs}, {@link singleLineMixedCaseInputs}, {@link singleLineLowercaseInputs}, and {@link singleLineUppercaseInputs}.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineInputs: string[] = [
     ...singleLineCaselessInputs,
     ...singleLineMixedCaseInputs,
@@ -269,6 +490,14 @@ export const singleLineInputs: string[] = [
     ...singleLineUppercaseInputs
 ];
 
+/**
+ * Text strings that are not single-line, because they contain a tab, a line break, consecutive whitespace, or leading or trailing whitespace.
+ *
+ * @remarks Combines {@link singleLineFailureCaselessInputs}, {@link singleLineFailureMixedCaseInputs}, {@link singleLineFailureLowercaseInputs}, and {@link singleLineFailureUppercaseInputs}.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineFailureTextInputs: string[] = [
     ...singleLineFailureCaselessInputs,
     ...singleLineFailureMixedCaseInputs,
@@ -276,11 +505,25 @@ export const singleLineFailureTextInputs: string[] = [
     ...singleLineFailureUppercaseInputs
 ];
 
+/**
+ * Strings made only of text characters, combining {@link singleLineInputs} and {@link singleLineFailureTextInputs}.
+ *
+ * @remarks Text characters are printable ASCII, most of the Latin-1 Supplement, the bullet (•), RGI emoji, space, tab, line feed, and a carriage return followed by a line feed.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const textInputs: string[] = [
     ...singleLineInputs,
     ...singleLineFailureTextInputs
 ];
 
+/**
+ * Strings that contain at least one non-text character, alone or next to text, excluding whitespace-only strings.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const nonTextStringInputs: string[] = unique([
     ...nonTextCharacters,
     ...mixStrings(nonTextCharacters, ['text'])
@@ -288,17 +531,35 @@ export const nonTextStringInputs: string[] = unique([
     return input.trim().length > 0;
 });
 
+/**
+ * Strings that are not single-line text, combining {@link emptyStringInputs}, {@link nonTextStringInputs}, and {@link singleLineFailureTextInputs}.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const singleLineFailureStringInputs: string[] = unique([
     ...emptyStringInputs,
     ...nonTextStringInputs,
     ...singleLineFailureTextInputs
 ]);
 
+/**
+ * Strings that are not empty or whitespace-only, combining {@link nonTextStringInputs} and {@link textInputs}.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const nonEmptyStringInputs: string[] = unique([
     ...nonTextStringInputs,
     ...textInputs
 ]);
 
+/**
+ * Every string input, combining {@link emptyStringInputs}, {@link nonTextStringInputs}, and {@link textInputs}.
+ *
+ * @type {string[]}
+ * @since 0.1.0
+ */
 export const stringInputs: string[] = unique([
     ...emptyStringInputs,
     ...nonTextStringInputs,
