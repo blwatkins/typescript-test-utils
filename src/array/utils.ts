@@ -29,8 +29,14 @@
  *
  * @returns {T[]} The unique elements, in their original order.
  *
+ * @throws {TypeError} When `inputs` is not an array.
+ *
  * @since 0.1.0
  */
 export function unique<T>(inputs: T[]): T[] {
+    if (!Array.isArray(inputs)) {
+        throw new TypeError('inputs must be an array.');
+    }
+
     return [...new Set<T>(inputs)];
 }
