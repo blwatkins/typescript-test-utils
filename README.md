@@ -12,7 +12,7 @@ A toolkit of library-agnostic TypeScript and JavaScript utilities for unit testi
 The source code of this project is licensed under the [MIT License](https://opensource.org/license/mit).
 The full text of the license is included with the project source code.
 
-## Project Status Badges
+## Project Links and Status Badges
 
 ### [npm](https://www.npmjs.com/package/@blwatkins/test-utils)
 
