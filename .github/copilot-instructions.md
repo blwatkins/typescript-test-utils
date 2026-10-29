@@ -141,8 +141,15 @@ Do not encode the checked type in the member name — the `assert` or `is` prefi
 Where a regular-expression getter backs a guard, it carries the same concept without the prefix.
 This is the guard-pair application of the suffix guidance under ["Code Style Preferences and Conventions"](#code-style-preferences-and-conventions); where the two overlap they say the same thing.
 
-**Which failures a custom `message` covers.** An `assert*` method may take an optional `message` that replaces its default error message.
-A classifying pair has one failure, so `message` covers it.
+**The optional `message` contract.** An `assert*` method may take an optional `message` that replaces its default error message.
+A custom `message` is used only when it is a single line of text: a non-empty string whose non-whitespace characters are separated by single spaces, with no tabs, line breaks, leading or trailing whitespace, or consecutive whitespace.
+Any other value, including a multi-line string, a whitespace-only string, `undefined`, or a non-string, falls through to the default message.
+This is deliberate: an error message that carries newlines or untrimmed padding corrupts logs and stack traces, so a malformed one is discarded rather than propagated.
+It is also observable behavior, so each guard's tests assert it for the failures its `message` covers.
+A new `assert*` method therefore either applies this check itself or forwards `message` unchanged to a method that does; a member that delegates to another guard, including a deprecated alias delegating to its replacement, takes the second form.
+Never use `message` unconditionally.
+
+**Which failures a custom `message` covers.** A classifying pair has one failure, so `message` covers it.
 A constraint pair can have multiple, and `message` covers only the constraint the pair is named for.
 Argument validation runs first, inside the guard, so a caller's `message` never reaches the argument failure path.
 This is deliberate rather than a gap: the caller's message describes the constraint it expected, which says nothing useful about an argument that was wrong before the constraint was checked.
