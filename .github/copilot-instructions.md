@@ -83,17 +83,7 @@ Static classes must:
 
 ### Custom Error Types
 
-The shared error types below are exported by `@blwatkins/utils`.
-Import them from that package rather than redefining them here.
-
-Choose the error type by the kind of failure, not by the call site:
-
-- `PrimitiveTypeError` — input fails a type check with no schema involved (e.g., not a string, not a number, not a function, not an object), including a classifying guard that folds a content rule into the type it narrows to
-- `SchemaTypeError` — input is checked against an expected object schema and fails it, either because it does not satisfy the schema or because it is not an object at all
-- `ValueRangeError` — input has already passed its type check, but its value falls outside what is allowed: a range, a bound, or a content rule on an already-typed value
-- `StaticInstanceError` — a static class constructor was invoked
-
-A custom error class this package defines for itself must:
+Custom error classes must:
 
 - Live in `src/error/` and be re-exported from that module's index file
 - Extend the most specific built-in error type that fits the failure (e.g., `TypeError` for invalid input types) rather than the base `Error`
@@ -150,12 +140,6 @@ A guard that throws is not inconsistent with one that returns `false` — check 
 Do not encode the checked type in the member name — the `assert` or `is` prefix together with the concept already carries it, and a `Type`, `Number` or `String` suffix restates what the signature says.
 Where a regular-expression getter backs a guard, it carries the same concept without the prefix.
 This is the guard-pair application of the suffix guidance under ["Code Style Preferences and Conventions"](#code-style-preferences-and-conventions); where the two overlap they say the same thing.
-
-**The optional `message` contract.** A custom `message` is used only when it passes `StringUtility.isSingleLine` (imported from `@blwatkins/utils`); any other value, including a multi-line string, a whitespace-only string, `undefined`, a non-string, or any string that does not pass `StringUtility.isText`, falls through to the default message.
-This is deliberate: an error message that carries newlines or untrimmed padding corrupts logs and stack traces, so a malformed one is discarded rather than propagated.
-It is also observable behavior, so each guard's tests assert it for the failures its `message` covers.
-A new `assert*` method therefore either applies this check itself or forwards `message` unchanged to a method that does; a member that delegates to another guard, including a deprecated alias delegating to its replacement, takes the second form.
-Never use `message` unconditionally.
 
 **How far `message` reaches.** A classifying pair has one failure, so `message` covers it.
 A constraint pair can have multiple, and `message` covers only the constraint the pair is named for.
