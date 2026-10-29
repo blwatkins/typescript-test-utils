@@ -199,12 +199,14 @@ const nonHexCharacters: string[] = [
     'G',
     'g',
     'Z',
+    'z',
     '!',
     '@',
     '?',
     ']',
     '$',
     '\u00EB', // ë - Latin small e with diaeresis
+    '\u00CB', // Ë - Latin capital E with diaeresis
     '\u{1F3A8}' // 🎨 - Palette
 ];
 
