@@ -6,7 +6,7 @@
   },
 
   "entryPoints": [
-    "./src/hello-world/index.ts"
+    "./src/input/index.ts"
   ],
 
   "out": "./_doc",

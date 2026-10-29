@@ -1,0 +1,95 @@
+/*
+ * Copyright (c) 2026 Brittni Watkins.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+ * AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+// noinspection JSPrimitiveTypeWrapperUsage
+export const nonArrayInputs: unknown[] = [
+    null,
+    undefined,
+    0,
+    1,
+    -1,
+    10n,
+    -10n,
+    1.5,
+    -1.5,
+    Number.MAX_SAFE_INTEGER,
+    Number.MIN_SAFE_INTEGER,
+    Number.MAX_VALUE,
+    Number.MIN_VALUE,
+    Number.EPSILON,
+    Number.NaN,
+    Infinity,
+    -Infinity,
+    true,
+    false,
+    '',
+    'string',
+    '\n\t',
+    '     ',
+    '5',
+    '5.5',
+    '-5',
+    '0',
+    (): string => 'value',
+    (): number => 10,
+    (): unknown[] => [],
+    (): object => {
+        return {};
+    },
+    Math.random,
+    new Number(10),
+    new String('value'),
+    new Object(10),
+    new Object('value'),
+    {},
+    { key: 'value' },
+    { key: 10 },
+    { key: [] },
+    { key: {} },
+    Symbol('test'),
+    new Uint8Array(2),
+    new Int32Array([1, 2, 3])
+];
+
+export const definedNonArrayInputs: unknown[] = nonArrayInputs.filter((input: unknown): boolean => {
+    return input !== undefined;
+});
+
+export const denseArrayInputs: unknown[] = [
+    [],
+    [1, 2, 3],
+    ['a', 'b', 'c'],
+    [{ key: 1 }, { key: 2 }, { key: 3 }],
+    [[1, 2, 3], [4, 5, 6]],
+    [undefined, undefined],
+    new (class extends Array {})(),
+    Array.from({ length: 2 })
+];
+
+export const sparseArrayInputs: unknown[] = [
+    new Array(1),
+    new Array(3),
+    Object.assign(new Array(3), { 1: 'b', 2: 'c' }),
+    Object.assign(new Array(3), { 0: 'a', 2: 'c' }),
+    Object.assign(new Array(3), { 0: 'a', 1: 'b' }),
+    Object.assign(new Array(3), { 0: undefined, 2: undefined })
+];

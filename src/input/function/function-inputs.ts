@@ -20,21 +20,50 @@
  * SPDX-License-Identifier: MIT
  */
 
-/**
- * An example class export.
- *
- * @since 1.0.0
- */
-export class HelloWorld {
-    /**
-     * An example method.
-     *
-     * @returns {void}
-     *
-     * @public
-     * @since 1.0.0
-     */
-    public hello(): void {
-        console.log('Hello, World!');
-    }
-}
+// noinspection JSPrimitiveTypeWrapperUsage
+export const nonFunctionInputs: unknown[] = [
+    null,
+    undefined,
+    0,
+    1,
+    -1,
+    10n,
+    -10n,
+    1.5,
+    -1.5,
+    Number.MAX_SAFE_INTEGER,
+    Number.MIN_SAFE_INTEGER,
+    Number.MAX_VALUE,
+    Number.MIN_VALUE,
+    Number.EPSILON,
+    Number.NaN,
+    Infinity,
+    -Infinity,
+    true,
+    false,
+    '',
+    'string',
+    '\n\t',
+    '     ',
+    '5',
+    '5.5',
+    '-5',
+    '0',
+    [],
+    ['value'],
+    [1, 2, 3],
+    new Number(10),
+    new String('value'),
+    new Object(10),
+    new Object('value'),
+    {},
+    { key: 'value' },
+    { key: 10 },
+    { key: [] },
+    { key: {} },
+    Symbol('test')
+];
+
+export const definedNonFunctionInputs: unknown[] = nonFunctionInputs.filter((input: unknown): boolean => {
+    return input !== undefined;
+});

@@ -20,4 +20,4 @@
  * SPDX-License-Identifier: MIT
  */
 
-export * from './hello-world';
+export * from './input';

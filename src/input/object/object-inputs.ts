@@ -20,4 +20,44 @@
  * SPDX-License-Identifier: MIT
  */
 
-export * from './hello-world';
+export const nonObjectInputs: unknown[] = [
+    null,
+    undefined,
+    0,
+    1,
+    -1,
+    10n,
+    -10n,
+    1.5,
+    -1.5,
+    Number.MAX_SAFE_INTEGER,
+    Number.MIN_SAFE_INTEGER,
+    Number.MAX_VALUE,
+    Number.MIN_VALUE,
+    Number.EPSILON,
+    Number.NaN,
+    Infinity,
+    -Infinity,
+    true,
+    false,
+    '',
+    'string',
+    '\n\t',
+    '     ',
+    '5',
+    '5.5',
+    '-5',
+    '0',
+    (): string => 'value',
+    (): number => 10,
+    (): unknown[] => [],
+    (): object => {
+        return {};
+    },
+    Math.random,
+    Symbol('test')
+];
+
+export const definedNonObjectInputs: unknown[] = nonObjectInputs.filter((input: unknown): boolean => {
+    return input !== undefined;
+});

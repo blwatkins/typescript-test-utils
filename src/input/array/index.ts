@@ -20,6 +20,4 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { test } from 'vitest';
-
-test.todo('Hello, World!');
+export * from './array-inputs';
