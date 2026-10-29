@@ -320,22 +320,6 @@ function buildSingleLineFailureInputs(tokens: string[]): string[] {
 }
 
 /**
- * Builds single-line strings from each token alone and from all tokens joined by single spaces.
- *
- * @param {string[]} tokens - The single-line strings to build from.
- *
- * @returns {string[]} The single-line strings.
- *
- * @private
- */
-function buildSingleLineInputs(tokens: string[]): string[] {
-    return [
-        ...tokens,
-        tokens.join(' ')
-    ];
-}
-
-/**
  * Strings that are empty or contain only whitespace.
  *
  * @type {string[]}
@@ -355,7 +339,7 @@ export const emptyStringInputs: string[] = arrayUtils.unique([
  * @type {string[]}
  * @since 0.1.0
  */
-export const singleLineCaselessInputs: string[] = buildSingleLineInputs(caselessWords);
+export const singleLineCaselessInputs: string[] = stringUtils.buildSingleLineInputs(caselessWords);
 
 /**
  * Single-line text strings that contain both lowercase and uppercase letters.
@@ -363,7 +347,7 @@ export const singleLineCaselessInputs: string[] = buildSingleLineInputs(caseless
  * @type {string[]}
  * @since 0.1.0
  */
-export const singleLineMixedCaseInputs: string[] = buildSingleLineInputs(mixedCaseWords);
+export const singleLineMixedCaseInputs: string[] = stringUtils.buildSingleLineInputs(mixedCaseWords);
 
 /**
  * Single-line text strings whose letters are all lowercase.
@@ -371,7 +355,7 @@ export const singleLineMixedCaseInputs: string[] = buildSingleLineInputs(mixedCa
  * @type {string[]}
  * @since 0.1.0
  */
-export const singleLineLowercaseInputs: string[] = buildSingleLineInputs(lowercaseWords);
+export const singleLineLowercaseInputs: string[] = stringUtils.buildSingleLineInputs(lowercaseWords);
 
 /**
  * Single-line text strings whose letters are all uppercase.
@@ -379,7 +363,7 @@ export const singleLineLowercaseInputs: string[] = buildSingleLineInputs(lowerca
  * @type {string[]}
  * @since 0.1.0
  */
-export const singleLineUppercaseInputs: string[] = buildSingleLineInputs(uppercaseWords);
+export const singleLineUppercaseInputs: string[] = stringUtils.buildSingleLineInputs(uppercaseWords);
 
 /**
  * Text strings with no cased letters that are not single-line.

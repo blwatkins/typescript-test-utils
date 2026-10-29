@@ -23,6 +23,28 @@
 import * as arrayUtils from '../array';
 
 /**
+ * Builds single-line strings from each token alone and from all tokens joined by single spaces.
+ *
+ * @param {string[]} tokens - The single-line strings to build from.
+ *
+ * @returns {string[]} The single-line strings.
+ *
+ * @throws {TypeError} When `tokens` is not an array.
+ *
+ * @since 0.1.0
+ */
+export function buildSingleLineInputs(tokens: string[]): string[] {
+    if (!Array.isArray(tokens)) {
+        throw new TypeError('tokens must be an array.');
+    }
+
+    return [
+        ...tokens,
+        tokens.join(' ')
+    ];
+}
+
+/**
  * Builds one character for every code point in an inclusive range.
  *
  * @param {number} start - The first code point in the range.
@@ -58,7 +80,7 @@ export function charactersFromCodePointRange(start: number, end: number): string
  *
  * @returns {string[]} The unique joined strings.
  *
- * @throw {TypeError} When `inputsA` and `inputsB` are not both arrays.
+ * @throws {TypeError} When `inputsA` and `inputsB` are not both arrays.
  *
  * @since 0.1.0
  */
@@ -82,7 +104,7 @@ export function mixStrings(inputsA: string[], inputsB: string[]): string[] {
  *
  * @returns {string[]} The unique joined strings.
  *
- * @throw {TypeError} When `inputsA` and `inputsB` are not both arrays.
+ * @throws {TypeError} When `inputsA` and `inputsB` are not both arrays.
  *
  * @since 0.1.0
  */
