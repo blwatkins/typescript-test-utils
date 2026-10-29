@@ -22,6 +22,13 @@
 
 import { describe, test, expect } from 'vitest';
 
+function testNonEmptyArray(inputs: unknown[]): void {
+    test('Should be a non-empty array', (): void => {
+        expect(Array.isArray(inputs)).toBe(true);
+        expect(inputs.length).not.toBe(0);
+    });
+}
+
 export function testInputArrayDuplicates(inputs: unknown[]): void {
     test('Should not contain any duplicates', (): void => {
         expect(inputs.length).not.toBe(0);
@@ -34,10 +41,10 @@ export function testInputArrayDuplicates(inputs: unknown[]): void {
 }
 
 export function testNonTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
-    describe(`Is a non-${type} input array`, (): void => {
-        test(`Should not contain ${type} elements`, (): void => {
-            expect(inputs.length).not.toBe(0);
+    describe(`Is a non-empty array with no ${type} type elements`, (): void => {
+        testNonEmptyArray(inputs);
 
+        test(`Should not contain ${type} elements`, (): void => {
             expect(inputs.filter((input: unknown): boolean => {
                 return typeCheck(input);
             })).toEqual([]);
@@ -48,10 +55,10 @@ export function testNonTypeInputArray(inputs: unknown[], type: string, typeCheck
 }
 
 export function testTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
-    describe(`Is a ${type} input array`, (): void => {
-        test(`Should only contain ${type} elements`, (): void => {
-            expect(inputs.length).not.toBe(0);
+    describe(`Is a non-empty array with only ${type} type elements`, (): void => {
+        testNonEmptyArray(inputs);
 
+        test(`Should only contain ${type} elements`, (): void => {
             expect(inputs.filter((input: unknown): boolean => {
                 return !typeCheck(input);
             })).toEqual([]);
@@ -62,8 +69,11 @@ export function testTypeInputArray(inputs: unknown[], type: string, typeCheck: (
 }
 
 export function testDefinedInputArray(inputs: unknown[]): void {
-    test(`Should not have undefined elements`, (): void => {
-        expect(inputs.length).not.toBe(0);
-        expect(inputs).not.toContain(undefined);
+    describe(`Is a non-empty array with only defined elements`, (): void => {
+        testNonEmptyArray(inputs);
+
+        test(`Should not have undefined elements`, (): void => {
+            expect(inputs).not.toContain(undefined);
+        });
     });
 }
