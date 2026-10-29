@@ -190,7 +190,7 @@ const hexColorRGBASeeds: string[] = ['#12345678', '#ABCDEFBC', '#abcdefbc'];
 const hexColorSeeds: string[] = [...hexColorRGBSeeds, ...hexColorRGBASeeds];
 
 /**
- * Characters that are not hex digits: letters past `F`, ASCII symbols, a Latin-1 letter, and an emoji.
+ * Characters that are not hex digits: letters past `F`, ASCII symbols (including `#`), Latin-1 letters, and an emoji.
  *
  * @type {string[]}
  * @private
@@ -205,6 +205,7 @@ const nonHexCharacters: string[] = [
     '?',
     ']',
     '$',
+    '#',
     '\u00EB', // ë - Latin small e with diaeresis
     '\u00CB', // Ë - Latin capital E with diaeresis
     '\u{1F3A8}' // 🎨 - Palette
@@ -219,7 +220,7 @@ const nonHexCharacters: string[] = [
 const hexWhitespaceCharacters: string[] = [' ', '\t', '\n'];
 
 /**
- * Strings that are not six-digit or eight-digit hex colors, because of a missing `#`, the wrong number of digits, a non-hex character, or whitespace.
+ * Strings that are not six-digit or eight-digit hex colors, because of a missing or misplaced `#`, the wrong number of digits, a non-hex character, or whitespace.
  *
  * @type {string[]}
  * @since 0.1.0
@@ -239,6 +240,19 @@ export const hexColorFailureInputs: string[] = arrayUtils.unique([
         return nonHexCharacters.map((character: string): string => {
             return `${color.slice(0, -1)}${character}`;
         });
+    }),
+    ...hexColorSeeds.flatMap((color: string): string[] => {
+        const digits: string = color.slice(1);
+
+        return [
+            `##${digits}`,
+            `#${digits}#`,
+            `${digits}#`,
+            `#${digits.slice(0, 3)}#${digits.slice(3)}`,
+            `#${digits.slice(0, 3)}#${digits.slice(4)}`,
+            `${digits.slice(0, 3)}#${digits.slice(3)}`,
+            `${digits.slice(0, 3)}#${digits.slice(4)}`
+        ];
     }),
     ...stringUtils.pairStrings(hexColorSeeds, hexWhitespaceCharacters),
     ...hexColorSeeds.flatMap((color: string): string[] => {
