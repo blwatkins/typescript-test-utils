@@ -56,7 +56,6 @@ describe('Array Inputs', (): void => {
         testTypeInputArray(denseArrayInputs, type, typeCheck);
 
         test('Should not contain sparse arrays', (): void => {
-            expect(denseArrayInputs.length).not.toBe(0);
             expect(denseArrayInputs.filter((input: unknown): boolean => {
                 return hasEmptySlot(input as unknown[]);
             })).toEqual([]);
@@ -67,7 +66,6 @@ describe('Array Inputs', (): void => {
         testTypeInputArray(sparseArrayInputs, type, typeCheck);
 
         test('Should only contain sparse arrays', (): void => {
-            expect(sparseArrayInputs.length).not.toBe(0);
             expect(sparseArrayInputs.filter((input: unknown): boolean => {
                 return !hasEmptySlot(input as unknown[]);
             })).toEqual([]);

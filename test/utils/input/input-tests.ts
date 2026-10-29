@@ -31,7 +31,6 @@ function testNonEmptyArray(inputs: unknown[]): void {
 
 export function testInputArrayDuplicates(inputs: unknown[]): void {
     test('Should not contain any duplicates', (): void => {
-        expect(inputs.length).not.toBe(0);
         expect(inputs.filter((input: unknown, index: number): boolean => {
             return inputs.findIndex((other: unknown): boolean => {
                 return Object.is(other, input);
