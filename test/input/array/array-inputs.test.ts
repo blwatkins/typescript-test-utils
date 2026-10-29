@@ -20,7 +20,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe } from 'vitest';
+import { describe, test, expect } from 'vitest';
 
 import { definedNonArrayInputs, denseArrayInputs, nonArrayInputs, sparseArrayInputs } from '../../../src';
 
@@ -33,6 +33,16 @@ describe('Array Inputs', (): void => {
         return Array.isArray(input);
     };
 
+    function hasEmptySlot(array: unknown[]): boolean {
+        for (let index: number = 0; index < array.length; index++) {
+            if (!(index in array)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     describe('nonArrayInputs', (): void => {
         testNonTypeInputArray(nonArrayInputs, type, typeCheck);
     });
@@ -44,9 +54,23 @@ describe('Array Inputs', (): void => {
 
     describe('denseArrayInputs', (): void => {
         testTypeInputArray(denseArrayInputs, type, typeCheck);
+
+        test('Should not contain sparse arrays', (): void => {
+            expect(denseArrayInputs.length).not.toBe(0);
+            expect(denseArrayInputs.filter((input: unknown): boolean => {
+                return hasEmptySlot(input as unknown[]);
+            })).toEqual([]);
+        });
     });
 
     describe('sparseArrayInputs', (): void => {
         testTypeInputArray(sparseArrayInputs, type, typeCheck);
+
+        test('Should only contain sparse arrays', (): void => {
+            expect(sparseArrayInputs.length).not.toBe(0);
+            expect(sparseArrayInputs.filter((input: unknown): boolean => {
+                return !hasEmptySlot(input as unknown[]);
+            })).toEqual([]);
+        });
     });
 });
