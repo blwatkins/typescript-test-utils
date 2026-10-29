@@ -39,8 +39,9 @@ function typeMatch(input: unknown, type: string): boolean {
         case 'symbol':
             return typeof input === 'symbol';
         case 'object':
-        default:
             return typeof input === 'object';
+        default:
+            throw new RangeError('Invalid type provided');
     }
 }
 
