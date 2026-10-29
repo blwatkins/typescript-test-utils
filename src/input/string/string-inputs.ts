@@ -28,6 +28,7 @@ import * as stringUtils from '../../string';
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category String
  */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonStringInputs: unknown[] = [
@@ -139,6 +140,7 @@ const rejectedLatin1Characters: string[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category String
  */
 export const definedNonStringInputs: unknown[] = nonStringInputs.filter((input: unknown): boolean => {
     return input !== undefined;
@@ -324,6 +326,7 @@ function buildSingleLineFailureInputs(tokens: string[]): string[] {
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const emptyStringInputs: string[] = arrayUtils.unique([
     '',
@@ -338,6 +341,7 @@ export const emptyStringInputs: string[] = arrayUtils.unique([
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineCaselessInputs: string[] = stringUtils.buildSingleLineInputs(caselessWords);
 
@@ -346,6 +350,7 @@ export const singleLineCaselessInputs: string[] = stringUtils.buildSingleLineInp
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineMixedCaseInputs: string[] = stringUtils.buildSingleLineInputs(mixedCaseWords);
 
@@ -354,6 +359,7 @@ export const singleLineMixedCaseInputs: string[] = stringUtils.buildSingleLineIn
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineLowercaseInputs: string[] = stringUtils.buildSingleLineInputs(lowercaseWords);
 
@@ -362,6 +368,7 @@ export const singleLineLowercaseInputs: string[] = stringUtils.buildSingleLineIn
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineUppercaseInputs: string[] = stringUtils.buildSingleLineInputs(uppercaseWords);
 
@@ -370,6 +377,7 @@ export const singleLineUppercaseInputs: string[] = stringUtils.buildSingleLineIn
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineFailureCaselessInputs: string[] = buildSingleLineFailureInputs([caselessWords.join(' ')]);
 
@@ -378,6 +386,7 @@ export const singleLineFailureCaselessInputs: string[] = buildSingleLineFailureI
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineFailureMixedCaseInputs: string[] = buildSingleLineFailureInputs([mixedCaseWords.join(' ')]);
 
@@ -386,6 +395,7 @@ export const singleLineFailureMixedCaseInputs: string[] = buildSingleLineFailure
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineFailureLowercaseInputs: string[] = buildSingleLineFailureInputs([lowercaseWords.join(' ')]);
 
@@ -394,6 +404,7 @@ export const singleLineFailureLowercaseInputs: string[] = buildSingleLineFailure
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineFailureUppercaseInputs: string[] = buildSingleLineFailureInputs([uppercaseWords.join(' ')]);
 
@@ -404,6 +415,7 @@ export const singleLineFailureUppercaseInputs: string[] = buildSingleLineFailure
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineInputs: string[] = [
     ...singleLineCaselessInputs,
@@ -419,6 +431,7 @@ export const singleLineInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineFailureTextInputs: string[] = [
     ...singleLineFailureCaselessInputs,
@@ -434,6 +447,7 @@ export const singleLineFailureTextInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const textInputs: string[] = [
     ...singleLineInputs,
@@ -445,6 +459,7 @@ export const textInputs: string[] = [
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const nonTextStringInputs: string[] = arrayUtils.unique([
     ...nonTextCharacters,
@@ -458,6 +473,7 @@ export const nonTextStringInputs: string[] = arrayUtils.unique([
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const singleLineFailureStringInputs: string[] = arrayUtils.unique([
     ...emptyStringInputs,
@@ -470,6 +486,7 @@ export const singleLineFailureStringInputs: string[] = arrayUtils.unique([
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const nonEmptyStringInputs: string[] = arrayUtils.unique([
     ...nonTextStringInputs,
@@ -481,6 +498,7 @@ export const nonEmptyStringInputs: string[] = arrayUtils.unique([
  *
  * @type {string[]}
  * @since 0.1.0
+ * @category String
  */
 export const stringInputs: string[] = arrayUtils.unique([
     ...emptyStringInputs,

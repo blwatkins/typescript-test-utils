@@ -25,6 +25,7 @@
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Function
  */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonFunctionInputs: unknown[] = [
@@ -75,6 +76,7 @@ export const nonFunctionInputs: unknown[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Function
  */
 export const definedNonFunctionInputs: unknown[] = nonFunctionInputs.filter((input: unknown): boolean => {
     return input !== undefined;

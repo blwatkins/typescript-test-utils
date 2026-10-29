@@ -25,6 +25,7 @@
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Array
  */
 // noinspection JSPrimitiveTypeWrapperUsage
 export const nonArrayInputs: unknown[] = [
@@ -81,6 +82,7 @@ export const nonArrayInputs: unknown[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Array
  */
 export const definedNonArrayInputs: unknown[] = nonArrayInputs.filter((input: unknown): boolean => {
     return input !== undefined;
@@ -91,6 +93,7 @@ export const definedNonArrayInputs: unknown[] = nonArrayInputs.filter((input: un
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Array
  */
 export const denseArrayInputs: unknown[] = [
     [],
@@ -109,6 +112,7 @@ export const denseArrayInputs: unknown[] = [
  *
  * @type {unknown[]}
  * @since 0.1.0
+ * @category Array
  */
 export const sparseArrayInputs: unknown[] = [
     new Array(1),
