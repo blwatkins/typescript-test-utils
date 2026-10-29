@@ -141,7 +141,7 @@ Do not encode the checked type in the member name — the `assert` or `is` prefi
 Where a regular-expression getter backs a guard, it carries the same concept without the prefix.
 This is the guard-pair application of the suffix guidance under ["Code Style Preferences and Conventions"](#code-style-preferences-and-conventions); where the two overlap they say the same thing.
 
-**How far `message` reaches.** An `assert*` method may take an optional `message` that replaces its default error message.
+**Which failures a custom `message` covers.** An `assert*` method may take an optional `message` that replaces its default error message.
 A classifying pair has one failure, so `message` covers it.
 A constraint pair can have multiple, and `message` covers only the constraint the pair is named for.
 Argument validation runs first, inside the guard, so a caller's `message` never reaches the argument failure path.
