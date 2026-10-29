@@ -20,59 +20,33 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, test, expect } from 'vitest';
+import { describe } from 'vitest';
 
 import { definedNonArrayInputs, denseArrayInputs, nonArrayInputs, sparseArrayInputs } from '../../../src';
 
-import { testDefinedInputArray, testInputArrayDuplicates } from '../../utils/input/input-tests';
+import { testDefinedInputArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
 
 describe('Array Inputs', (): void => {
-    function testNonArrayTypeInputArray(name: string, inputs: unknown[]): void {
-        describe(`${name} is a non-array input array`, (): void => {
-            test(`Should not contain array elements`, (): void => {
-                expect(inputs.filter((input: unknown): boolean => {
-                    return Array.isArray(input);
-                })).toEqual([]);
-            });
+    const type: string = 'array';
 
-            testInputArrayDuplicates(inputs);
-        });
-    }
-
-    function testArrayTypeInputArray(name: string, inputs: unknown[]): void {
-        describe(`${name} is an array input array`, (): void => {
-            test(`Should only contain array elements`, (): void => {
-                expect(inputs.filter((input: unknown): boolean => {
-                    return !Array.isArray(input);
-                })).toEqual([]);
-            });
-
-            testInputArrayDuplicates(inputs);
-        });
-    }
+    const typeCheck: (input: unknown) => boolean = (input: unknown): boolean => {
+        return Array.isArray(input);
+    };
 
     describe('nonArrayInputs', (): void => {
-        const name: string = 'nonArrayInputs';
-
-        testNonArrayTypeInputArray(name, nonArrayInputs);
+        testNonTypeInputArray(nonArrayInputs, type, typeCheck);
     });
 
     describe('definedNonArrayInputs', (): void => {
-        const name: string = 'definedNonArrayInputs';
-
-        testNonArrayTypeInputArray(name, definedNonArrayInputs);
-        testDefinedInputArray(name, definedNonArrayInputs);
+        testNonTypeInputArray(definedNonArrayInputs, type, typeCheck);
+        testDefinedInputArray(definedNonArrayInputs);
     });
 
     describe('denseArrayInputs', (): void => {
-        const name: string = 'denseArrayInputs';
-
-        testArrayTypeInputArray(name, denseArrayInputs);
+        testTypeInputArray(denseArrayInputs, type, typeCheck);
     });
 
     describe('sparseArrayInputs', (): void => {
-        const name: string = 'sparseArrayInputs';
-
-        testArrayTypeInputArray(name, sparseArrayInputs);
+        testTypeInputArray(sparseArrayInputs, type, typeCheck);
     });
 });

@@ -22,40 +22,17 @@
 
 import { describe, test, expect } from 'vitest';
 
-function typeMatch(input: unknown, type: string): boolean {
-    switch (type) {
-        case 'boolean':
-            return typeof input === 'boolean';
-        case 'function':
-            return typeof input === 'function';
-        case 'number':
-            return typeof input === 'number';
-        case 'string':
-            return typeof input === 'string';
-        case 'undefined':
-            return typeof input === 'undefined';
-        case 'bigint':
-            return typeof input === 'bigint';
-        case 'symbol':
-            return typeof input === 'symbol';
-        case 'object':
-            return typeof input === 'object';
-        default:
-            throw new RangeError('Invalid type provided');
-    }
-}
-
 export function testInputArrayDuplicates(inputs: unknown[]): void {
     test('Should not contain any duplicates', (): void => {
         expect(new Set<unknown>(inputs).size).toBe(inputs.length);
     });
 }
 
-export function testNonTypeInputArray(name: string, type: string, inputs: unknown[]): void {
-    describe(`${name} is a non-${type} input array`, (): void => {
+export function testNonTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
+    describe(`Is a non-${type} input array`, (): void => {
         test(`Should not contain ${type} elements`, (): void => {
             expect(inputs.filter((input: unknown): boolean => {
-                return typeMatch(input, type);
+                return typeCheck(input);
             })).toEqual([]);
         });
 
@@ -63,11 +40,11 @@ export function testNonTypeInputArray(name: string, type: string, inputs: unknow
     });
 }
 
-export function testTypeInputArray(name: string, type: string, inputs: unknown[]): void {
-    describe(`${name} is a ${type} input array`, (): void => {
+export function testTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
+    describe(`Is a ${type} input array`, (): void => {
         test(`Should only contain ${type} elements`, (): void => {
             expect(inputs.filter((input: unknown): boolean => {
-                return !typeMatch(input, type);
+                return !typeCheck(input);
             })).toEqual([]);
         });
 
@@ -75,8 +52,8 @@ export function testTypeInputArray(name: string, type: string, inputs: unknown[]
     });
 }
 
-export function testDefinedInputArray(name: string, inputs: unknown[]): void {
-    test(`${name} should not have undefined elements`, (): void => {
+export function testDefinedInputArray(inputs: unknown[]): void {
+    test(`Should not have undefined elements`, (): void => {
         expect(inputs).not.toContain(undefined);
     });
 }

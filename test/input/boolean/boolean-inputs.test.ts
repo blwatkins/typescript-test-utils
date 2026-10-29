@@ -27,16 +27,18 @@ import { definedNonBooleanInputs, nonBooleanInputs } from '../../../src';
 import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
 
 describe('Boolean Inputs', (): void => {
-    describe('nonBooleanInputs', (): void => {
-        const name: string = 'nonBooleanInputs';
+    const type: string = 'boolean';
 
-        testNonTypeInputArray(name, 'boolean', nonBooleanInputs);
+    const typeCheck: (input: unknown) => boolean = (input: unknown): boolean => {
+        return typeof input === 'boolean';
+    };
+
+    describe('nonBooleanInputs', (): void => {
+        testNonTypeInputArray(nonBooleanInputs, type, typeCheck);
     });
 
     describe('definedNonBooleanInputs', (): void => {
-        const name: string = 'definedNonBooleanInputs';
-
-        testNonTypeInputArray(name, 'boolean', definedNonBooleanInputs);
-        testDefinedInputArray(name, definedNonBooleanInputs);
+        testNonTypeInputArray(definedNonBooleanInputs, type, typeCheck);
+        testDefinedInputArray(definedNonBooleanInputs);
     });
 });
