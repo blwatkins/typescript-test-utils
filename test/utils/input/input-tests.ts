@@ -24,7 +24,11 @@ import { describe, test, expect } from 'vitest';
 
 export function testInputArrayDuplicates(inputs: unknown[]): void {
     test('Should not contain any duplicates', (): void => {
-        expect(new Set<unknown>(inputs).size).toBe(inputs.length);
+        expect(inputs.filter((input: unknown, index: number): boolean => {
+            return inputs.findIndex((other: unknown): boolean => {
+                return Object.is(other, input);
+            }) !== index;
+        })).toEqual([]);
     });
 }
 
