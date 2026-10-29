@@ -4,7 +4,7 @@ A toolkit of library-agnostic TypeScript and JavaScript utilities for unit testi
 
 ## Documentation
 
-- [Latest Release](https://blwatkins.github.io/typescript-test-utils/doc/index.html)
+- Initial alpha release coming soon!
 - [Documentation by Version Number](https://blwatkins.github.io/typescript-test-utils/releases.html)
 
 ## License
@@ -16,7 +16,7 @@ The full text of the license is included with the project source code.
 
 ### [npm](https://www.npmjs.com/package/@blwatkins/test-utils)
 
-![npm License](https://badgen.net/npm/license/@blwatkins/test-utils/alpha)
+![npm License](https://badgen.net/npm/license/@blwatkins/test-utils)
 ![npm Version](https://badgen.net/npm/v/@blwatkins/test-utils)
 ![npm @alpha Version](https://badgen.net/npm/v/@blwatkins/test-utils/alpha)
 ![npm Types](https://badgen.net/npm/types/@blwatkins/test-utils)
