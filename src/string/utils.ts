@@ -20,6 +20,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+import * as arrayUtils from '../array';
+
 /**
  * Builds one character for every code point in an inclusive range.
  *
@@ -36,3 +38,20 @@ export function charactersFromCodePointRange(start: number, end: number): string
     });
 }
 
+/**
+ * Joins every string in `inputsA` with every string in `inputsB`, in both orders.
+ *
+ * @param {string[]} inputsA - The first set of strings.
+ * @param {string[]} inputsB - The second set of strings.
+ *
+ * @returns {string[]} The unique joined strings.
+ *
+ * @since 0.1.0
+ */
+export function pairStrings(inputsA: string[], inputsB: string[]): string[] {
+    return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
+        return inputsB.flatMap((inputB: string): string[] => {
+            return [`${inputA}${inputB}`, `${inputB}${inputA}`];
+        });
+    }));
+}

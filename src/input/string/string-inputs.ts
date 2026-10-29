@@ -290,30 +290,12 @@ const nonTextCharacters: string[] = [
 ];
 
 /**
- * Joins every string in `inputsA` with every string in `inputsB`, in both orders.
- *
- * @param {string[]} inputsA - The first set of strings.
- * @param {string[]} inputsB - The second set of strings.
- *
- * @returns {string[]} The unique joined strings.
- *
- * @private
- */
-function pairStrings(inputsA: string[], inputsB: string[]): string[] {
-    return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
-        return inputsB.flatMap((inputB: string): string[] => {
-            return [`${inputA}${inputB}`, `${inputB}${inputA}`];
-        });
-    }));
-}
-
-/**
  * Every pair of text whitespace characters, in both orders.
  *
  * @type {string[]}
  * @private
  */
-const consecutiveTextWhitespace: string[] = pairStrings(textWhitespaceCharacters, textWhitespaceCharacters);
+const consecutiveTextWhitespace: string[] = stringUtils.pairStrings(textWhitespaceCharacters, textWhitespaceCharacters);
 
 /**
  * Joins every string in `inputsA` with every string in `inputsB` as `AB`, `BA`, `ABA`, and `BAB`.
@@ -351,7 +333,7 @@ function buildSingleLineFailureInputs(tokens: string[]): string[] {
             })
         ),
         ...mixStrings(tokens, consecutiveTextWhitespace),
-        ...pairStrings(tokens, [' '])
+        ...stringUtils.pairStrings(tokens, [' '])
     ];
 }
 
