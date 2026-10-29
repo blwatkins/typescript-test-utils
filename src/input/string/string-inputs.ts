@@ -298,24 +298,6 @@ const nonTextCharacters: string[] = [
 const consecutiveTextWhitespace: string[] = stringUtils.pairStrings(textWhitespaceCharacters, textWhitespaceCharacters);
 
 /**
- * Joins every string in `inputsA` with every string in `inputsB` as `AB`, `BA`, `ABA`, and `BAB`.
- *
- * @param {string[]} inputsA - The first set of strings.
- * @param {string[]} inputsB - The second set of strings.
- *
- * @returns {string[]} The unique joined strings.
- *
- * @private
- */
-function mixStrings(inputsA: string[], inputsB: string[]): string[] {
-    return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
-        return inputsB.flatMap((inputB: string): string[] => {
-            return [`${inputA}${inputB}`, `${inputB}${inputA}`, `${inputA}${inputB}${inputA}`, `${inputB}${inputA}${inputB}`];
-        });
-    }));
-}
-
-/**
  * Builds text strings that are not single-line, by joining each token with a tab, a line break, consecutive whitespace, or a leading or trailing space.
  *
  * @param {string[]} tokens - The single-line strings to build from.
@@ -326,13 +308,13 @@ function mixStrings(inputsA: string[], inputsB: string[]): string[] {
  */
 function buildSingleLineFailureInputs(tokens: string[]): string[] {
     return [
-        ...mixStrings(
+        ...stringUtils.mixStrings(
             tokens,
             textWhitespaceCharacters.filter((character: string): boolean => {
                 return character !== ' ';
             })
         ),
-        ...mixStrings(tokens, consecutiveTextWhitespace),
+        ...stringUtils.mixStrings(tokens, consecutiveTextWhitespace),
         ...stringUtils.pairStrings(tokens, [' '])
     ];
 }
@@ -364,7 +346,7 @@ export const emptyStringInputs: string[] = arrayUtils.unique([
     ...allWhitespaceCharacters,
     ...textWhitespaceCharacters,
     ...consecutiveTextWhitespace,
-    ...mixStrings(allWhitespaceCharacters, textWhitespaceCharacters)
+    ...stringUtils.mixStrings(allWhitespaceCharacters, textWhitespaceCharacters)
 ]);
 
 /**
@@ -482,7 +464,7 @@ export const textInputs: string[] = [
  */
 export const nonTextStringInputs: string[] = arrayUtils.unique([
     ...nonTextCharacters,
-    ...mixStrings(nonTextCharacters, ['text'])
+    ...stringUtils.mixStrings(nonTextCharacters, ['text'])
 ]).filter((input: string): boolean => {
     return input.trim().length > 0;
 });
