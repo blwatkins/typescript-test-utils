@@ -20,6 +20,9 @@
  * SPDX-License-Identifier: MIT
  */
 
+import * as arrayUtils from '../../array';
+import * as stringUtils from '../../string';
+
 /**
  * Inputs that are not primitive strings.
  *
@@ -142,28 +145,12 @@ export const definedNonStringInputs: unknown[] = nonStringInputs.filter((input: 
 });
 
 /**
- * Builds one character for every code point in an inclusive range.
- *
- * @param {number} start - The first code point in the range.
- * @param {number} end - The last code point in the range.
- *
- * @returns {string[]} The characters, in code point order.
- *
- * @private
- */
-function charactersFromCodePointRange(start: number, end: number): string[] {
-    return Array.from({ length: end - start + 1 }, (_value: unknown, index: number): string => {
-        return String.fromCodePoint(start + index);
-    });
-}
-
-/**
  * Every printable ASCII character that is not a letter, joined into one string.
  *
  * @type {string}
  * @private
  */
-const asciiSymbols: string = charactersFromCodePointRange(0x0021, 0x007E).filter((character: string): boolean => {
+const asciiSymbols: string = stringUtils.charactersFromCodePointRange(0x0021, 0x007E).filter((character: string): boolean => {
     return !/[A-Za-z]/.test(character);
 }).join('');
 
@@ -173,7 +160,7 @@ const asciiSymbols: string = charactersFromCodePointRange(0x0021, 0x007E).filter
  * @type {string[]}
  * @private
  */
-const acceptedLatin1Characters: string[] = charactersFromCodePointRange(0x00A1, 0x00FF).filter((character: string): boolean => {
+const acceptedLatin1Characters: string[] = stringUtils.charactersFromCodePointRange(0x00A1, 0x00FF).filter((character: string): boolean => {
     return !rejectedLatin1Characters.includes(character);
 });
 
@@ -245,7 +232,7 @@ const uppercaseWords: string[] = ['EXAMPLE', 'WORD', 'CAF\u00C9', acceptedLatin1
  * @type {string[]}
  * @private
  */
-const allWhitespaceCharacters: string[] = charactersFromCodePointRange(0x0000, 0xFFFF).filter((character: string): boolean => {
+const allWhitespaceCharacters: string[] = stringUtils.charactersFromCodePointRange(0x0000, 0xFFFF).filter((character: string): boolean => {
     return /^\s$/.test(character);
 });
 
@@ -257,10 +244,10 @@ const allWhitespaceCharacters: string[] = charactersFromCodePointRange(0x0000, 0
  */
 const nonTextCharacters: string[] = [
     '\r',
-    ...charactersFromCodePointRange(0x0000, 0x009F).filter((character: string): boolean => {
+    ...stringUtils.charactersFromCodePointRange(0x0000, 0x009F).filter((character: string): boolean => {
         return /\p{Cc}/u.test(character) && !['\t', '\n', '\r'].includes(character);
     }),
-    ...charactersFromCodePointRange(0x0000, 0xFFFF).filter((character: string): boolean => {
+    ...stringUtils.charactersFromCodePointRange(0x0000, 0xFFFF).filter((character: string): boolean => {
         return /\p{Cf}/u.test(character) && !/\s/.test(character);
     }),
     ...allWhitespaceCharacters.filter((character: string): boolean => {
@@ -303,19 +290,6 @@ const nonTextCharacters: string[] = [
 ];
 
 /**
- * Removes duplicate strings, keeping the first occurrence of each.
- *
- * @param {string[]} inputs - The strings to deduplicate.
- *
- * @returns {string[]} The unique strings, in their original order.
- *
- * @private
- */
-function unique(inputs: string[]): string[] {
-    return [...new Set(inputs)];
-}
-
-/**
  * Joins every string in `inputsA` with every string in `inputsB`, in both orders.
  *
  * @param {string[]} inputsA - The first set of strings.
@@ -326,7 +300,7 @@ function unique(inputs: string[]): string[] {
  * @private
  */
 function pairStrings(inputsA: string[], inputsB: string[]): string[] {
-    return unique(inputsA.flatMap((inputA: string): string[] => {
+    return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
         return inputsB.flatMap((inputB: string): string[] => {
             return [`${inputA}${inputB}`, `${inputB}${inputA}`];
         });
@@ -352,7 +326,7 @@ const consecutiveTextWhitespace: string[] = pairStrings(textWhitespaceCharacters
  * @private
  */
 function mixStrings(inputsA: string[], inputsB: string[]): string[] {
-    return unique(inputsA.flatMap((inputA: string): string[] => {
+    return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
         return inputsB.flatMap((inputB: string): string[] => {
             return [`${inputA}${inputB}`, `${inputB}${inputA}`, `${inputA}${inputB}${inputA}`, `${inputB}${inputA}${inputB}`];
         });
@@ -403,7 +377,7 @@ function buildSingleLineInputs(tokens: string[]): string[] {
  * @type {string[]}
  * @since 0.1.0
  */
-export const emptyStringInputs: string[] = unique([
+export const emptyStringInputs: string[] = arrayUtils.unique([
     '',
     ...allWhitespaceCharacters,
     ...textWhitespaceCharacters,
@@ -524,7 +498,7 @@ export const textInputs: string[] = [
  * @type {string[]}
  * @since 0.1.0
  */
-export const nonTextStringInputs: string[] = unique([
+export const nonTextStringInputs: string[] = arrayUtils.unique([
     ...nonTextCharacters,
     ...mixStrings(nonTextCharacters, ['text'])
 ]).filter((input: string): boolean => {
@@ -537,7 +511,7 @@ export const nonTextStringInputs: string[] = unique([
  * @type {string[]}
  * @since 0.1.0
  */
-export const singleLineFailureStringInputs: string[] = unique([
+export const singleLineFailureStringInputs: string[] = arrayUtils.unique([
     ...emptyStringInputs,
     ...nonTextStringInputs,
     ...singleLineFailureTextInputs
@@ -549,7 +523,7 @@ export const singleLineFailureStringInputs: string[] = unique([
  * @type {string[]}
  * @since 0.1.0
  */
-export const nonEmptyStringInputs: string[] = unique([
+export const nonEmptyStringInputs: string[] = arrayUtils.unique([
     ...nonTextStringInputs,
     ...textInputs
 ]);
@@ -560,7 +534,7 @@ export const nonEmptyStringInputs: string[] = unique([
  * @type {string[]}
  * @since 0.1.0
  */
-export const stringInputs: string[] = unique([
+export const stringInputs: string[] = arrayUtils.unique([
     ...emptyStringInputs,
     ...nonTextStringInputs,
     ...textInputs
