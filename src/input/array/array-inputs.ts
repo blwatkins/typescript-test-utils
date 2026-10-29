@@ -21,7 +21,7 @@
  */
 
 /**
- * Inputs that are not arrays, including `null`, `undefined`, primitives, functions, plain and boxed objects, symbols, and typed arrays.
+ * Inputs that are not arrays.
  *
  * @type {unknown[]}
  * @since 0.1.0
@@ -94,6 +94,7 @@ export const definedNonArrayInputs: unknown[] = nonArrayInputs.filter((input: un
  */
 export const denseArrayInputs: unknown[] = [
     [],
+    new Object([]),
     [1, 2, 3],
     ['a', 'b', 'c'],
     [{ key: 1 }, { key: 2 }, { key: 3 }],

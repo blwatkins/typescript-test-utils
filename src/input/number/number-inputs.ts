@@ -21,7 +21,7 @@
  */
 
 /**
- * Inputs that are not primitive numbers, including bigints, numeric strings, functions, and boxed `Number` objects.
+ * Inputs that are not primitive numbers.
  *
  * @type {unknown[]}
  * @since 0.1.0

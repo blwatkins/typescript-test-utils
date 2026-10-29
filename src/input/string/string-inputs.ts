@@ -21,7 +21,7 @@
  */
 
 /**
- * Inputs that are not primitive strings, including boxed `String` objects.
+ * Inputs that are not primitive strings.
  *
  * @type {unknown[]}
  * @since 0.1.0
@@ -221,7 +221,7 @@ const caselessWords: string[] = ['1234567890', asciiSymbols, acceptedLatin1Symbo
  * @type {string[]}
  * @private
  */
-const mixedCaseWords: string[] = ['Example', 'wOrD', 'CaF\u00E9', `${acceptedLatin1UppercaseLetters}${acceptedLatin1LowercaseLetters}`];
+const mixedCaseWords: string[] = ['Example', 'wOrD', 'CaF\u00E9', 'caf\u00C9', `${acceptedLatin1UppercaseLetters}${acceptedLatin1LowercaseLetters}`];
 
 /**
  * Words whose letters are all lowercase.

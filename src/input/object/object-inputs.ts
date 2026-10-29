@@ -21,7 +21,7 @@
  */
 
 /**
- * Inputs that are not objects, including `null`, `undefined`, primitives, functions, and symbols.
+ * Inputs that are not objects.
  *
  * @type {unknown[]}
  * @since 0.1.0

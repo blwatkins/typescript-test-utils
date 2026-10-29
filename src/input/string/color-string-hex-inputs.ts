@@ -132,7 +132,7 @@ export const hexColorRGBAMixedCaseInputs: string[] = [
  * @type {string[]}
  * @since 0.1.0
  */
-export const hexColorInputs: string[] = [
+export const hexColorSameCaseInputs: string[] = [
     ...hexColorRGBNumberInputs,
     ...hexColorRGBANumberInputs,
     ...hexColorRGBUppercaseInputs,

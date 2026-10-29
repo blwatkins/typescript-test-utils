@@ -21,7 +21,7 @@
  */
 
 /**
- * Inputs that are not primitive booleans, including boolean-like strings and numbers, and boxed `Boolean` objects.
+ * Inputs that are not primitive booleans.
  *
  * @type {unknown[]}
  * @since 0.1.0
