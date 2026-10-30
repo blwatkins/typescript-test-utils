@@ -39,6 +39,13 @@ export function testInputArrayDuplicates(inputs: unknown[]): void {
     });
 }
 
+export function testInputArray(inputs: unknown[]): void {
+    describe('Is a non-empty array with no duplicates', (): void => {
+        testNonEmptyArray(inputs);
+        testInputArrayDuplicates(inputs);
+    });
+}
+
 export function testNonTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
     describe(`Is a non-empty array with no ${type} type elements`, (): void => {
         testNonEmptyArray(inputs);
