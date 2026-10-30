@@ -39,13 +39,13 @@ export function testInputArrayDuplicates(inputs: unknown[]): void {
     });
 }
 
-export function testNonTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
-    describe(`Is a non-empty array with no ${type} type elements`, (): void => {
+export function testNonTypeInputArray(inputs: unknown[], description: string, check: (input: unknown) => boolean): void {
+    describe(`Is a non-empty array with no ${description} elements`, (): void => {
         testNonEmptyArray(inputs);
 
-        test(`Should not contain ${type} elements`, (): void => {
+        test(`Should not contain ${description} elements`, (): void => {
             expect(inputs.filter((input: unknown): boolean => {
-                return typeCheck(input);
+                return check(input);
             })).toEqual([]);
         });
 
@@ -53,13 +53,13 @@ export function testNonTypeInputArray(inputs: unknown[], type: string, typeCheck
     });
 }
 
-export function testTypeInputArray(inputs: unknown[], type: string, typeCheck: (input: unknown) => boolean): void {
-    describe(`Is a non-empty array with only ${type} type elements`, (): void => {
+export function testTypeInputArray(inputs: unknown[], description: string, check: (input: unknown) => boolean): void {
+    describe(`Is a non-empty array with only ${description} elements`, (): void => {
         testNonEmptyArray(inputs);
 
-        test(`Should only contain ${type} elements`, (): void => {
+        test(`Should only contain ${description} elements`, (): void => {
             expect(inputs.filter((input: unknown): boolean => {
-                return !typeCheck(input);
+                return !check(input);
             })).toEqual([]);
         });
 
