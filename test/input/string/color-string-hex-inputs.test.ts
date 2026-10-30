@@ -1,0 +1,91 @@
+/*
+ * Copyright (c) 2026 Brittni Watkins.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+ * AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+import { describe } from 'vitest';
+
+import {
+    hexColorFailureInputs,
+    hexColorMixedCaseInputs,
+    hexColorRGBALowercaseInputs,
+    hexColorRGBAMixedCaseInputs,
+    hexColorRGBANumberInputs,
+    hexColorRGBAUppercaseInputs,
+    hexColorRGBLowercaseInputs,
+    hexColorRGBMixedCaseInputs,
+    hexColorRGBNumberInputs,
+    hexColorRGBUppercaseInputs,
+    hexColorSameCaseInputs
+} from '../../../src';
+
+import { testTypeInputArray } from '../../utils/input/input-tests';
+
+describe('Color String Hex Inputs', (): void => {
+    const type: string = 'string';
+
+    const typeCheck: (input: unknown) => boolean = (input: unknown): boolean => {
+        return typeof input === 'string';
+    };
+
+    describe('hexColorRGBNumberInputs', (): void => {
+        testTypeInputArray(hexColorRGBNumberInputs, type, typeCheck);
+    });
+
+    describe('hexColorRGBANumberInputs', (): void => {
+        testTypeInputArray(hexColorRGBANumberInputs, type, typeCheck);
+    });
+
+    describe('hexColorRGBUppercaseInputs', (): void => {
+        testTypeInputArray(hexColorRGBUppercaseInputs, type, typeCheck);
+    });
+
+    describe('hexColorRGBAUppercaseInputs', (): void => {
+        testTypeInputArray(hexColorRGBAUppercaseInputs, type, typeCheck);
+    });
+
+    describe('hexColorRGBLowercaseInputs', (): void => {
+        testTypeInputArray(hexColorRGBLowercaseInputs, type, typeCheck);
+    });
+
+    describe('hexColorRGBALowercaseInputs', (): void => {
+        testTypeInputArray(hexColorRGBALowercaseInputs, type, typeCheck);
+    });
+
+    describe('hexColorRGBMixedCaseInputs', (): void => {
+        testTypeInputArray(hexColorRGBMixedCaseInputs, type, typeCheck);
+    });
+
+    describe('hexColorRGBAMixedCaseInputs', (): void => {
+        testTypeInputArray(hexColorRGBAMixedCaseInputs, type, typeCheck);
+    });
+
+    describe('hexColorSameCaseInputs', (): void => {
+        testTypeInputArray(hexColorSameCaseInputs, type, typeCheck);
+    });
+
+    describe('hexColorMixedCaseInputs', (): void => {
+        testTypeInputArray(hexColorMixedCaseInputs, type, typeCheck);
+    });
+
+    describe('hexColorFailureInputs', (): void => {
+        testTypeInputArray(hexColorFailureInputs, type, typeCheck);
+    });
+});

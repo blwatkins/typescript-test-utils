@@ -22,7 +22,7 @@
 
 import { describe, test, expect } from 'vitest';
 
-function testNonEmptyArray(inputs: unknown[]): void {
+export function testNonEmptyArray(inputs: unknown[]): void {
     test('Should be a non-empty array', (): void => {
         expect(Array.isArray(inputs)).toBe(true);
         expect(inputs.length).not.toBe(0);
