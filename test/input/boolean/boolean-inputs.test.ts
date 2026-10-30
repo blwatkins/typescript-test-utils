@@ -25,20 +25,17 @@ import { describe } from 'vitest';
 import { definedNonBooleanInputs, nonBooleanInputs } from '../../../src';
 
 import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
+import { isBoolean } from '../../utils/type-checks';
 
 describe('Boolean Inputs', (): void => {
     const type: string = 'boolean';
 
-    const typeCheck: (input: unknown) => boolean = (input: unknown): boolean => {
-        return typeof input === 'boolean';
-    };
-
     describe('nonBooleanInputs', (): void => {
-        testNonTypeInputArray(nonBooleanInputs, type, typeCheck);
+        testNonTypeInputArray(nonBooleanInputs, type, isBoolean);
     });
 
     describe('definedNonBooleanInputs', (): void => {
-        testNonTypeInputArray(definedNonBooleanInputs, type, typeCheck);
+        testNonTypeInputArray(definedNonBooleanInputs, type, isBoolean);
         testDefinedInputArray(definedNonBooleanInputs);
     });
 });

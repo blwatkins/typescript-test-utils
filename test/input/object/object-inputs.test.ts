@@ -25,20 +25,17 @@ import { describe } from 'vitest';
 import { definedNonObjectInputs, nonObjectInputs } from '../../../src';
 
 import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
+import { isObject } from '../../utils/type-checks';
 
 describe('Object Inputs', (): void => {
     const type: string = 'object';
 
-    const typeCheck: (input: unknown) => boolean = (input: unknown): boolean => {
-        return typeof input === 'object' && input !== null;
-    };
-
     describe('nonObjectInputs', (): void => {
-        testNonTypeInputArray(nonObjectInputs, type, typeCheck);
+        testNonTypeInputArray(nonObjectInputs, type, isObject);
     });
 
     describe('definedNonObjectInputs', (): void => {
-        testNonTypeInputArray(definedNonObjectInputs, type, typeCheck);
+        testNonTypeInputArray(definedNonObjectInputs, type, isObject);
         testDefinedInputArray(definedNonObjectInputs);
     });
 });

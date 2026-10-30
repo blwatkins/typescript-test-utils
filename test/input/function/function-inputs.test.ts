@@ -25,20 +25,17 @@ import { describe } from 'vitest';
 import { definedNonFunctionInputs, nonFunctionInputs } from '../../../src';
 
 import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
+import { isFunction } from '../../utils/type-checks';
 
 describe('Function Inputs', (): void => {
     const type: string = 'function';
 
-    const typeCheck: (input: unknown) => boolean = (input: unknown): boolean => {
-        return typeof input === 'function';
-    };
-
     describe('nonFunctionInputs', (): void => {
-        testNonTypeInputArray(nonFunctionInputs, type, typeCheck);
+        testNonTypeInputArray(nonFunctionInputs, type, isFunction);
     });
 
     describe('definedNonFunctionInputs', (): void => {
-        testNonTypeInputArray(definedNonFunctionInputs, type, typeCheck);
+        testNonTypeInputArray(definedNonFunctionInputs, type, isFunction);
         testDefinedInputArray(definedNonFunctionInputs);
     });
 });
