@@ -45,7 +45,7 @@ import {
 } from '../../../src';
 
 import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
-import { isNumber } from '../../utils/type-checks';
+import { isNumber } from '../../utils/input/type-checks';
 
 describe('Number Inputs', (): void => {
     const type: string = 'number';
@@ -201,16 +201,13 @@ describe('Number Inputs', (): void => {
     describe('invalidSafePositiveIntegerInputs', (): void => {
         testNonEmptyArray(invalidSafePositiveIntegerInputs);
         testInputArrayDuplicates(invalidSafePositiveIntegerInputs);
-
         testNonTypeInputArray(invalidSafePositiveIntegerInputs, 'positive safe integer', isPositiveSafeInteger);
     });
 
     describe('definedInvalidSafePositiveIntegerInputs', (): void => {
         testNonEmptyArray(definedInvalidSafePositiveIntegerInputs);
         testInputArrayDuplicates(definedInvalidSafePositiveIntegerInputs);
-
         testNonTypeInputArray(definedInvalidSafePositiveIntegerInputs, 'positive safe integer', isPositiveSafeInteger);
-
         testDefinedInputArray(definedInvalidSafePositiveIntegerInputs);
     });
 });

@@ -25,7 +25,7 @@ import { describe } from 'vitest';
 import { definedNonObjectInputs, nonObjectInputs } from '../../../src';
 
 import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
-import { isObject } from '../../utils/type-checks';
+import { isObject } from '../../utils/input/type-checks';
 
 describe('Object Inputs', (): void => {
     const type: string = 'object';

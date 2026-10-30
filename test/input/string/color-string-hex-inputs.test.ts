@@ -36,87 +36,69 @@ import {
     hexColorSameCaseInputs
 } from '../../../src';
 
+import { isEntryOf } from '../../utils/array/array-checks';
 import { testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
-import { isString } from '../../utils/type-checks';
-import { isEntryOf } from '../../utils/input/array-checks';
-import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/input/string-case-checks';
+import { isString } from '../../utils/input/type-checks';
+import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/string/string-case-checks';
 
 describe('Color String Hex Inputs', (): void => {
     const type: string = 'string';
 
     function isRGBShape(input: unknown): boolean {
         const value: string = input as string;
-
         return value.length === 7 && value.lastIndexOf('#') === 0;
     }
 
     function isRGBAShape(input: unknown): boolean {
         const value: string = input as string;
-
         return value.length === 9 && value.lastIndexOf('#') === 0;
     }
 
     describe('hexColorRGBNumberInputs', (): void => {
         testTypeInputArray(hexColorRGBNumberInputs, type, isString);
-
         testTypeInputArray(hexColorRGBNumberInputs, '7-character string with one leading #', isRGBShape);
-
         testTypeInputArray(hexColorRGBNumberInputs, 'caseless string', isCaseless);
     });
 
     describe('hexColorRGBANumberInputs', (): void => {
         testTypeInputArray(hexColorRGBANumberInputs, type, isString);
-
         testTypeInputArray(hexColorRGBANumberInputs, '9-character string with one leading #', isRGBAShape);
-
         testTypeInputArray(hexColorRGBANumberInputs, 'caseless string', isCaseless);
     });
 
     describe('hexColorRGBUppercaseInputs', (): void => {
         testTypeInputArray(hexColorRGBUppercaseInputs, type, isString);
-
         testTypeInputArray(hexColorRGBUppercaseInputs, '7-character string with one leading #', isRGBShape);
-
         testTypeInputArray(hexColorRGBUppercaseInputs, 'uppercase string', isUppercase);
     });
 
     describe('hexColorRGBAUppercaseInputs', (): void => {
         testTypeInputArray(hexColorRGBAUppercaseInputs, type, isString);
-
         testTypeInputArray(hexColorRGBAUppercaseInputs, '9-character string with one leading #', isRGBAShape);
-
         testTypeInputArray(hexColorRGBAUppercaseInputs, 'uppercase string', isUppercase);
     });
 
     describe('hexColorRGBLowercaseInputs', (): void => {
         testTypeInputArray(hexColorRGBLowercaseInputs, type, isString);
-
         testTypeInputArray(hexColorRGBLowercaseInputs, '7-character string with one leading #', isRGBShape);
-
         testTypeInputArray(hexColorRGBLowercaseInputs, 'lowercase string', isLowercase);
     });
 
     describe('hexColorRGBALowercaseInputs', (): void => {
         testTypeInputArray(hexColorRGBALowercaseInputs, type, isString);
-
         testTypeInputArray(hexColorRGBALowercaseInputs, '9-character string with one leading #', isRGBAShape);
-
         testTypeInputArray(hexColorRGBALowercaseInputs, 'lowercase string', isLowercase);
     });
 
     describe('hexColorRGBMixedCaseInputs', (): void => {
         testTypeInputArray(hexColorRGBMixedCaseInputs, type, isString);
-
         testTypeInputArray(hexColorRGBMixedCaseInputs, '7-character string with one leading #', isRGBShape);
-
         testTypeInputArray(hexColorRGBMixedCaseInputs, 'mixed case string', isMixedCase);
     });
 
     describe('hexColorRGBAMixedCaseInputs', (): void => {
         testTypeInputArray(hexColorRGBAMixedCaseInputs, type, isString);
-
         testTypeInputArray(hexColorRGBAMixedCaseInputs, '9-character string with one leading #', isRGBAShape);
-
         testTypeInputArray(hexColorRGBAMixedCaseInputs, 'mixed case string', isMixedCase);
     });
 
@@ -130,15 +112,12 @@ describe('Color String Hex Inputs', (): void => {
 
     describe('hexColorMixedCaseInputs', (): void => {
         testTypeInputArray(hexColorMixedCaseInputs, type, isString);
-
         testTypeInputArray(hexColorMixedCaseInputs, 'mixed case string', isMixedCase);
     });
 
     describe('hexColorFailureInputs', (): void => {
         testTypeInputArray(hexColorFailureInputs, type, isString);
-
         testNonTypeInputArray(hexColorFailureInputs, 'same case hex color', isEntryOf(hexColorSameCaseInputs));
-
         testNonTypeInputArray(hexColorFailureInputs, 'mixed case hex color', isEntryOf(hexColorMixedCaseInputs));
     });
 });

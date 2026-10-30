@@ -43,10 +43,10 @@ import {
     textInputs
 } from '../../../src';
 
+import { isEntryOf } from '../../utils/array/array-checks';
 import { testDefinedInputArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
-import { isString } from '../../utils/type-checks';
-import { isEntryOf } from '../../utils/input/array-checks';
-import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/input/string-case-checks';
+import { isString } from '../../utils/input/type-checks';
+import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/string/string-case-checks';
 
 describe('String Inputs', (): void => {
     const type: string = 'string';
@@ -66,55 +66,46 @@ describe('String Inputs', (): void => {
 
     describe('emptyStringInputs', (): void => {
         testTypeInputArray(emptyStringInputs, type, isString);
-
         testTypeInputArray(emptyStringInputs, 'empty or whitespace-only string', isWhitespaceOnly);
     });
 
     describe('singleLineCaselessInputs', (): void => {
         testTypeInputArray(singleLineCaselessInputs, type, isString);
-
         testTypeInputArray(singleLineCaselessInputs, 'caseless string', isCaseless);
     });
 
     describe('singleLineMixedCaseInputs', (): void => {
         testTypeInputArray(singleLineMixedCaseInputs, type, isString);
-
         testTypeInputArray(singleLineMixedCaseInputs, 'mixed case string', isMixedCase);
     });
 
     describe('singleLineLowercaseInputs', (): void => {
         testTypeInputArray(singleLineLowercaseInputs, type, isString);
-
         testTypeInputArray(singleLineLowercaseInputs, 'lowercase string', isLowercase);
     });
 
     describe('singleLineUppercaseInputs', (): void => {
         testTypeInputArray(singleLineUppercaseInputs, type, isString);
-
         testTypeInputArray(singleLineUppercaseInputs, 'uppercase string', isUppercase);
     });
 
     describe('singleLineFailureCaselessInputs', (): void => {
         testTypeInputArray(singleLineFailureCaselessInputs, type, isString);
-
         testTypeInputArray(singleLineFailureCaselessInputs, 'caseless string', isCaseless);
     });
 
     describe('singleLineFailureMixedCaseInputs', (): void => {
         testTypeInputArray(singleLineFailureMixedCaseInputs, type, isString);
-
         testTypeInputArray(singleLineFailureMixedCaseInputs, 'mixed case string', isMixedCase);
     });
 
     describe('singleLineFailureLowercaseInputs', (): void => {
         testTypeInputArray(singleLineFailureLowercaseInputs, type, isString);
-
         testTypeInputArray(singleLineFailureLowercaseInputs, 'lowercase string', isLowercase);
     });
 
     describe('singleLineFailureUppercaseInputs', (): void => {
         testTypeInputArray(singleLineFailureUppercaseInputs, type, isString);
-
         testTypeInputArray(singleLineFailureUppercaseInputs, 'uppercase string', isUppercase);
     });
 
@@ -142,7 +133,6 @@ describe('String Inputs', (): void => {
 
     describe('singleLineFailureStringInputs', (): void => {
         testTypeInputArray(singleLineFailureStringInputs, type, isString);
-
         testNonTypeInputArray(singleLineFailureStringInputs, 'single-line input', isEntryOf(singleLineInputs));
     });
 

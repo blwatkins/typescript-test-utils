@@ -25,7 +25,7 @@ import { describe } from 'vitest';
 import { definedNonBooleanInputs, nonBooleanInputs } from '../../../src';
 
 import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
-import { isBoolean } from '../../utils/type-checks';
+import { isBoolean } from '../../utils/input/type-checks';
 
 describe('Boolean Inputs', (): void => {
     const type: string = 'boolean';

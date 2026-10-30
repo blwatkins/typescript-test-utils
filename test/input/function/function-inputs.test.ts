@@ -25,7 +25,7 @@ import { describe } from 'vitest';
 import { definedNonFunctionInputs, nonFunctionInputs } from '../../../src';
 
 import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
-import { isFunction } from '../../utils/type-checks';
+import { isFunction } from '../../utils/input/type-checks';
 
 describe('Function Inputs', (): void => {
     const type: string = 'function';
