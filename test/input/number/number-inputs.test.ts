@@ -44,7 +44,7 @@ import {
     zeroInputs
 } from '../../../src';
 
-import { testDefinedInputArray, testInputArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
+import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
 
 describe('Number Inputs', (): void => {
     const type: string = 'number';
@@ -119,15 +119,18 @@ describe('Number Inputs', (): void => {
     });
 
     describe('invalidSafeNumberInputs', (): void => {
-        testInputArray(invalidSafeNumberInputs);
+        testNonEmptyArray(invalidSafeNumberInputs);
+        testInputArrayDuplicates(invalidSafeNumberInputs);
     });
 
     describe('invalidSafePositiveIntegerInputs', (): void => {
-        testInputArray(invalidSafePositiveIntegerInputs);
+        testNonEmptyArray(invalidSafePositiveIntegerInputs);
+        testInputArrayDuplicates(invalidSafePositiveIntegerInputs);
     });
 
     describe('definedInvalidSafePositiveIntegerInputs', (): void => {
-        testInputArray(definedInvalidSafePositiveIntegerInputs);
+        testNonEmptyArray(definedInvalidSafePositiveIntegerInputs);
+        testInputArrayDuplicates(definedInvalidSafePositiveIntegerInputs);
         testDefinedInputArray(definedInvalidSafePositiveIntegerInputs);
     });
 });

@@ -107,7 +107,8 @@ export const zeroInputs: number[] = [0, -0];
  */
 export const negativeUnsafeNumberInputs: number[] = [
     -Number.MAX_VALUE,
-    Number.MIN_SAFE_INTEGER - 1
+    Number.MIN_SAFE_INTEGER - 1,
+    Number.MIN_SAFE_INTEGER - 2.5
 ];
 
 /**
@@ -119,7 +120,8 @@ export const negativeUnsafeNumberInputs: number[] = [
  */
 export const positiveUnsafeNumberInputs: number[] = [
     Number.MAX_VALUE,
-    Number.MAX_SAFE_INTEGER + 1
+    Number.MAX_SAFE_INTEGER + 1,
+    Number.MAX_SAFE_INTEGER + 2.5
 ];
 
 /**
@@ -188,7 +190,8 @@ export const negativeSafeIntegerInputs: number[] = [
     -1,
     -10,
     -100,
-    -1000
+    -1000,
+    -1000.0
 ];
 
 /**
@@ -203,7 +206,8 @@ export const positiveSafeIntegerInputs: number[] = [
     1,
     10,
     100,
-    1000
+    1000,
+    1000.0
 ];
 
 /**

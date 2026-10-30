@@ -22,7 +22,7 @@
 
 import { describe, test, expect } from 'vitest';
 
-function testNonEmptyArray(inputs: unknown[]): void {
+export function testNonEmptyArray(inputs: unknown[]): void {
     test('Should be a non-empty array', (): void => {
         expect(Array.isArray(inputs)).toBe(true);
         expect(inputs.length).not.toBe(0);
@@ -36,13 +36,6 @@ export function testInputArrayDuplicates(inputs: unknown[]): void {
                 return Object.is(other, input);
             }) !== index;
         })).toEqual([]);
-    });
-}
-
-export function testInputArray(inputs: unknown[]): void {
-    describe('Is a non-empty array with no duplicates', (): void => {
-        testNonEmptyArray(inputs);
-        testInputArrayDuplicates(inputs);
     });
 }
 
