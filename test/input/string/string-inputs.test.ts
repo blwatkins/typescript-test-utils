@@ -44,7 +44,7 @@ import {
 } from '../../../src';
 
 import { testDefinedInputArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
-import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/input/string-case';
+import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/input/string-case-checks';
 
 describe('String Inputs', (): void => {
     const type: string = 'string';

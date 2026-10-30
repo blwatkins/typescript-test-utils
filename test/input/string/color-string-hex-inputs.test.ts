@@ -37,7 +37,7 @@ import {
 } from '../../../src';
 
 import { testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
-import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/input/string-case';
+import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/input/string-case-checks';
 
 describe('Color String Hex Inputs', (): void => {
     const type: string = 'string';

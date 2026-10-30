@@ -22,24 +22,20 @@
 
 export function isCaseless(input: unknown): boolean {
     const value: string = input as string;
-
     return value.toUpperCase() === value.toLowerCase();
 }
 
 export function isLowercase(input: unknown): boolean {
     const value: string = input as string;
-
     return value === value.toLowerCase() && value !== value.toUpperCase();
 }
 
 export function isUppercase(input: unknown): boolean {
     const value: string = input as string;
-
     return value === value.toUpperCase() && value !== value.toLowerCase();
 }
 
 export function isMixedCase(input: unknown): boolean {
     const value: string = input as string;
-
     return value !== value.toUpperCase() && value !== value.toLowerCase();
 }
