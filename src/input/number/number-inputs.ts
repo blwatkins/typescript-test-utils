@@ -191,7 +191,7 @@ export const negativeSafeIntegerInputs: number[] = [
     -10,
     -100,
     -1000,
-    -1000.0
+    -10000.0
 ];
 
 /**
@@ -207,7 +207,7 @@ export const positiveSafeIntegerInputs: number[] = [
     10,
     100,
     1000,
-    1000.0
+    10000.0
 ];
 
 /**
