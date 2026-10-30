@@ -44,121 +44,117 @@ import {
 } from '../../../src';
 
 import { testDefinedInputArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
+import { isString } from '../../utils/type-checks';
+import { isEntryOf } from '../../utils/input/array-checks';
 import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/input/string-case-checks';
 
 describe('String Inputs', (): void => {
     const type: string = 'string';
 
-    const typeCheck: (input: unknown) => boolean = (input: unknown): boolean => {
-        return typeof input === 'string';
-    };
+    function isWhitespaceOnly(input: unknown): boolean {
+        return (input as string).trim() === '';
+    }
 
     describe('nonStringInputs', (): void => {
-        testNonTypeInputArray(nonStringInputs, type, typeCheck);
+        testNonTypeInputArray(nonStringInputs, type, isString);
     });
 
     describe('definedNonStringInputs', (): void => {
-        testNonTypeInputArray(definedNonStringInputs, type, typeCheck);
+        testNonTypeInputArray(definedNonStringInputs, type, isString);
         testDefinedInputArray(definedNonStringInputs);
     });
 
     describe('emptyStringInputs', (): void => {
-        testTypeInputArray(emptyStringInputs, type, typeCheck);
+        testTypeInputArray(emptyStringInputs, type, isString);
 
-        testTypeInputArray(emptyStringInputs, 'empty or whitespace-only string', (input: unknown): boolean => {
-            return (input as string).trim() === '';
-        });
+        testTypeInputArray(emptyStringInputs, 'empty or whitespace-only string', isWhitespaceOnly);
     });
 
     describe('singleLineCaselessInputs', (): void => {
-        testTypeInputArray(singleLineCaselessInputs, type, typeCheck);
+        testTypeInputArray(singleLineCaselessInputs, type, isString);
 
         testTypeInputArray(singleLineCaselessInputs, 'caseless string', isCaseless);
     });
 
     describe('singleLineMixedCaseInputs', (): void => {
-        testTypeInputArray(singleLineMixedCaseInputs, type, typeCheck);
+        testTypeInputArray(singleLineMixedCaseInputs, type, isString);
 
         testTypeInputArray(singleLineMixedCaseInputs, 'mixed case string', isMixedCase);
     });
 
     describe('singleLineLowercaseInputs', (): void => {
-        testTypeInputArray(singleLineLowercaseInputs, type, typeCheck);
+        testTypeInputArray(singleLineLowercaseInputs, type, isString);
 
         testTypeInputArray(singleLineLowercaseInputs, 'lowercase string', isLowercase);
     });
 
     describe('singleLineUppercaseInputs', (): void => {
-        testTypeInputArray(singleLineUppercaseInputs, type, typeCheck);
+        testTypeInputArray(singleLineUppercaseInputs, type, isString);
 
         testTypeInputArray(singleLineUppercaseInputs, 'uppercase string', isUppercase);
     });
 
     describe('singleLineFailureCaselessInputs', (): void => {
-        testTypeInputArray(singleLineFailureCaselessInputs, type, typeCheck);
+        testTypeInputArray(singleLineFailureCaselessInputs, type, isString);
 
         testTypeInputArray(singleLineFailureCaselessInputs, 'caseless string', isCaseless);
     });
 
     describe('singleLineFailureMixedCaseInputs', (): void => {
-        testTypeInputArray(singleLineFailureMixedCaseInputs, type, typeCheck);
+        testTypeInputArray(singleLineFailureMixedCaseInputs, type, isString);
 
         testTypeInputArray(singleLineFailureMixedCaseInputs, 'mixed case string', isMixedCase);
     });
 
     describe('singleLineFailureLowercaseInputs', (): void => {
-        testTypeInputArray(singleLineFailureLowercaseInputs, type, typeCheck);
+        testTypeInputArray(singleLineFailureLowercaseInputs, type, isString);
 
         testTypeInputArray(singleLineFailureLowercaseInputs, 'lowercase string', isLowercase);
     });
 
     describe('singleLineFailureUppercaseInputs', (): void => {
-        testTypeInputArray(singleLineFailureUppercaseInputs, type, typeCheck);
+        testTypeInputArray(singleLineFailureUppercaseInputs, type, isString);
 
         testTypeInputArray(singleLineFailureUppercaseInputs, 'uppercase string', isUppercase);
     });
 
     describe('singleLineInputs', (): void => {
-        testTypeInputArray(singleLineInputs, type, typeCheck);
+        testTypeInputArray(singleLineInputs, type, isString);
     });
 
     describe('singleLineFailureTextInputs', (): void => {
-        testTypeInputArray(singleLineFailureTextInputs, type, typeCheck);
+        testTypeInputArray(singleLineFailureTextInputs, type, isString);
     });
 
     describe('textInputs', (): void => {
-        testTypeInputArray(textInputs, type, typeCheck);
+        testTypeInputArray(textInputs, type, isString);
     });
 
     describe('nonTextStringInputs', (): void => {
-        testTypeInputArray(nonTextStringInputs, type, typeCheck);
+        testTypeInputArray(nonTextStringInputs, type, isString);
 
         testTypeInputArray(nonTextStringInputs, 'non-empty string', (input: unknown): boolean => {
-            return (input as string).trim() !== '';
+            return !isWhitespaceOnly(input);
         });
 
-        testNonTypeInputArray(nonTextStringInputs, 'text input', (input: unknown): boolean => {
-            return textInputs.includes(input as string);
-        });
+        testNonTypeInputArray(nonTextStringInputs, 'text input', isEntryOf(textInputs));
     });
 
     describe('singleLineFailureStringInputs', (): void => {
-        testTypeInputArray(singleLineFailureStringInputs, type, typeCheck);
+        testTypeInputArray(singleLineFailureStringInputs, type, isString);
 
-        testNonTypeInputArray(singleLineFailureStringInputs, 'single-line input', (input: unknown): boolean => {
-            return singleLineInputs.includes(input as string);
-        });
+        testNonTypeInputArray(singleLineFailureStringInputs, 'single-line input', isEntryOf(singleLineInputs));
     });
 
     describe('nonEmptyStringInputs', (): void => {
-        testTypeInputArray(nonEmptyStringInputs, type, typeCheck);
+        testTypeInputArray(nonEmptyStringInputs, type, isString);
 
         testTypeInputArray(nonEmptyStringInputs, 'non-empty string', (input: unknown): boolean => {
-            return (input as string).trim() !== '';
+            return !isWhitespaceOnly(input);
         });
     });
 
     describe('stringInputs', (): void => {
-        testTypeInputArray(stringInputs, type, typeCheck);
+        testTypeInputArray(stringInputs, type, isString);
     });
 });

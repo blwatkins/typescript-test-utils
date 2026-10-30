@@ -29,10 +29,6 @@ import { testDefinedInputArray, testNonTypeInputArray, testTypeInputArray } from
 describe('Array Inputs', (): void => {
     const type: string = 'array';
 
-    const typeCheck: (input: unknown) => boolean = (input: unknown): boolean => {
-        return Array.isArray(input);
-    };
-
     function hasEmptySlot(array: unknown[]): boolean {
         for (let index: number = 0; index < array.length; index++) {
             if (!(index in array)) {
@@ -44,16 +40,16 @@ describe('Array Inputs', (): void => {
     }
 
     describe('nonArrayInputs', (): void => {
-        testNonTypeInputArray(nonArrayInputs, type, typeCheck);
+        testNonTypeInputArray(nonArrayInputs, type, Array.isArray);
     });
 
     describe('definedNonArrayInputs', (): void => {
-        testNonTypeInputArray(definedNonArrayInputs, type, typeCheck);
+        testNonTypeInputArray(definedNonArrayInputs, type, Array.isArray);
         testDefinedInputArray(definedNonArrayInputs);
     });
 
     describe('denseArrayInputs', (): void => {
-        testTypeInputArray(denseArrayInputs, type, typeCheck);
+        testTypeInputArray(denseArrayInputs, type, Array.isArray);
 
         test('Should not contain sparse arrays', (): void => {
             expect(denseArrayInputs.filter((input: unknown): boolean => {
@@ -63,7 +59,7 @@ describe('Array Inputs', (): void => {
     });
 
     describe('sparseArrayInputs', (): void => {
-        testTypeInputArray(sparseArrayInputs, type, typeCheck);
+        testTypeInputArray(sparseArrayInputs, type, Array.isArray);
 
         test('Should only contain sparse arrays', (): void => {
             expect(sparseArrayInputs.filter((input: unknown): boolean => {
