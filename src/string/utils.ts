@@ -29,13 +29,13 @@ import * as arrayUtils from '../array';
  *
  * @returns {string[]} The single-line strings.
  *
- * @throws {TypeError} When `tokens` is not an array.
+ * @throws {TypeError} When `tokens` is not an array with at least two elements.
  *
  * @since 0.1.0
  */
 export function buildSingleLineInputs(tokens: string[]): string[] {
-    if (!Array.isArray(tokens)) {
-        throw new TypeError('tokens must be an array.');
+    if (!Array.isArray(tokens) || tokens.length < 2) {
+        throw new TypeError('tokens must be an array with at least two elements.');
     }
 
     return [
@@ -52,14 +52,14 @@ export function buildSingleLineInputs(tokens: string[]): string[] {
  *
  * @returns {string[]} The characters, in code point order.
  *
- * @throws {TypeError} When `start` and `end` are not both numbers between 0 and 0x10FFFF (inclusive).
+ * @throws {TypeError} When `start` and `end` are not both integers between 0 and 0x10FFFF (inclusive).
  *
  * @since 0.1.0
  */
 export function charactersFromCodePointRange(start: number, end: number): string[] {
-    const errorMessage = 'start and end must be numbers between 0 and 0x10FFFF';
+    const errorMessage = 'start and end must be integers between 0 and 0x10FFFF.';
 
-    if (typeof start !== 'number' || typeof end !== 'number') {
+    if (!Number.isInteger(start) || !Number.isInteger(end)) {
         throw new TypeError(errorMessage);
     }
 
@@ -86,7 +86,7 @@ export function charactersFromCodePointRange(start: number, end: number): string
  */
 export function mixStrings(inputsA: string[], inputsB: string[]): string[] {
     if (!Array.isArray(inputsA) || !Array.isArray(inputsB)) {
-        throw new TypeError('inputsA and inputsB must be arrays');
+        throw new TypeError('inputsA and inputsB must be arrays.');
     }
 
     return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
@@ -110,7 +110,7 @@ export function mixStrings(inputsA: string[], inputsB: string[]): string[] {
  */
 export function pairStrings(inputsA: string[], inputsB: string[]): string[] {
     if (!Array.isArray(inputsA) || !Array.isArray(inputsB)) {
-        throw new TypeError('inputsA and inputsB must be arrays');
+        throw new TypeError('inputsA and inputsB must be arrays.');
     }
 
     return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
