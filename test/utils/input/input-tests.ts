@@ -1,0 +1,78 @@
+/*
+ * Copyright (c) 2026 Brittni Watkins.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+ * AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+import { describe, test, expect } from 'vitest';
+
+export function testNonEmptyArray(inputs: unknown[]): void {
+    test('Should be a non-empty array', (): void => {
+        expect(Array.isArray(inputs)).toBe(true);
+        expect(inputs.length).not.toBe(0);
+    });
+}
+
+export function testInputArrayDuplicates(inputs: unknown[]): void {
+    test('Should not contain any duplicates', (): void => {
+        expect(inputs.filter((input: unknown, index: number): boolean => {
+            return inputs.findIndex((other: unknown): boolean => {
+                return Object.is(other, input);
+            }) !== index;
+        })).toEqual([]);
+    });
+}
+
+export function testNonTypeInputArray(inputs: unknown[], description: string, check: (input: unknown) => boolean): void {
+    describe(`Is a non-empty array with no ${description} elements`, (): void => {
+        testNonEmptyArray(inputs);
+
+        test(`Should not contain ${description} elements`, (): void => {
+            expect(inputs.filter((input: unknown): boolean => {
+                return check(input);
+            })).toEqual([]);
+        });
+
+        testInputArrayDuplicates(inputs);
+    });
+}
+
+export function testTypeInputArray(inputs: unknown[], description: string, check: (input: unknown) => boolean): void {
+    describe(`Is a non-empty array with only ${description} elements`, (): void => {
+        testNonEmptyArray(inputs);
+
+        test(`Should only contain ${description} elements`, (): void => {
+            expect(inputs.filter((input: unknown): boolean => {
+                return !check(input);
+            })).toEqual([]);
+        });
+
+        testInputArrayDuplicates(inputs);
+    });
+}
+
+export function testDefinedInputArray(inputs: unknown[]): void {
+    describe(`Is a non-empty array with only defined elements`, (): void => {
+        testNonEmptyArray(inputs);
+
+        test(`Should not have undefined elements`, (): void => {
+            expect(inputs).not.toContain(undefined);
+        });
+    });
+}

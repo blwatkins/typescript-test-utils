@@ -20,21 +20,4 @@
  * SPDX-License-Identifier: MIT
  */
 
-/**
- * An example class export.
- *
- * @since 1.0.0
- */
-export class HelloWorld {
-    /**
-     * An example method.
-     *
-     * @returns {void}
-     *
-     * @public
-     * @since 1.0.0
-     */
-    public hello(): void {
-        console.log('Hello, World!');
-    }
-}
+export * from './array-inputs';

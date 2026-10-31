@@ -51,10 +51,15 @@ Claude Code skips backticked and fenced content when parsing imports, but a bare
 
 ```
 src/
-  hello-world/      # hello-world example module
+  array/            # Array utilities
+  input/            # Test input fixtures, grouped by type
+  string/           # String utilities
   index.ts          # Package entry point (re-exports all modules)
 test/               # Vitest test suites (mirrors src/ module structure)
-  hello-world/      # Tests for the hello-world module
+  array/            # Tests for the array module
+  input/            # Tests for the input module
+  string/           # Tests for the string module
+  utils/            # Shared test helpers and check functions
 docs/               # GitHub Pages site content and manually maintained release documentation
   doc/              # Latest release TypeDoc output, committed manually and published with the site
   releases/         # Per-version TypeDoc output, committed manually and published with the site
@@ -262,7 +267,7 @@ The following preferences require manual review since no ESLint rule can check t
 - **Document version with `@since`:** Add `@since` to all public/exported members.
 - **Enclose boolean values in backticks:** Always use backticks for `true` and `false` in documentation comments.
 - **Use consistent tense and voice:** Write documentation in the present tense and active voice for clarity.
-- **Document default values:** For class fields, object properties, and module-level constants and variables that have a default or initial value, state the default via `@default` (e.g., `@default Math.random`).
+- **Document default values:** For class fields, object properties, and module-level constants and variables that have a default or initial value, state the default via `@default` (e.g., `@default Math.random`). Arrays do not take `@default`.
 - **Document default parameter values:** Indicate default values for parameters in the `@param` annotation.
 - **Annotate abstract/readonly/private/protected/override members:** Use `@abstract`, `@readonly`, `@private`, `@protected`, and `@override`, respectively, matching the corresponding TypeScript modifier. `eslint.config.ts.mjs` validates these tags are well-formed where present, but does not require their presence for a given modifier.
 - **Scope `@public` to class members:** Apply `@public` to public class members and constructors. Do not add `@public` to the doc comment of an exported class, interface, type, enum, or constant itself, or to interface properties — in both cases the declaration is already the visibility signal.
@@ -316,12 +321,22 @@ A page whose content did not change keeps its existing `modified_date`.
 
 - This repository uses Vitest for testing, with coverage reporting via V8.
 - Tests live in the `test/` directory, with a folder structure that mirrors the source code in `src/`.
-- Shared test fixtures and helpers live under `test/utils`.
+- Shared test helpers and check functions live under `test/utils`.
 - Vitest also type-checks test files at run time (in addition to executing them), configured via the `typecheck` block in `vitest.config.ts` against `tsconfig.vitest.json`.
 - Cross-cutting behavior that every member of a family of types must satisfy — for example, the custom error type contract, or the static class instantiation guard — is factored into a shared helper under `test/utils/` that emits its own `describe`/`test` blocks, and is called from each suite rather than duplicated per file.
 - Helper files use a `*-tests.ts` suffix (not `*.test.ts`) so Vitest does not collect them as suites directly.
 - Test files carry no explanatory comments. A `describe` title states what is under test and a `test` title states the case it covers, so a comment explaining either is bloat and a signal that the title needs the work instead. Exceptions to this rule include the deprecated banner, editor pragmas, warnings on data that must never change, and trailing comments on visible Unicode character entries that show the rendered character and its name.
 - Note that Vitest's `typecheck` pass collects cases by statically parsing `describe`/`test` literals per file, so cases emitted from a shared helper are type-checked but not individually counted in the typecheck totals.
+
+#### Writing Tests
+
+- Check what each fixture's doc comment promises using only JavaScript built-ins, such as `typeof`, `Array.isArray`, `Number.isSafeInteger`, `trim`, and `toUpperCase`.
+- Do not restate a rule that a downstream package owns, such as a hex color regular expression or a text guard. That package tests its rule against these fixtures.
+- Do not use snapshots or hand-picked spot checks for generated fixtures.
+- Collect the failing inputs into an array and expect it to equal `[]`, including for errors (`try`/`catch` rather than `toThrow`), so a failure lists the inputs that caused it.
+- Error tests check the error type, never the message.
+- This package's own fixtures may be used as test arguments.
+- A check function used by one test file is a local function in that file. A check shared by several files goes in a `*-checks.ts` file under `test/utils/`.
 
 ### Validation Steps
 
