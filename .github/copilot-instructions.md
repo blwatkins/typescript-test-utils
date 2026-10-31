@@ -59,7 +59,7 @@ test/               # Vitest test suites (mirrors src/ module structure)
   array/            # Tests for the array module
   input/            # Tests for the input module
   string/           # Tests for the string module
-  utils/            # Shared test helpers and check functions (mirrors src/ module structure)
+  utils/            # Shared test helpers and check functions
 docs/               # GitHub Pages site content and manually maintained release documentation
   doc/              # Latest release TypeDoc output, committed manually and published with the site
   releases/         # Per-version TypeDoc output, committed manually and published with the site
@@ -336,7 +336,7 @@ A page whose content did not change keeps its existing `modified_date`.
 - Collect the failing inputs into an array and expect it to equal `[]`, including for errors (`try`/`catch` rather than `toThrow`), so a failure lists the inputs that caused it.
 - Error tests check the error type, never the message.
 - This package's own fixtures may be used as test arguments.
-- A check function used by one test file is a local function in that file. A check shared by several files goes in a `*-checks.ts` file under `test/utils/`, in the folder matching its `src/` module.
+- A check function used by one test file is a local function in that file. A check shared by several files goes in a `*-checks.ts` file under `test/utils/`.
 
 ### Validation Steps
 
