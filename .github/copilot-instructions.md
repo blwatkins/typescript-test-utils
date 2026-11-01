@@ -60,6 +60,10 @@ test/               # Vitest test suites (mirrors src/ module structure)
   input/            # Tests for the input module
   string/           # Tests for the string module
   utils/            # Shared test helpers and check functions
+    array/          # Shared array check functions
+    error/          # Shared error check functions
+    input/          # Shared input fixture test helpers and type check functions
+    string/         # Shared string check functions
 docs/               # GitHub Pages site content and manually maintained release documentation
   doc/              # Latest release TypeDoc output, committed manually and published with the site
   releases/         # Per-version TypeDoc output, committed manually and published with the site
