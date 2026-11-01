@@ -30,45 +30,57 @@ import {
     nonArrayInputs,
     nonFiniteNumberInputs,
     nonNumberInputs,
+    nonStringInputs,
     pairStrings,
     safeFloatInputs,
+    sparseArrayInputs,
     unsafeNumberInputs
 } from '../../src';
 
+import { throwsError } from '../utils/error/error-checks';
+
 describe('String Utils', (): void => {
-    const invalidCodePointInputs: unknown[] = [
+    const nonIntegerCodePointInputs: unknown[] = [
         ...nonNumberInputs,
         ...nonFiniteNumberInputs,
-        ...safeFloatInputs,
+        ...safeFloatInputs
+    ];
+
+    const outOfRangeCodePointInputs: number[] = [
         ...unsafeNumberInputs,
         ...negativeSafeIntegerInputs,
         0x110000
     ];
 
-    function throwsTypeError(action: () => void): boolean {
-        try {
-            action();
-        } catch (error: unknown) {
-            return error instanceof TypeError;
-        }
-
-        return false;
-    }
+    const nonStringElementInputs: unknown[][] = [
+        ...nonStringInputs.map((input: unknown): unknown[] => {
+            return [input];
+        }),
+        ...sparseArrayInputs as unknown[][]
+    ];
 
     describe('buildSingleLineInputs', (): void => {
         test('Should throw a TypeError for non-array inputs', (): void => {
             expect(nonArrayInputs.filter((input: unknown): boolean => {
-                return !throwsTypeError((): void => {
+                return !throwsError((): void => {
                     buildSingleLineInputs(input as string[]);
-                });
+                }, TypeError);
             })).toEqual([]);
         });
 
         test('Should throw a TypeError for fewer than two tokens', (): void => {
             expect([[], ['a']].filter((input: string[]): boolean => {
-                return !throwsTypeError((): void => {
+                return !throwsError((): void => {
                     buildSingleLineInputs(input);
-                });
+                }, TypeError);
+            })).toEqual([]);
+        });
+
+        test('Should throw a TypeError for tokens with non-string elements', (): void => {
+            expect(nonStringElementInputs.filter((input: unknown[]): boolean => {
+                return !throwsError((): void => {
+                    buildSingleLineInputs(['a'].concat(input as string[]));
+                }, TypeError);
             })).toEqual([]);
         });
 
@@ -79,19 +91,35 @@ describe('String Utils', (): void => {
     });
 
     describe('charactersFromCodePointRange', (): void => {
-        test('Should throw a TypeError for an invalid start', (): void => {
-            expect(invalidCodePointInputs.filter((input: unknown): boolean => {
-                return !throwsTypeError((): void => {
+        test('Should throw a TypeError for a non-integer start', (): void => {
+            expect(nonIntegerCodePointInputs.filter((input: unknown): boolean => {
+                return !throwsError((): void => {
                     charactersFromCodePointRange(input as number, 0x41);
-                });
+                }, TypeError);
             })).toEqual([]);
         });
 
-        test('Should throw a TypeError for an invalid end', (): void => {
-            expect(invalidCodePointInputs.filter((input: unknown): boolean => {
-                return !throwsTypeError((): void => {
+        test('Should throw a RangeError for an out-of-range start', (): void => {
+            expect(outOfRangeCodePointInputs.filter((input: number): boolean => {
+                return !throwsError((): void => {
+                    charactersFromCodePointRange(input, 0x41);
+                }, RangeError);
+            })).toEqual([]);
+        });
+
+        test('Should throw a TypeError for a non-integer end', (): void => {
+            expect(nonIntegerCodePointInputs.filter((input: unknown): boolean => {
+                return !throwsError((): void => {
                     charactersFromCodePointRange(0x41, input as number);
-                });
+                }, TypeError);
+            })).toEqual([]);
+        });
+
+        test('Should throw a RangeError for an out-of-range end', (): void => {
+            expect(outOfRangeCodePointInputs.filter((input: number): boolean => {
+                return !throwsError((): void => {
+                    charactersFromCodePointRange(0x41, input);
+                }, RangeError);
             })).toEqual([]);
         });
 
@@ -112,17 +140,33 @@ describe('String Utils', (): void => {
     describe('mixStrings', (): void => {
         test('Should throw a TypeError for an invalid inputsA', (): void => {
             expect(nonArrayInputs.filter((input: unknown): boolean => {
-                return !throwsTypeError((): void => {
+                return !throwsError((): void => {
                     mixStrings(input as string[], ['a']);
-                });
+                }, TypeError);
             })).toEqual([]);
         });
 
         test('Should throw a TypeError for an invalid inputsB', (): void => {
             expect(nonArrayInputs.filter((input: unknown): boolean => {
-                return !throwsTypeError((): void => {
+                return !throwsError((): void => {
                     mixStrings(['a'], input as string[]);
-                });
+                }, TypeError);
+            })).toEqual([]);
+        });
+
+        test('Should throw a TypeError for an inputsA with non-string elements', (): void => {
+            expect(nonStringElementInputs.filter((input: unknown[]): boolean => {
+                return !throwsError((): void => {
+                    mixStrings(input as string[], ['a']);
+                }, TypeError);
+            })).toEqual([]);
+        });
+
+        test('Should throw a TypeError for an inputsB with non-string elements', (): void => {
+            expect(nonStringElementInputs.filter((input: unknown[]): boolean => {
+                return !throwsError((): void => {
+                    mixStrings(['a'], input as string[]);
+                }, TypeError);
             })).toEqual([]);
         });
 
@@ -143,17 +187,33 @@ describe('String Utils', (): void => {
     describe('pairStrings', (): void => {
         test('Should throw a TypeError for an invalid inputsA', (): void => {
             expect(nonArrayInputs.filter((input: unknown): boolean => {
-                return !throwsTypeError((): void => {
+                return !throwsError((): void => {
                     pairStrings(input as string[], ['a']);
-                });
+                }, TypeError);
             })).toEqual([]);
         });
 
         test('Should throw a TypeError for an invalid inputsB', (): void => {
             expect(nonArrayInputs.filter((input: unknown): boolean => {
-                return !throwsTypeError((): void => {
+                return !throwsError((): void => {
                     pairStrings(['a'], input as string[]);
-                });
+                }, TypeError);
+            })).toEqual([]);
+        });
+
+        test('Should throw a TypeError for an inputsA with non-string elements', (): void => {
+            expect(nonStringElementInputs.filter((input: unknown[]): boolean => {
+                return !throwsError((): void => {
+                    pairStrings(input as string[], ['a']);
+                }, TypeError);
+            })).toEqual([]);
+        });
+
+        test('Should throw a TypeError for an inputsB with non-string elements', (): void => {
+            expect(nonStringElementInputs.filter((input: unknown[]): boolean => {
+                return !throwsError((): void => {
+                    pairStrings(['a'], input as string[]);
+                }, TypeError);
             })).toEqual([]);
         });
 

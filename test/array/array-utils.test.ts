@@ -24,17 +24,15 @@ import { describe, test, expect } from 'vitest';
 
 import { denseArrayInputs, nonArrayInputs, sparseArrayInputs, unique } from '../../src';
 
+import { throwsError } from '../utils/error/error-checks';
+
 describe('Array Utils', (): void => {
     describe('unique', (): void => {
         test('Should throw a TypeError for non-array inputs', (): void => {
             expect(nonArrayInputs.filter((input: unknown): boolean => {
-                try {
+                return !throwsError((): void => {
                     unique(input as unknown[]);
-                } catch (error: unknown) {
-                    return !(error instanceof TypeError);
-                }
-
-                return true;
+                }, TypeError);
             })).toEqual([]);
         });
 
