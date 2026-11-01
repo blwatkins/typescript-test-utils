@@ -58,14 +58,12 @@ describe('String Inputs', (): void => {
     describe('nonStringInputs', (): void => {
         testNonEmptyArray(nonStringInputs);
         testInputArrayDuplicates(nonStringInputs);
-
         testNonTypeInputArray(nonStringInputs, type, isString);
     });
 
     describe('definedNonStringInputs', (): void => {
         testNonEmptyArray(definedNonStringInputs);
         testInputArrayDuplicates(definedNonStringInputs);
-
         testNonTypeInputArray(definedNonStringInputs, type, isString);
         testDefinedInputArray(definedNonStringInputs);
     });
@@ -73,7 +71,6 @@ describe('String Inputs', (): void => {
     describe('emptyStringInputs', (): void => {
         testNonEmptyArray(emptyStringInputs);
         testInputArrayDuplicates(emptyStringInputs);
-
         testTypeInputArray(emptyStringInputs, type, isString);
         testTypeInputArray(emptyStringInputs, 'empty or whitespace-only string', isWhitespaceOnly);
     });
@@ -81,7 +78,6 @@ describe('String Inputs', (): void => {
     describe('singleLineCaselessInputs', (): void => {
         testNonEmptyArray(singleLineCaselessInputs);
         testInputArrayDuplicates(singleLineCaselessInputs);
-
         testTypeInputArray(singleLineCaselessInputs, type, isString);
         testTypeInputArray(singleLineCaselessInputs, 'caseless string', isCaseless);
     });
@@ -89,7 +85,6 @@ describe('String Inputs', (): void => {
     describe('singleLineMixedCaseInputs', (): void => {
         testNonEmptyArray(singleLineMixedCaseInputs);
         testInputArrayDuplicates(singleLineMixedCaseInputs);
-
         testTypeInputArray(singleLineMixedCaseInputs, type, isString);
         testTypeInputArray(singleLineMixedCaseInputs, 'mixed case string', isMixedCase);
     });
@@ -97,7 +92,6 @@ describe('String Inputs', (): void => {
     describe('singleLineLowercaseInputs', (): void => {
         testNonEmptyArray(singleLineLowercaseInputs);
         testInputArrayDuplicates(singleLineLowercaseInputs);
-
         testTypeInputArray(singleLineLowercaseInputs, type, isString);
         testTypeInputArray(singleLineLowercaseInputs, 'lowercase string', isLowercase);
     });
@@ -105,7 +99,6 @@ describe('String Inputs', (): void => {
     describe('singleLineUppercaseInputs', (): void => {
         testNonEmptyArray(singleLineUppercaseInputs);
         testInputArrayDuplicates(singleLineUppercaseInputs);
-
         testTypeInputArray(singleLineUppercaseInputs, type, isString);
         testTypeInputArray(singleLineUppercaseInputs, 'uppercase string', isUppercase);
     });
@@ -113,7 +106,6 @@ describe('String Inputs', (): void => {
     describe('singleLineFailureCaselessInputs', (): void => {
         testNonEmptyArray(singleLineFailureCaselessInputs);
         testInputArrayDuplicates(singleLineFailureCaselessInputs);
-
         testTypeInputArray(singleLineFailureCaselessInputs, type, isString);
         testTypeInputArray(singleLineFailureCaselessInputs, 'caseless string', isCaseless);
     });
@@ -121,7 +113,6 @@ describe('String Inputs', (): void => {
     describe('singleLineFailureMixedCaseInputs', (): void => {
         testNonEmptyArray(singleLineFailureMixedCaseInputs);
         testInputArrayDuplicates(singleLineFailureMixedCaseInputs);
-
         testTypeInputArray(singleLineFailureMixedCaseInputs, type, isString);
         testTypeInputArray(singleLineFailureMixedCaseInputs, 'mixed case string', isMixedCase);
     });
@@ -129,7 +120,6 @@ describe('String Inputs', (): void => {
     describe('singleLineFailureLowercaseInputs', (): void => {
         testNonEmptyArray(singleLineFailureLowercaseInputs);
         testInputArrayDuplicates(singleLineFailureLowercaseInputs);
-
         testTypeInputArray(singleLineFailureLowercaseInputs, type, isString);
         testTypeInputArray(singleLineFailureLowercaseInputs, 'lowercase string', isLowercase);
     });
@@ -137,7 +127,6 @@ describe('String Inputs', (): void => {
     describe('singleLineFailureUppercaseInputs', (): void => {
         testNonEmptyArray(singleLineFailureUppercaseInputs);
         testInputArrayDuplicates(singleLineFailureUppercaseInputs);
-
         testTypeInputArray(singleLineFailureUppercaseInputs, type, isString);
         testTypeInputArray(singleLineFailureUppercaseInputs, 'uppercase string', isUppercase);
     });
@@ -145,28 +134,24 @@ describe('String Inputs', (): void => {
     describe('singleLineInputs', (): void => {
         testNonEmptyArray(singleLineInputs);
         testInputArrayDuplicates(singleLineInputs);
-
         testTypeInputArray(singleLineInputs, type, isString);
     });
 
     describe('singleLineFailureTextInputs', (): void => {
         testNonEmptyArray(singleLineFailureTextInputs);
         testInputArrayDuplicates(singleLineFailureTextInputs);
-
         testTypeInputArray(singleLineFailureTextInputs, type, isString);
     });
 
     describe('textInputs', (): void => {
         testNonEmptyArray(textInputs);
         testInputArrayDuplicates(textInputs);
-
         testTypeInputArray(textInputs, type, isString);
     });
 
     describe('nonTextStringInputs', (): void => {
         testNonEmptyArray(nonTextStringInputs);
         testInputArrayDuplicates(nonTextStringInputs);
-
         testTypeInputArray(nonTextStringInputs, type, isString);
 
         testTypeInputArray(nonTextStringInputs, 'non-empty string', (input: unknown): boolean => {
@@ -179,7 +164,6 @@ describe('String Inputs', (): void => {
     describe('singleLineFailureStringInputs', (): void => {
         testNonEmptyArray(singleLineFailureStringInputs);
         testInputArrayDuplicates(singleLineFailureStringInputs);
-
         testTypeInputArray(singleLineFailureStringInputs, type, isString);
         testNonTypeInputArray(singleLineFailureStringInputs, 'single-line input', isEntryOf(singleLineInputs));
     });
@@ -187,7 +171,6 @@ describe('String Inputs', (): void => {
     describe('nonEmptyStringInputs', (): void => {
         testNonEmptyArray(nonEmptyStringInputs);
         testInputArrayDuplicates(nonEmptyStringInputs);
-
         testTypeInputArray(nonEmptyStringInputs, type, isString);
 
         testTypeInputArray(nonEmptyStringInputs, 'non-empty string', (input: unknown): boolean => {
@@ -198,7 +181,6 @@ describe('String Inputs', (): void => {
     describe('stringInputs', (): void => {
         testNonEmptyArray(stringInputs);
         testInputArrayDuplicates(stringInputs);
-
         testTypeInputArray(stringInputs, type, isString);
     });
 });

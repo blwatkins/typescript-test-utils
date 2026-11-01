@@ -65,14 +65,12 @@ describe('Number Inputs', (): void => {
     describe('nonNumberInputs', (): void => {
         testNonEmptyArray(nonNumberInputs);
         testInputArrayDuplicates(nonNumberInputs);
-
         testNonTypeInputArray(nonNumberInputs, type, isNumber);
     });
 
     describe('definedNonNumberInputs', (): void => {
         testNonEmptyArray(definedNonNumberInputs);
         testInputArrayDuplicates(definedNonNumberInputs);
-
         testNonTypeInputArray(definedNonNumberInputs, type, isNumber);
         testDefinedInputArray(definedNonNumberInputs);
     });
@@ -80,7 +78,6 @@ describe('Number Inputs', (): void => {
     describe('nonFiniteNumberInputs', (): void => {
         testNonEmptyArray(nonFiniteNumberInputs);
         testInputArrayDuplicates(nonFiniteNumberInputs);
-
         testTypeInputArray(nonFiniteNumberInputs, type, isNumber);
 
         testTypeInputArray(nonFiniteNumberInputs, 'non-finite number', (input: unknown): boolean => {
@@ -91,7 +88,6 @@ describe('Number Inputs', (): void => {
     describe('zeroInputs', (): void => {
         testNonEmptyArray(zeroInputs);
         testInputArrayDuplicates(zeroInputs);
-
         testTypeInputArray(zeroInputs, type, isNumber);
 
         testTypeInputArray(zeroInputs, 'zero', (input: unknown): boolean => {
@@ -112,7 +108,6 @@ describe('Number Inputs', (): void => {
     describe('negativeUnsafeNumberInputs', (): void => {
         testNonEmptyArray(negativeUnsafeNumberInputs);
         testInputArrayDuplicates(negativeUnsafeNumberInputs);
-
         testTypeInputArray(negativeUnsafeNumberInputs, type, isNumber);
 
         testTypeInputArray(negativeUnsafeNumberInputs, 'negative unsafe number', (input: unknown): boolean => {
@@ -123,7 +118,6 @@ describe('Number Inputs', (): void => {
     describe('positiveUnsafeNumberInputs', (): void => {
         testNonEmptyArray(positiveUnsafeNumberInputs);
         testInputArrayDuplicates(positiveUnsafeNumberInputs);
-
         testTypeInputArray(positiveUnsafeNumberInputs, type, isNumber);
 
         testTypeInputArray(positiveUnsafeNumberInputs, 'positive unsafe number', (input: unknown): boolean => {
@@ -134,7 +128,6 @@ describe('Number Inputs', (): void => {
     describe('unsafeNumberInputs', (): void => {
         testNonEmptyArray(unsafeNumberInputs);
         testInputArrayDuplicates(unsafeNumberInputs);
-
         testTypeInputArray(unsafeNumberInputs, type, isNumber);
 
         testTypeInputArray(unsafeNumberInputs, 'unsafe number', (input: unknown): boolean => {
@@ -145,7 +138,6 @@ describe('Number Inputs', (): void => {
     describe('negativeSafeFloatInputs', (): void => {
         testNonEmptyArray(negativeSafeFloatInputs);
         testInputArrayDuplicates(negativeSafeFloatInputs);
-
         testTypeInputArray(negativeSafeFloatInputs, type, isNumber);
 
         testTypeInputArray(negativeSafeFloatInputs, 'negative safe float', (input: unknown): boolean => {
@@ -156,7 +148,6 @@ describe('Number Inputs', (): void => {
     describe('positiveSafeFloatInputs', (): void => {
         testNonEmptyArray(positiveSafeFloatInputs);
         testInputArrayDuplicates(positiveSafeFloatInputs);
-
         testTypeInputArray(positiveSafeFloatInputs, type, isNumber);
 
         testTypeInputArray(positiveSafeFloatInputs, 'positive safe float', (input: unknown): boolean => {
@@ -167,16 +158,13 @@ describe('Number Inputs', (): void => {
     describe('safeFloatInputs', (): void => {
         testNonEmptyArray(safeFloatInputs);
         testInputArrayDuplicates(safeFloatInputs);
-
         testTypeInputArray(safeFloatInputs, type, isNumber);
-
         testTypeInputArray(safeFloatInputs, 'safe float', isSafeFloat);
     });
 
     describe('negativeSafeIntegerInputs', (): void => {
         testNonEmptyArray(negativeSafeIntegerInputs);
         testInputArrayDuplicates(negativeSafeIntegerInputs);
-
         testTypeInputArray(negativeSafeIntegerInputs, type, isNumber);
 
         testTypeInputArray(negativeSafeIntegerInputs, 'negative safe integer', (input: unknown): boolean => {
@@ -187,16 +175,13 @@ describe('Number Inputs', (): void => {
     describe('positiveSafeIntegerInputs', (): void => {
         testNonEmptyArray(positiveSafeIntegerInputs);
         testInputArrayDuplicates(positiveSafeIntegerInputs);
-
         testTypeInputArray(positiveSafeIntegerInputs, type, isNumber);
-
         testTypeInputArray(positiveSafeIntegerInputs, 'positive safe integer', isPositiveSafeInteger);
     });
 
     describe('safeIntegerInputs', (): void => {
         testNonEmptyArray(safeIntegerInputs);
         testInputArrayDuplicates(safeIntegerInputs);
-
         testTypeInputArray(safeIntegerInputs, type, isNumber);
 
         testTypeInputArray(safeIntegerInputs, 'nonzero safe integer', (input: unknown): boolean => {
@@ -207,7 +192,6 @@ describe('Number Inputs', (): void => {
     describe('positiveSafeNumberInputs', (): void => {
         testNonEmptyArray(positiveSafeNumberInputs);
         testInputArrayDuplicates(positiveSafeNumberInputs);
-
         testTypeInputArray(positiveSafeNumberInputs, type, isNumber);
 
         testTypeInputArray(positiveSafeNumberInputs, 'positive safe number', (input: unknown): boolean => {
@@ -218,7 +202,6 @@ describe('Number Inputs', (): void => {
     describe('negativeSafeNumberInputs', (): void => {
         testNonEmptyArray(negativeSafeNumberInputs);
         testInputArrayDuplicates(negativeSafeNumberInputs);
-
         testTypeInputArray(negativeSafeNumberInputs, type, isNumber);
 
         testTypeInputArray(negativeSafeNumberInputs, 'negative safe number', (input: unknown): boolean => {
@@ -229,7 +212,6 @@ describe('Number Inputs', (): void => {
     describe('safeNumberInputs', (): void => {
         testNonEmptyArray(safeNumberInputs);
         testInputArrayDuplicates(safeNumberInputs);
-
         testTypeInputArray(safeNumberInputs, type, isNumber);
 
         testTypeInputArray(safeNumberInputs, 'nonzero safe number', (input: unknown): boolean => {

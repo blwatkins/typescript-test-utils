@@ -57,7 +57,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorRGBNumberInputs', (): void => {
         testNonEmptyArray(hexColorRGBNumberInputs);
         testInputArrayDuplicates(hexColorRGBNumberInputs);
-
         testTypeInputArray(hexColorRGBNumberInputs, type, isString);
         testTypeInputArray(hexColorRGBNumberInputs, '7-character string with one leading #', isRGBShape);
         testTypeInputArray(hexColorRGBNumberInputs, 'caseless string', isCaseless);
@@ -66,7 +65,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorRGBANumberInputs', (): void => {
         testNonEmptyArray(hexColorRGBANumberInputs);
         testInputArrayDuplicates(hexColorRGBANumberInputs);
-
         testTypeInputArray(hexColorRGBANumberInputs, type, isString);
         testTypeInputArray(hexColorRGBANumberInputs, '9-character string with one leading #', isRGBAShape);
         testTypeInputArray(hexColorRGBANumberInputs, 'caseless string', isCaseless);
@@ -75,7 +73,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorRGBUppercaseInputs', (): void => {
         testNonEmptyArray(hexColorRGBUppercaseInputs);
         testInputArrayDuplicates(hexColorRGBUppercaseInputs);
-
         testTypeInputArray(hexColorRGBUppercaseInputs, type, isString);
         testTypeInputArray(hexColorRGBUppercaseInputs, '7-character string with one leading #', isRGBShape);
         testTypeInputArray(hexColorRGBUppercaseInputs, 'uppercase string', isUppercase);
@@ -84,7 +81,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorRGBAUppercaseInputs', (): void => {
         testNonEmptyArray(hexColorRGBAUppercaseInputs);
         testInputArrayDuplicates(hexColorRGBAUppercaseInputs);
-
         testTypeInputArray(hexColorRGBAUppercaseInputs, type, isString);
         testTypeInputArray(hexColorRGBAUppercaseInputs, '9-character string with one leading #', isRGBAShape);
         testTypeInputArray(hexColorRGBAUppercaseInputs, 'uppercase string', isUppercase);
@@ -93,7 +89,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorRGBLowercaseInputs', (): void => {
         testNonEmptyArray(hexColorRGBLowercaseInputs);
         testInputArrayDuplicates(hexColorRGBLowercaseInputs);
-
         testTypeInputArray(hexColorRGBLowercaseInputs, type, isString);
         testTypeInputArray(hexColorRGBLowercaseInputs, '7-character string with one leading #', isRGBShape);
         testTypeInputArray(hexColorRGBLowercaseInputs, 'lowercase string', isLowercase);
@@ -102,7 +97,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorRGBALowercaseInputs', (): void => {
         testNonEmptyArray(hexColorRGBALowercaseInputs);
         testInputArrayDuplicates(hexColorRGBALowercaseInputs);
-
         testTypeInputArray(hexColorRGBALowercaseInputs, type, isString);
         testTypeInputArray(hexColorRGBALowercaseInputs, '9-character string with one leading #', isRGBAShape);
         testTypeInputArray(hexColorRGBALowercaseInputs, 'lowercase string', isLowercase);
@@ -111,7 +105,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorRGBMixedCaseInputs', (): void => {
         testNonEmptyArray(hexColorRGBMixedCaseInputs);
         testInputArrayDuplicates(hexColorRGBMixedCaseInputs);
-
         testTypeInputArray(hexColorRGBMixedCaseInputs, type, isString);
         testTypeInputArray(hexColorRGBMixedCaseInputs, '7-character string with one leading #', isRGBShape);
         testTypeInputArray(hexColorRGBMixedCaseInputs, 'mixed case string', isMixedCase);
@@ -120,7 +113,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorRGBAMixedCaseInputs', (): void => {
         testNonEmptyArray(hexColorRGBAMixedCaseInputs);
         testInputArrayDuplicates(hexColorRGBAMixedCaseInputs);
-
         testTypeInputArray(hexColorRGBAMixedCaseInputs, type, isString);
         testTypeInputArray(hexColorRGBAMixedCaseInputs, '9-character string with one leading #', isRGBAShape);
         testTypeInputArray(hexColorRGBAMixedCaseInputs, 'mixed case string', isMixedCase);
@@ -129,7 +121,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorSameCaseInputs', (): void => {
         testNonEmptyArray(hexColorSameCaseInputs);
         testInputArrayDuplicates(hexColorSameCaseInputs);
-
         testTypeInputArray(hexColorSameCaseInputs, type, isString);
 
         testTypeInputArray(hexColorSameCaseInputs, 'same case string', (input: unknown): boolean => {
@@ -140,7 +131,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorMixedCaseInputs', (): void => {
         testNonEmptyArray(hexColorMixedCaseInputs);
         testInputArrayDuplicates(hexColorMixedCaseInputs);
-
         testTypeInputArray(hexColorMixedCaseInputs, type, isString);
         testTypeInputArray(hexColorMixedCaseInputs, 'mixed case string', isMixedCase);
     });
@@ -148,7 +138,6 @@ describe('Color String Hex Inputs', (): void => {
     describe('hexColorFailureInputs', (): void => {
         testNonEmptyArray(hexColorFailureInputs);
         testInputArrayDuplicates(hexColorFailureInputs);
-
         testTypeInputArray(hexColorFailureInputs, type, isString);
         testNonTypeInputArray(hexColorFailureInputs, 'same case hex color', isEntryOf(hexColorSameCaseInputs));
         testNonTypeInputArray(hexColorFailureInputs, 'mixed case hex color', isEntryOf(hexColorMixedCaseInputs));

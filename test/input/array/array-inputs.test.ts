@@ -42,14 +42,12 @@ describe('Array Inputs', (): void => {
     describe('nonArrayInputs', (): void => {
         testNonEmptyArray(nonArrayInputs);
         testInputArrayDuplicates(nonArrayInputs);
-
         testNonTypeInputArray(nonArrayInputs, type, Array.isArray);
     });
 
     describe('definedNonArrayInputs', (): void => {
         testNonEmptyArray(definedNonArrayInputs);
         testInputArrayDuplicates(definedNonArrayInputs);
-
         testNonTypeInputArray(definedNonArrayInputs, type, Array.isArray);
         testDefinedInputArray(definedNonArrayInputs);
     });
@@ -57,7 +55,6 @@ describe('Array Inputs', (): void => {
     describe('denseArrayInputs', (): void => {
         testNonEmptyArray(denseArrayInputs);
         testInputArrayDuplicates(denseArrayInputs);
-
         testTypeInputArray(denseArrayInputs, type, Array.isArray);
 
         test('Should not contain sparse arrays', (): void => {
@@ -70,7 +67,6 @@ describe('Array Inputs', (): void => {
     describe('sparseArrayInputs', (): void => {
         testNonEmptyArray(sparseArrayInputs);
         testInputArrayDuplicates(sparseArrayInputs);
-
         testTypeInputArray(sparseArrayInputs, type, Array.isArray);
 
         test('Should only contain sparse arrays', (): void => {

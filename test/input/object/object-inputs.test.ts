@@ -33,14 +33,12 @@ describe('Object Inputs', (): void => {
     describe('nonObjectInputs', (): void => {
         testNonEmptyArray(nonObjectInputs);
         testInputArrayDuplicates(nonObjectInputs);
-
         testNonTypeInputArray(nonObjectInputs, type, isObject);
     });
 
     describe('definedNonObjectInputs', (): void => {
         testNonEmptyArray(definedNonObjectInputs);
         testInputArrayDuplicates(definedNonObjectInputs);
-
         testNonTypeInputArray(definedNonObjectInputs, type, isObject);
         testDefinedInputArray(definedNonObjectInputs);
     });

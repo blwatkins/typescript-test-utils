@@ -33,14 +33,12 @@ describe('Function Inputs', (): void => {
     describe('nonFunctionInputs', (): void => {
         testNonEmptyArray(nonFunctionInputs);
         testInputArrayDuplicates(nonFunctionInputs);
-
         testNonTypeInputArray(nonFunctionInputs, type, isFunction);
     });
 
     describe('definedNonFunctionInputs', (): void => {
         testNonEmptyArray(definedNonFunctionInputs);
         testInputArrayDuplicates(definedNonFunctionInputs);
-
         testNonTypeInputArray(definedNonFunctionInputs, type, isFunction);
         testDefinedInputArray(definedNonFunctionInputs);
     });

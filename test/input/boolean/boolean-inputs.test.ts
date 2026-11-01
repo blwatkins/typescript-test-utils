@@ -33,14 +33,12 @@ describe('Boolean Inputs', (): void => {
     describe('nonBooleanInputs', (): void => {
         testNonEmptyArray(nonBooleanInputs);
         testInputArrayDuplicates(nonBooleanInputs);
-
         testNonTypeInputArray(nonBooleanInputs, type, isBoolean);
     });
 
     describe('definedNonBooleanInputs', (): void => {
         testNonEmptyArray(definedNonBooleanInputs);
         testInputArrayDuplicates(definedNonBooleanInputs);
-
         testNonTypeInputArray(definedNonBooleanInputs, type, isBoolean);
         testDefinedInputArray(definedNonBooleanInputs);
     });
