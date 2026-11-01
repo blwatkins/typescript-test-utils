@@ -20,21 +20,26 @@
  * SPDX-License-Identifier: MIT
  */
 
-/**
- * An example class export.
- *
- * @since 1.0.0
- */
-export class HelloWorld {
-    /**
-     * An example method.
-     *
-     * @returns {void}
-     *
-     * @public
-     * @since 1.0.0
-     */
-    public hello(): void {
-        console.log('Hello, World!');
-    }
-}
+import { describe } from 'vitest';
+
+import { definedNonFunctionInputs, nonFunctionInputs } from '../../../src';
+
+import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray } from '../../utils/input/input-tests';
+import { isFunction } from '../../utils/input/type-checks';
+
+describe('Function Inputs', (): void => {
+    const type: string = 'function';
+
+    describe('nonFunctionInputs', (): void => {
+        testNonEmptyArray(nonFunctionInputs);
+        testInputArrayDuplicates(nonFunctionInputs);
+        testNonTypeInputArray(nonFunctionInputs, type, isFunction);
+    });
+
+    describe('definedNonFunctionInputs', (): void => {
+        testNonEmptyArray(definedNonFunctionInputs);
+        testInputArrayDuplicates(definedNonFunctionInputs);
+        testNonTypeInputArray(definedNonFunctionInputs, type, isFunction);
+        testDefinedInputArray(definedNonFunctionInputs);
+    });
+});

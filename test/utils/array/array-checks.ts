@@ -20,4 +20,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-export * from './hello-world';
+export function isEntryOf(inputs: unknown[]): (input: unknown) => boolean {
+    return (input: unknown): boolean => {
+        return inputs.includes(input);
+    };
+}

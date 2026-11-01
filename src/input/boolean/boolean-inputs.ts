@@ -20,6 +20,64 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { test } from 'vitest';
+/**
+ * Inputs that are not primitive booleans.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ * @category Boolean
+ */
+// noinspection JSPrimitiveTypeWrapperUsage
+export const nonBooleanInputs: unknown[] = [
+    null,
+    undefined,
+    0,
+    1,
+    -1,
+    10n,
+    -10n,
+    1.5,
+    -1.5,
+    Number.MAX_SAFE_INTEGER,
+    Number.MIN_SAFE_INTEGER,
+    Number.MAX_VALUE,
+    Number.MIN_VALUE,
+    Number.EPSILON,
+    Number.NaN,
+    Infinity,
+    -Infinity,
+    '',
+    'string',
+    '\n\t',
+    '     ',
+    'true',
+    'false',
+    '0',
+    '1',
+    (): string => 'value',
+    (): boolean => true,
+    Math.random,
+    new Number(10),
+    new String('value'),
+    new Boolean(true),
+    new Boolean(false),
+    new Object(true),
+    new Object('value'),
+    [],
+    [true, false],
+    {},
+    { key: 'value' },
+    { key: true },
+    Symbol('test')
+];
 
-test.todo('Hello, World!');
+/**
+ * The inputs in {@link nonBooleanInputs}, excluding `undefined`.
+ *
+ * @type {unknown[]}
+ * @since 0.1.0
+ * @category Boolean
+ */
+export const definedNonBooleanInputs: unknown[] = nonBooleanInputs.filter((input: unknown): boolean => {
+    return input !== undefined;
+});

@@ -74,6 +74,8 @@
     "typescript",
     "javascript",
     "testing",
-    "unit-testing"
+    "unit-testing",
+    "test-fixtures",
+    "test-inputs"
   ]
 }
