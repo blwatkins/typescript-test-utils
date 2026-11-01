@@ -23,19 +23,34 @@
 import * as arrayUtils from '../array';
 
 /**
+ * Checks whether every index of an array holds a primitive string.
+ *
+ * @param {unknown[]} inputs - The array to check.
+ *
+ * @returns {boolean} `true` when every index holds a string; `false` otherwise, including when a sparse array has an empty slot.
+ *
+ * @private
+ */
+function hasOnlyStrings(inputs: unknown[]): boolean {
+    return Array.from(inputs).every((input: unknown): boolean => {
+        return typeof input === 'string';
+    });
+}
+
+/**
  * Builds single-line strings from each token alone and from all tokens joined by single spaces.
  *
  * @param {string[]} tokens - The single-line strings to build from.
  *
  * @returns {string[]} The single-line strings.
  *
- * @throws {TypeError} When `tokens` is not an array with at least two elements.
+ * @throws {TypeError} When `tokens` is not an array of at least two strings.
  *
  * @since 0.1.0
  */
 export function buildSingleLineInputs(tokens: string[]): string[] {
-    if (!Array.isArray(tokens) || tokens.length < 2) {
-        throw new TypeError('tokens must be an array with at least two elements.');
+    if (!Array.isArray(tokens) || tokens.length < 2 || !hasOnlyStrings(tokens)) {
+        throw new TypeError('tokens must be an array of at least two strings.');
     }
 
     return [
@@ -52,19 +67,18 @@ export function buildSingleLineInputs(tokens: string[]): string[] {
  *
  * @returns {string[]} The characters, in code point order.
  *
- * @throws {TypeError} When `start` and `end` are not both integers between 0 and 0x10FFFF (inclusive).
+ * @throws {TypeError} When `start` and `end` are not both integers.
+ * @throws {RangeError} When `start` and `end` are not both between 0 and 0x10FFFF (inclusive).
  *
  * @since 0.1.0
  */
 export function charactersFromCodePointRange(start: number, end: number): string[] {
-    const errorMessage = 'start and end must be integers between 0 and 0x10FFFF.';
-
     if (!Number.isInteger(start) || !Number.isInteger(end)) {
-        throw new TypeError(errorMessage);
+        throw new TypeError('start and end must be integers.');
     }
 
     if (start < 0 || start > 0x10FFFF || end < 0 || end > 0x10FFFF) {
-        throw new TypeError(errorMessage);
+        throw new RangeError('start and end must be between 0 and 0x10FFFF.');
     }
 
     return Array.from({ length: end - start + 1 }, (_value: unknown, index: number): string => {
@@ -80,13 +94,13 @@ export function charactersFromCodePointRange(start: number, end: number): string
  *
  * @returns {string[]} The unique joined strings.
  *
- * @throws {TypeError} When `inputsA` and `inputsB` are not both arrays.
+ * @throws {TypeError} When `inputsA` and `inputsB` are not both arrays of strings.
  *
  * @since 0.1.0
  */
 export function mixStrings(inputsA: string[], inputsB: string[]): string[] {
-    if (!Array.isArray(inputsA) || !Array.isArray(inputsB)) {
-        throw new TypeError('inputsA and inputsB must be arrays.');
+    if (!Array.isArray(inputsA) || !Array.isArray(inputsB) || !hasOnlyStrings(inputsA) || !hasOnlyStrings(inputsB)) {
+        throw new TypeError('inputsA and inputsB must be arrays of strings.');
     }
 
     return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
@@ -104,13 +118,13 @@ export function mixStrings(inputsA: string[], inputsB: string[]): string[] {
  *
  * @returns {string[]} The unique joined strings.
  *
- * @throws {TypeError} When `inputsA` and `inputsB` are not both arrays.
+ * @throws {TypeError} When `inputsA` and `inputsB` are not both arrays of strings.
  *
  * @since 0.1.0
  */
 export function pairStrings(inputsA: string[], inputsB: string[]): string[] {
-    if (!Array.isArray(inputsA) || !Array.isArray(inputsB)) {
-        throw new TypeError('inputsA and inputsB must be arrays.');
+    if (!Array.isArray(inputsA) || !Array.isArray(inputsB) || !hasOnlyStrings(inputsA) || !hasOnlyStrings(inputsB)) {
+        throw new TypeError('inputsA and inputsB must be arrays of strings.');
     }
 
     return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
