@@ -20,7 +20,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, test, expect } from 'vitest';
+import { test, expect } from 'vitest';
 
 export function testNonEmptyArray(inputs: unknown[]): void {
     test('Should be a non-empty array', (): void => {
@@ -40,39 +40,23 @@ export function testInputArrayDuplicates(inputs: unknown[]): void {
 }
 
 export function testNonTypeInputArray(inputs: unknown[], description: string, check: (input: unknown) => boolean): void {
-    describe(`Is a non-empty array with no ${description} elements`, (): void => {
-        testNonEmptyArray(inputs);
-
-        test(`Should not contain ${description} elements`, (): void => {
-            expect(inputs.filter((input: unknown): boolean => {
-                return check(input);
-            })).toEqual([]);
-        });
-
-        testInputArrayDuplicates(inputs);
+    test(`Should not contain ${description} elements`, (): void => {
+        expect(inputs.filter((input: unknown): boolean => {
+            return check(input);
+        })).toEqual([]);
     });
 }
 
 export function testTypeInputArray(inputs: unknown[], description: string, check: (input: unknown) => boolean): void {
-    describe(`Is a non-empty array with only ${description} elements`, (): void => {
-        testNonEmptyArray(inputs);
-
-        test(`Should only contain ${description} elements`, (): void => {
-            expect(inputs.filter((input: unknown): boolean => {
-                return !check(input);
-            })).toEqual([]);
-        });
-
-        testInputArrayDuplicates(inputs);
+    test(`Should only contain ${description} elements`, (): void => {
+        expect(inputs.filter((input: unknown): boolean => {
+            return !check(input);
+        })).toEqual([]);
     });
 }
 
 export function testDefinedInputArray(inputs: unknown[]): void {
-    describe(`Is a non-empty array with only defined elements`, (): void => {
-        testNonEmptyArray(inputs);
-
-        test(`Should not have undefined elements`, (): void => {
-            expect(inputs).not.toContain(undefined);
-        });
+    test('Should not have undefined elements', (): void => {
+        expect(inputs).not.toContain(undefined);
     });
 }
