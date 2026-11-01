@@ -24,17 +24,23 @@ import { describe } from 'vitest';
 
 import { definedNonObjectInputs, nonObjectInputs } from '../../../src';
 
-import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
+import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray } from '../../utils/input/input-tests';
 import { isObject } from '../../utils/input/type-checks';
 
 describe('Object Inputs', (): void => {
     const type: string = 'object';
 
     describe('nonObjectInputs', (): void => {
+        testNonEmptyArray(nonObjectInputs);
+        testInputArrayDuplicates(nonObjectInputs);
+
         testNonTypeInputArray(nonObjectInputs, type, isObject);
     });
 
     describe('definedNonObjectInputs', (): void => {
+        testNonEmptyArray(definedNonObjectInputs);
+        testInputArrayDuplicates(definedNonObjectInputs);
+
         testNonTypeInputArray(definedNonObjectInputs, type, isObject);
         testDefinedInputArray(definedNonObjectInputs);
     });

@@ -24,7 +24,7 @@ import { describe, test, expect } from 'vitest';
 
 import { definedNonArrayInputs, denseArrayInputs, nonArrayInputs, sparseArrayInputs } from '../../../src';
 
-import { testDefinedInputArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
+import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
 
 describe('Array Inputs', (): void => {
     const type: string = 'array';
@@ -40,15 +40,24 @@ describe('Array Inputs', (): void => {
     }
 
     describe('nonArrayInputs', (): void => {
+        testNonEmptyArray(nonArrayInputs);
+        testInputArrayDuplicates(nonArrayInputs);
+
         testNonTypeInputArray(nonArrayInputs, type, Array.isArray);
     });
 
     describe('definedNonArrayInputs', (): void => {
+        testNonEmptyArray(definedNonArrayInputs);
+        testInputArrayDuplicates(definedNonArrayInputs);
+
         testNonTypeInputArray(definedNonArrayInputs, type, Array.isArray);
         testDefinedInputArray(definedNonArrayInputs);
     });
 
     describe('denseArrayInputs', (): void => {
+        testNonEmptyArray(denseArrayInputs);
+        testInputArrayDuplicates(denseArrayInputs);
+
         testTypeInputArray(denseArrayInputs, type, Array.isArray);
 
         test('Should not contain sparse arrays', (): void => {
@@ -59,6 +68,9 @@ describe('Array Inputs', (): void => {
     });
 
     describe('sparseArrayInputs', (): void => {
+        testNonEmptyArray(sparseArrayInputs);
+        testInputArrayDuplicates(sparseArrayInputs);
+
         testTypeInputArray(sparseArrayInputs, type, Array.isArray);
 
         test('Should only contain sparse arrays', (): void => {

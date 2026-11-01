@@ -24,17 +24,23 @@ import { describe } from 'vitest';
 
 import { definedNonFunctionInputs, nonFunctionInputs } from '../../../src';
 
-import { testDefinedInputArray, testNonTypeInputArray } from '../../utils/input/input-tests';
+import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray } from '../../utils/input/input-tests';
 import { isFunction } from '../../utils/input/type-checks';
 
 describe('Function Inputs', (): void => {
     const type: string = 'function';
 
     describe('nonFunctionInputs', (): void => {
+        testNonEmptyArray(nonFunctionInputs);
+        testInputArrayDuplicates(nonFunctionInputs);
+
         testNonTypeInputArray(nonFunctionInputs, type, isFunction);
     });
 
     describe('definedNonFunctionInputs', (): void => {
+        testNonEmptyArray(definedNonFunctionInputs);
+        testInputArrayDuplicates(definedNonFunctionInputs);
+
         testNonTypeInputArray(definedNonFunctionInputs, type, isFunction);
         testDefinedInputArray(definedNonFunctionInputs);
     });
