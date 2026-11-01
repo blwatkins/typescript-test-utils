@@ -100,7 +100,7 @@ export function charactersFromCodePointRange(start: number, end: number): string
  */
 export function mixStrings(inputsA: string[], inputsB: string[]): string[] {
     if (!Array.isArray(inputsA) || !Array.isArray(inputsB) || !hasOnlyStrings(inputsA) || !hasOnlyStrings(inputsB)) {
-        throw new TypeError('inputsA and inputsB must be arrays of strings.');
+        throw new TypeError('inputsA and inputsB must be dense arrays of strings.');
     }
 
     return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
@@ -124,7 +124,7 @@ export function mixStrings(inputsA: string[], inputsB: string[]): string[] {
  */
 export function pairStrings(inputsA: string[], inputsB: string[]): string[] {
     if (!Array.isArray(inputsA) || !Array.isArray(inputsB) || !hasOnlyStrings(inputsA) || !hasOnlyStrings(inputsB)) {
-        throw new TypeError('inputsA and inputsB must be arrays of strings.');
+        throw new TypeError('inputsA and inputsB must be dense arrays of strings.');
     }
 
     return arrayUtils.unique(inputsA.flatMap((inputA: string): string[] => {
