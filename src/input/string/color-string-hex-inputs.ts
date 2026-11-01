@@ -30,7 +30,7 @@ import * as stringUtils from '../../string';
  * @since 0.1.0
  * @category String
  */
-export const hexColorRGBNumberInputs: string[] = [
+export const hexColorRGBDigitInputs: string[] = [
     '#000000',
     '#999999',
     '#123456',
@@ -44,7 +44,7 @@ export const hexColorRGBNumberInputs: string[] = [
  * @since 0.1.0
  * @category String
  */
-export const hexColorRGBANumberInputs: string[] = [
+export const hexColorRGBADigitInputs: string[] = [
     '#00000000',
     '#99999999',
     '#12345678',
@@ -145,8 +145,8 @@ export const hexColorRGBAMixedCaseInputs: string[] = [
  * @category String
  */
 export const hexColorSameCaseInputs: string[] = [
-    ...hexColorRGBNumberInputs,
-    ...hexColorRGBANumberInputs,
+    ...hexColorRGBDigitInputs,
+    ...hexColorRGBADigitInputs,
     ...hexColorRGBUppercaseInputs,
     ...hexColorRGBAUppercaseInputs,
     ...hexColorRGBLowercaseInputs,

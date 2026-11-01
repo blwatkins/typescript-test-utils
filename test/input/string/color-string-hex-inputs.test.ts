@@ -25,13 +25,13 @@ import { describe } from 'vitest';
 import {
     hexColorFailureInputs,
     hexColorMixedCaseInputs,
+    hexColorRGBADigitInputs,
     hexColorRGBALowercaseInputs,
     hexColorRGBAMixedCaseInputs,
-    hexColorRGBANumberInputs,
     hexColorRGBAUppercaseInputs,
+    hexColorRGBDigitInputs,
     hexColorRGBLowercaseInputs,
     hexColorRGBMixedCaseInputs,
-    hexColorRGBNumberInputs,
     hexColorRGBUppercaseInputs,
     hexColorSameCaseInputs
 } from '../../../src';
@@ -54,20 +54,20 @@ describe('Color String Hex Inputs', (): void => {
         return value.length === 9 && value.lastIndexOf('#') === 0;
     }
 
-    describe('hexColorRGBNumberInputs', (): void => {
-        testNonEmptyArray(hexColorRGBNumberInputs);
-        testInputArrayDuplicates(hexColorRGBNumberInputs);
-        testTypeInputArray(hexColorRGBNumberInputs, type, isString);
-        testTypeInputArray(hexColorRGBNumberInputs, '7-character string with one leading #', isRGBShape);
-        testTypeInputArray(hexColorRGBNumberInputs, 'caseless string', isCaseless);
+    describe('hexColorRGBDigitInputs', (): void => {
+        testNonEmptyArray(hexColorRGBDigitInputs);
+        testInputArrayDuplicates(hexColorRGBDigitInputs);
+        testTypeInputArray(hexColorRGBDigitInputs, type, isString);
+        testTypeInputArray(hexColorRGBDigitInputs, '7-character string with one leading #', isRGBShape);
+        testTypeInputArray(hexColorRGBDigitInputs, 'caseless string', isCaseless);
     });
 
-    describe('hexColorRGBANumberInputs', (): void => {
-        testNonEmptyArray(hexColorRGBANumberInputs);
-        testInputArrayDuplicates(hexColorRGBANumberInputs);
-        testTypeInputArray(hexColorRGBANumberInputs, type, isString);
-        testTypeInputArray(hexColorRGBANumberInputs, '9-character string with one leading #', isRGBAShape);
-        testTypeInputArray(hexColorRGBANumberInputs, 'caseless string', isCaseless);
+    describe('hexColorRGBADigitInputs', (): void => {
+        testNonEmptyArray(hexColorRGBADigitInputs);
+        testInputArrayDuplicates(hexColorRGBADigitInputs);
+        testTypeInputArray(hexColorRGBADigitInputs, type, isString);
+        testTypeInputArray(hexColorRGBADigitInputs, '9-character string with one leading #', isRGBAShape);
+        testTypeInputArray(hexColorRGBADigitInputs, 'caseless string', isCaseless);
     });
 
     describe('hexColorRGBUppercaseInputs', (): void => {
