@@ -239,7 +239,7 @@ const allWhitespaceCharacters: string[] = stringUtils.charactersFromCodePointRan
 });
 
 /**
- * Characters that are not text characters, including a lone carriage return, control and format characters, non-text whitespace, combining marks, look-alike letters, private use, unassigned, and lone surrogate code points.
+ * Characters that are not text characters, including a lone carriage return, control and format characters, non-text whitespace, rejected Latin-1 Supplement characters, tag characters, blank fillers, combining marks, look-alike and non-Latin letters, symbols outside the text set, private use, unassigned, and lone surrogate code points.
  *
  * @type {string[]}
  * @private
