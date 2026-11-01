@@ -23,11 +23,11 @@
 import * as arrayUtils from '../array';
 
 /**
- * Checks whether every index of an array holds a primitive string.
+ * Does every index of `inputs` hold a primitive string?
  *
  * @param {unknown[]} inputs - The array to check.
  *
- * @returns {boolean} `true` when every index holds a string; `false` otherwise, including when a sparse array has an empty slot.
+ * @returns {boolean} `true` when every index holds a string; `false` otherwise.
  *
  * @private
  */
@@ -44,13 +44,13 @@ function hasOnlyStrings(inputs: unknown[]): boolean {
  *
  * @returns {string[]} The single-line strings.
  *
- * @throws {TypeError} When `tokens` is not an array of at least two strings.
+ * @throws {TypeError} When `tokens` is not a dense array of at least two strings.
  *
  * @since 0.1.0
  */
 export function buildSingleLineInputs(tokens: string[]): string[] {
     if (!Array.isArray(tokens) || tokens.length < 2 || !hasOnlyStrings(tokens)) {
-        throw new TypeError('tokens must be an array of at least two strings.');
+        throw new TypeError('tokens must be a dense array of at least two strings.');
     }
 
     return [
@@ -94,7 +94,7 @@ export function charactersFromCodePointRange(start: number, end: number): string
  *
  * @returns {string[]} The unique joined strings.
  *
- * @throws {TypeError} When `inputsA` and `inputsB` are not both arrays of strings.
+ * @throws {TypeError} When `inputsA` and `inputsB` are not both dense arrays of strings.
  *
  * @since 0.1.0
  */
@@ -118,7 +118,7 @@ export function mixStrings(inputsA: string[], inputsB: string[]): string[] {
  *
  * @returns {string[]} The unique joined strings.
  *
- * @throws {TypeError} When `inputsA` and `inputsB` are not both arrays of strings.
+ * @throws {TypeError} When `inputsA` and `inputsB` are not both dense arrays of strings.
  *
  * @since 0.1.0
  */
