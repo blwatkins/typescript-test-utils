@@ -20,6 +20,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { isBaseScenario } from './base-scenario';
 import { Scenario } from './scenario';
 
 /**
@@ -35,5 +36,20 @@ export type SingleInputScenario = Scenario & {
      * @readonly
      * @since 0.1.0
      */
-    readonly input: unknown;
+    readonly inputs: unknown;
 };
+
+/**
+ * Is `input` a {@link SingleInputScenario}?
+ *
+ * @remarks For `input` to be a valid {@link SingleInputScenario}, the `inputs` property cannot be an array.
+ *
+ * @see {@link isBaseScenario}
+ *
+ * @param {Scenario} input - The {@link Scenario} to check.
+ *
+ * @returns {input is SingleInputScenario} `true` if input is a {@link SingleInputScenario} object; `false` otherwise.
+ */
+export function isSingleInputScenario(input: Scenario): input is SingleInputScenario {
+    return isBaseScenario(input) && !Array.isArray(input.inputs);
+}

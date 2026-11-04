@@ -44,3 +44,19 @@ export interface BaseScenario {
      */
     readonly inputs: unknown[];
 }
+
+/**
+ * Is `input` a {@link BaseScenario}?
+ *
+ * @remarks For `input` to be a valid {@link BaseScenario}, it must be an object with {@link BaseScenario.label} and {@link BaseScenario.inputs} properties.
+ * The {@link BaseScenario.label} property must be a string.
+ *
+ * @param {unknown} input - The input to check.
+ *
+ * @returns {input is BaseScenario} `true` if input is a {@link BaseScenario} object; `false` otherwise.
+ */
+export function isBaseScenario(input: unknown): input is BaseScenario {
+    return input !== null && typeof input === 'object' && !Array.isArray(input)
+        && 'label' in input && typeof input.label === 'string'
+        && 'inputs' in input;
+}
