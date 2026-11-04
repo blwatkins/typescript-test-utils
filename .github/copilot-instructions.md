@@ -52,7 +52,9 @@ Claude Code skips backticked and fenced content when parsing imports, but a bare
 ```
 src/
   array/            # Array utilities
+  error/            # Error types
   input/            # Test input fixtures, grouped by type
+  scenario/         # Scenario types and type guards
   string/           # String utilities
   index.ts          # Package entry point (re-exports all modules)
 test/               # Vitest test suites (mirrors src/ module structure)
