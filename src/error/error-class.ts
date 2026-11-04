@@ -25,4 +25,4 @@
  *
  * @since 0.1.0
  */
-export type ErrorClass = new () => Error;
+export type ErrorClass = new (...args: never[]) => Error;
