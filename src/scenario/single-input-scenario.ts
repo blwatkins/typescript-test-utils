@@ -23,6 +23,18 @@
 import { Scenario } from './scenario';
 
 
+/**
+ * A {@link Scenario} that describes one input rather than a set.
+ *
+ * @since 0.1.0
+ */
 export interface SingleInputScenario extends Scenario {
+    /**
+     * The single input the scenario describes.
+     *
+     * @type {unknown}
+     * @readonly
+     * @since 0.1.0
+     */
     readonly input: unknown;
 }
