@@ -22,4 +22,5 @@
 
 export * from './array';
 export * from './input';
+export * from './scenario';
 export * from './string';
