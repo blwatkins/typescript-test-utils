@@ -27,7 +27,7 @@ import { Scenario } from './scenario';
  *
  * @since 0.1.0
  */
-export interface SingleInputScenario extends Scenario {
+export type SingleInputScenario = Scenario & {
     /**
      * The single input the scenario describes.
      *
@@ -36,4 +36,4 @@ export interface SingleInputScenario extends Scenario {
      * @since 0.1.0
      */
     readonly input: unknown;
-}
+};

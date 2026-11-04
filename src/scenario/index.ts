@@ -20,5 +20,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+export * from './base-scenario';
+export * from './error-scenario';
 export * from './scenario';
 export * from './single-input-scenario';
+export * from './value-scenario';

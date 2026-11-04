@@ -20,45 +20,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { ErrorScenario } from './error-scenario';
+import { ValueScenario } from './value-scenario';
+
 /**
  * A set of inputs that share an expected outcome.
  *
  * @since 0.1.0
  */
-export interface Scenario {
-    /**
-     * The label to describe the inputs.
-     *
-     * @type {string}
-     * @readonly
-     * @since 0.1.0
-     */
-    readonly label: string;
-
-    /**
-     * The inputs that share the expected outcome.
-     *
-     * @type {unknown[]}
-     * @readonly
-     * @since 0.1.0
-     */
-    readonly inputs: unknown[];
-
-    /**
-     * The outcome expected for every input.
-     *
-     * @type {unknown}
-     * @readonly
-     * @since 0.1.0
-     */
-    readonly expected: unknown;
-
-    /**
-     * The {@link ErrorConstructor} expected to be thrown for every input.
-     *
-     * @type {ErrorConstructor}
-     * @readonly
-     * @since 0.1.0
-     */
-    readonly expectedError: ErrorConstructor;
-}
+export type Scenario = ValueScenario | ErrorScenario;
