@@ -20,9 +20,45 @@
  * SPDX-License-Identifier: MIT
  */
 
+/**
+ * A set of test inputs that share an expected outcome, grouped under a label that states why they belong together.
+ *
+ * @since 0.1.0
+ */
 export interface Scenario {
+    /**
+     * The reason the inputs belong together.
+     *
+     * @type {string}
+     * @readonly
+     * @since 0.1.0
+     */
     readonly label: string;
+
+    /**
+     * The inputs that share the expected outcome.
+     *
+     * @type {unknown[]}
+     * @readonly
+     * @since 0.1.0
+     */
     readonly inputs: unknown[];
+
+    /**
+     * The outcome expected for every input.
+     *
+     * @type {unknown}
+     * @readonly
+     * @since 0.1.0
+     */
     readonly expected: unknown;
+
+    /**
+     * The error constructor expected to be thrown for every input.
+     *
+     * @type {ErrorConstructor}
+     * @readonly
+     * @since 0.1.0
+     */
     readonly expectedError: ErrorConstructor;
 }
