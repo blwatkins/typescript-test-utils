@@ -42,8 +42,6 @@ export type MultiInputScenario = BaseScenario & {
      *
      * @remarks A {@link MultiInputScenario} should never have a single input.
      *
-     * @see {@link MultiInputScenario.inputs}
-     *
      * @type {never}
      * @readonly
      * @since 0.1.0
