@@ -20,31 +20,5 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { BaseScenario } from './base-scenario';
-
-/**
- * A set of inputs that share an expected outcome.
- *
- * @since 0.1.0
- */
-export interface ValueScenario extends BaseScenario {
-    /**
-     * The outcome expected for every input.
-     *
-     * @type {unknown}
-     * @readonly
-     * @since 0.1.0
-     */
-    readonly expected: unknown;
-
-    /**
-     * The error expected to be thrown for every input.
-     *
-     * @remarks inputs in a {@link ValueScenario} should never throw an error.
-     *
-     * @type {never}
-     * @readonly
-     * @since 0.1.0
-     */
-    readonly expectedError?: never;
-}
+export * from './error-scenario';
+export * from './value-scenario';
