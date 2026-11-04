@@ -4,11 +4,18 @@ layout: 'custom-post'
 author:
   - 'Brittni Watkins'
 date: 2026-10-28
-modified_date: 2026-10-29
+modified_date: 2026-11-04
 toc: true
 read_time: false
 description: 'Resources and references used to develop the TypeScript Test Utilities (@blwatkins/test-utils) npm package.'
 ---
+
+## Languages
+
+### JavaScript
+
+- [MDN Web Docs - JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [MDN Web Docs - Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
 
 ## Text
 
