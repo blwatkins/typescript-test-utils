@@ -34,21 +34,12 @@ export interface BaseScenario {
      * @since 0.1.0
      */
     readonly label: string;
-
-    /**
-     * The inputs that share the expected outcome.
-     *
-     * @type {unknown[]}
-     * @readonly
-     * @since 0.1.0
-     */
-    readonly inputs: unknown[];
 }
 
 /**
  * Is `input` a {@link BaseScenario}?
  *
- * @remarks For `input` to be a valid {@link BaseScenario}, it must be an object with {@link BaseScenario.label} and {@link BaseScenario.inputs} properties.
+ * @remarks For `input` to be a valid {@link BaseScenario}, it must be an object with a {@link BaseScenario.label} property.
  * The {@link BaseScenario.label} property must be a string.
  *
  * @param {unknown} input - The input to check.
@@ -57,6 +48,5 @@ export interface BaseScenario {
  */
 export function isBaseScenario(input: unknown): input is BaseScenario {
     return input !== null && typeof input === 'object' && !Array.isArray(input)
-        && 'label' in input && typeof input.label === 'string'
-        && 'inputs' in input;
+        && 'label' in input && typeof input.label === 'string';
 }
