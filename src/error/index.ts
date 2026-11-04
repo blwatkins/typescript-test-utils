@@ -20,4 +20,4 @@
  * SPDX-License-Identifier: MIT
  */
 
-export * from './error-constructor';
+export * from './error-class';

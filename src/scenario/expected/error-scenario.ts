@@ -20,7 +20,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ErrorConstructor } from '../../error';
+import { ErrorClass } from '../../error';
 
 import { MultiInputScenario, SingleInputScenario, isMultiInputScenario, isSingleInputScenario } from '../input';
 
@@ -33,11 +33,11 @@ export type ErrorScenario = (MultiInputScenario | SingleInputScenario) & {
     /**
      * The error expected to be thrown for every input.
      *
-     * @type {ErrorConstructor}
+     * @type {ErrorClass}
      * @readonly
      * @since 0.1.0
      */
-    readonly expectedError: ErrorConstructor;
+    readonly expectedError: ErrorClass;
 
     /**
      * The outcome expected for every input.

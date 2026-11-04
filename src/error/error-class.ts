@@ -25,4 +25,4 @@
  *
  * @since 0.1.0
  */
-export type ErrorConstructor = new () => Error;
+export type ErrorClass = new () => Error;
