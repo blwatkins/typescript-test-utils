@@ -22,7 +22,6 @@
 
 import { Scenario } from './scenario';
 
-
 /**
  * A {@link Scenario} that describes one input rather than a set.
  *
