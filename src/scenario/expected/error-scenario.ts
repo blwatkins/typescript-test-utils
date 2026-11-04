@@ -62,6 +62,8 @@ export type ErrorScenario = (MultiInputScenario | SingleInputScenario) & {
  * @param {unknown} input - The input to check.
  *
  * @returns {input is ErrorScenario} `true` if input is an {@link ErrorScenario} object; `false` otherwise.
+ *
+ * @since 0.1.0
  */
 export function isErrorScenario(input: unknown): input is ErrorScenario {
     return (isMultiInputScenario(input) || isSingleInputScenario(input))

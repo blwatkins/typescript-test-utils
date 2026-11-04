@@ -60,6 +60,8 @@ export type SingleInputScenario = BaseScenario & {
  * @param {unknown} input - The input to check.
  *
  * @returns {input is SingleInputScenario} `true` if input is a {@link SingleInputScenario} object; `false` otherwise.
+ *
+ * @since 0.1.0
  */
 export function isSingleInputScenario(input: unknown): input is SingleInputScenario {
     return isBaseScenario(input)

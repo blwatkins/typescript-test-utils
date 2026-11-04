@@ -60,6 +60,8 @@ export type MultiInputScenario = BaseScenario & {
  * @param {unknown} input - The input to check.
  *
  * @returns {input is MultiInputScenario} `true` if input is a {@link MultiInputScenario} object; `false` otherwise.
+ *
+ * @since 0.1.0
  */
 export function isMultiInputScenario(input: unknown): input is MultiInputScenario {
     return isBaseScenario(input)

@@ -22,5 +22,7 @@
 
 /**
  * A constructor that builds an {@link Error}.
+ *
+ * @since 0.1.0
  */
 export type ErrorConstructor = new () => Error;

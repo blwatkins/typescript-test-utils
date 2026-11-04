@@ -60,6 +60,8 @@ export type ValueScenario = (MultiInputScenario | SingleInputScenario) & {
  * @param {unknown} input - The input to check.
  *
  * @returns {input is ValueScenario} `true` if input is a {@link ValueScenario} object; `false` otherwise.
+ *
+ * @since 0.1.0
  */
 export function isValueScenario(input: unknown): input is ValueScenario {
     return (isMultiInputScenario(input) || isSingleInputScenario(input))

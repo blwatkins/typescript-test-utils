@@ -45,6 +45,8 @@ export interface BaseScenario {
  * @param {unknown} input - The input to check.
  *
  * @returns {input is BaseScenario} `true` if input is a {@link BaseScenario} object; `false` otherwise.
+ *
+ * @since 0.1.0
  */
 export function isBaseScenario(input: unknown): input is BaseScenario {
     return input !== null && typeof input === 'object' && !Array.isArray(input)
