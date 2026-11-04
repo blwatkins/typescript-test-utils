@@ -20,36 +20,51 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { isBaseScenario } from './base-scenario';
-import { Scenario } from './scenario';
+import { BaseScenario, isBaseScenario } from '../base';
 
 /**
- * A {@link Scenario} that describes one input rather than a set of inputs.
+ * A scenario that describes a set of inputs.
  *
  * @since 0.1.0
  */
-export type SingleInputScenario = Scenario & {
+export type MultiInputScenario = BaseScenario & {
     /**
-     * The single input the scenario describes.
+     * The inputs the scenario describes.
      *
-     * @type {unknown}
+     * @type {unknown[]}
      * @readonly
      * @since 0.1.0
      */
-    readonly inputs: unknown;
+    readonly inputs: unknown[];
+
+    /**
+     * The single input the scenario describes.
+     *
+     * @remarks A {@link MultiInputScenario} should never have a single input.
+     *
+     * @see {@link MultiInputScenario.inputs}
+     *
+     * @type {never}
+     * @readonly
+     * @since 0.1.0
+     */
+    readonly input: never;
 };
 
 /**
- * Is `input` a {@link SingleInputScenario}?
+ * Is `input` a {@link MultiInputScenario}?
  *
- * @remarks For `input` to be a valid {@link SingleInputScenario}, the `inputs` property cannot be an array.
+ * @remarks For `input` to be a valid {@link MultiInputScenario}, it must have an `inputs` property, and it cannot have an `input` property.
+ * The `inputs` property must be a non-empty array.
  *
  * @see {@link isBaseScenario}
  *
- * @param {Scenario} input - The {@link Scenario} to check.
+ * @param {unknown} input - The input to check.
  *
- * @returns {input is SingleInputScenario} `true` if input is a {@link SingleInputScenario} object; `false` otherwise.
+ * @returns {input is MultiInputScenario} `true` if input is a {@link MultiInputScenario} object; `false` otherwise.
  */
-export function isSingleInputScenario(input: Scenario): input is SingleInputScenario {
-    return isBaseScenario(input) && !Array.isArray(input.inputs);
+export function isMultiInputScenario(input: unknown): input is MultiInputScenario {
+    return isBaseScenario(input)
+        && 'inputs' in input && Array.isArray(input.inputs) && input.inputs.length !== 0
+        && (!('input' in input) || input.input === undefined);
 }
