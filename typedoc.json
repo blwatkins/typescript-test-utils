@@ -7,6 +7,7 @@
 
   "entryPoints": [
     "./src/array/index.ts",
+    "./src/error/index.ts",
     "./src/input/index.ts",
     "./src/scenario/index.ts",
     "./src/string/index.ts"
@@ -49,5 +50,11 @@
 
   "treatWarningsAsErrors": true,
 
-  "customFooterHtml": "<br/>Copyright &copy; 2024-2026 Brittni Watkins."
+  "customFooterHtml": "<br/>Copyright &copy; 2024-2026 Brittni Watkins.",
+
+  "externalSymbolLinkMappings": {
+    "typescript": {
+      "Error": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error"
+    }
+  }
 }

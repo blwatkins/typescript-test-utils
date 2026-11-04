@@ -21,6 +21,7 @@
  */
 
 export * from './array';
+export * from './error';
 export * from './input';
 export * from './scenario';
 export * from './string';
