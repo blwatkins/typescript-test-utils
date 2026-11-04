@@ -22,7 +22,6 @@
 
 import { Scenario } from './scenario';
 
-
 export interface SingleInputScenario extends Scenario {
     readonly input: unknown;
 }
