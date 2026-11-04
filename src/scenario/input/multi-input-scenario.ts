@@ -46,7 +46,7 @@ export type MultiInputScenario = BaseScenario & {
      * @readonly
      * @since 0.1.0
      */
-    readonly input: never;
+    readonly input?: never;
 };
 
 /**

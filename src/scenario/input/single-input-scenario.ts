@@ -46,7 +46,7 @@ export type SingleInputScenario = BaseScenario & {
      * @readonly
      * @since 0.1.0
      */
-    readonly inputs: never;
+    readonly inputs?: never;
 };
 
 /**
