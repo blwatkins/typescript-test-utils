@@ -21,13 +21,13 @@
  */
 
 /**
- * A set of test inputs that share an expected outcome, grouped under a label that states why they belong together.
+ * A set of inputs that share an expected outcome.
  *
  * @since 0.1.0
  */
 export interface Scenario {
     /**
-     * The reason the inputs belong together.
+     * The label to describe the inputs.
      *
      * @type {string}
      * @readonly
@@ -54,7 +54,7 @@ export interface Scenario {
     readonly expected: unknown;
 
     /**
-     * The error constructor expected to be thrown for every input.
+     * The {@link ErrorConstructor} expected to be thrown for every input.
      *
      * @type {ErrorConstructor}
      * @readonly

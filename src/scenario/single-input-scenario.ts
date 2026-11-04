@@ -23,7 +23,7 @@
 import { Scenario } from './scenario';
 
 /**
- * A {@link Scenario} that describes one input rather than a set.
+ * A {@link Scenario} that describes one input rather than a set of inputs.
  *
  * @since 0.1.0
  */
