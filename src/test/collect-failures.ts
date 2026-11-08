@@ -26,7 +26,10 @@ import { Scenario, isValueScenario, isSingleInputScenario, isErrorScenario } fro
 import { Failure } from './failure';
 
 function equalValue(expected: unknown, actual: unknown, isEqual?: (expected: unknown, actual: unknown) => boolean): boolean {
-    if (isEqual) return isEqual(expected, actual);
+    if (isEqual) {
+        return isEqual(expected, actual);
+    }
+
     return Object.is(expected, actual);
 }
 
