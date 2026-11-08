@@ -27,7 +27,7 @@ import { ErrorClass } from '../error';
  *
  * @since 0.1.0
  */
-interface BaseFailure {
+export interface BaseFailure {
     /**
      * The input given to the method.
      *
@@ -43,7 +43,7 @@ interface BaseFailure {
  *
  * @since 0.1.0
  */
-interface Returned {
+export interface Returned {
     /**
      * The value returned by the method.
      *
@@ -70,7 +70,7 @@ interface Returned {
  *
  * @since 0.1.0
  */
-interface Thrown {
+export interface Thrown {
     /**
      * The error thrown by the method.
      *
@@ -83,7 +83,7 @@ interface Thrown {
     /**
      * The value returned by the method.
      *
-     * @remarks A method that threw an error cannot not return a value.
+     * @remarks A method that threw an error cannot return a value.
      *
      * @type {never}
      * @readonly
@@ -97,7 +97,7 @@ interface Thrown {
  *
  * @since 0.1.0
  */
-type ValueFailure = BaseFailure & (Returned | Thrown) & {
+export type ValueFailure = BaseFailure & (Returned | Thrown) & {
     /**
      * The expected value returned by the method.
      *
@@ -124,7 +124,7 @@ type ValueFailure = BaseFailure & (Returned | Thrown) & {
  *
  * @since 0.1.0
  */
-type ErrorFailure = BaseFailure & (Returned | Thrown) & {
+export type ErrorFailure = BaseFailure & (Returned | Thrown) & {
     /**
      * The expected error thrown by the method.
      *
