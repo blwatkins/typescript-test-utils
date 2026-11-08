@@ -46,7 +46,7 @@ function equalValue(expected: unknown, actual: unknown, isEqual?: (expected: unk
 }
 
 /**
- * Get the inputs of a scenario as an array.
+ * Gets the inputs of a scenario as an array.
  *
  * @param {Scenario} scenario - The scenario to get the inputs from.
  *
@@ -61,7 +61,7 @@ function getInputs(scenario: Scenario): unknown[] {
 }
 
 /**
- * Check if `methodToTest` returns `expected` for `input`.
+ * Checks whether `methodToTest` returns `expected` for `input`.
  *
  * @param {(input: unknown) => unknown} methodToTest - The method to test.
  * @param {unknown} input - The input to pass to `methodToTest`.
@@ -98,7 +98,7 @@ function checkValue(
 }
 
 /**
- * Check if `methodToTest` throws an instance of `expectedError` for `input`.
+ * Checks whether `methodToTest` throws an instance of `expectedError` for `input`.
  *
  * @param {(input: unknown) => unknown} methodToTest - The method to test.
  * @param {unknown} input - The input to pass to `methodToTest`.
@@ -129,7 +129,7 @@ function checkError(methodToTest: (input: unknown) => unknown, input: unknown, e
 }
 
 /**
- * Run `methodToTest` on every input of `scenario` and collects the inputs that do not produce the expected outcome.
+ * Runs `methodToTest` on every input of `scenario` and collects the inputs that do not produce the expected outcome.
  *
  * @remarks For a `ValueScenario`, an input fails when `methodToTest` returns a different value or throws.
  * For an `ErrorScenario`, an input fails when `methodToTest` returns a value or throws an error that is not an instance of the scenario's `expectedError`.
