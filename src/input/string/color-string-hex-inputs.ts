@@ -169,7 +169,6 @@ export const hexColorMixedCaseInputs: string[] = [
  * Six-digit hex color strings (`#RRGGBB`) to build failure inputs from, with one digit-only, one uppercase, and one lowercase color.
  *
  * @type {string[]}
- * @private
  */
 const hexColorRGBSeeds: string[] = ['#123456', '#ABCDEF', '#abcdef'];
 
@@ -177,7 +176,6 @@ const hexColorRGBSeeds: string[] = ['#123456', '#ABCDEF', '#abcdef'];
  * Eight-digit hex color strings (`#RRGGBBAA`) to build failure inputs from, with one digit-only, one uppercase, and one lowercase color.
  *
  * @type {string[]}
- * @private
  */
 const hexColorRGBASeeds: string[] = ['#12345678', '#ABCDEFBC', '#abcdefbc'];
 
@@ -185,7 +183,6 @@ const hexColorRGBASeeds: string[] = ['#12345678', '#ABCDEFBC', '#abcdefbc'];
  * Six-digit and eight-digit hex color strings to build failure inputs from, combining {@link hexColorRGBSeeds} and {@link hexColorRGBASeeds}.
  *
  * @type {string[]}
- * @private
  */
 const hexColorSeeds: string[] = [...hexColorRGBSeeds, ...hexColorRGBASeeds];
 
@@ -193,7 +190,6 @@ const hexColorSeeds: string[] = [...hexColorRGBSeeds, ...hexColorRGBASeeds];
  * Characters that are not hex digits: letters past `F`, ASCII symbols (including `#`), Latin-1 letters, and an emoji.
  *
  * @type {string[]}
- * @private
  */
 const nonHexCharacters: string[] = [
     'G',
@@ -215,7 +211,6 @@ const nonHexCharacters: string[] = [
  * Whitespace characters to insert into hex color strings: a space, a tab, and a line feed.
  *
  * @type {string[]}
- * @private
  */
 const hexWhitespaceCharacters: string[] = [' ', '\t', '\n'];
 
