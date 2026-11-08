@@ -274,6 +274,7 @@ The following preferences require manual review since no ESLint rule can check t
 - **Document version with `@since`:** Add `@since` to all public/exported members.
 - **Enclose boolean values in backticks:** Always use backticks for `true` and `false` in documentation comments.
 - **Use consistent tense and voice:** Write documentation in the present tense and active voice for clarity.
+- **Write summaries in the third person:** Start a function or method summary with a third-person verb (e.g., `Returns...`, `Builds...`), not the imperative (`Return...`). A type guard's summary may be a question instead (e.g., `Is input a ...?`).
 - **Document default values:** For class fields, object properties, and module-level constants and variables that have a default or initial value, state the default via `@default` (e.g., `@default Math.random`). Arrays do not take `@default`.
 - **Document default parameter values:** Indicate default values for parameters in the `@param` annotation.
 - **Mark optional parameters:** Enclose an optional parameter's name in square brackets, and write the type it accepts without `| undefined` (e.g., `@param {string} [message] - The custom error message.`).

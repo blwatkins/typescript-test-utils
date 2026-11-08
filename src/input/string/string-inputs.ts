@@ -77,7 +77,6 @@ export const nonStringInputs: unknown[] = [
  * Whitespace allowed in text: space, tab, line feed, and a carriage return followed by a line feed.
  *
  * @type {string[]}
- * @private
  */
 const textWhitespaceCharacters: string[] = [' ', '\t', '\n', '\r\n'];
 
@@ -85,7 +84,6 @@ const textWhitespaceCharacters: string[] = [' ', '\t', '\n', '\r\n'];
  * RGI emoji, including skin tone, zero width joiner, flag, tag, keycap, and variation selector sequences.
  *
  * @type {string[]}
- * @private
  */
 const emojiInputs: string[] = [
     '\u{1F3A8}', // 🎨 - Palette
@@ -102,7 +100,6 @@ const emojiInputs: string[] = [
  * Latin-1 Supplement characters that are not text characters.
  *
  * @type {string[]}
- * @private
  */
 const rejectedLatin1Characters: string[] = [
     '\u00A6',
@@ -150,7 +147,6 @@ export const definedNonStringInputs: unknown[] = nonStringInputs.filter((input: 
  * Every printable ASCII character that is not a letter, joined into one string.
  *
  * @type {string}
- * @private
  */
 const asciiSymbols: string = stringUtils.charactersFromCodePointRange(0x0021, 0x007E).filter((character: string): boolean => {
     return !/[A-Za-z]/.test(character);
@@ -160,7 +156,6 @@ const asciiSymbols: string = stringUtils.charactersFromCodePointRange(0x0021, 0x
  * Latin-1 Supplement characters from U+00A1 to U+00FF that are text characters.
  *
  * @type {string[]}
- * @private
  */
 const acceptedLatin1Characters: string[] = stringUtils.charactersFromCodePointRange(0x00A1, 0x00FF).filter((character: string): boolean => {
     return !rejectedLatin1Characters.includes(character);
@@ -170,7 +165,6 @@ const acceptedLatin1Characters: string[] = stringUtils.charactersFromCodePointRa
  * The accepted Latin-1 Supplement characters that are not letters, joined into one string.
  *
  * @type {string}
- * @private
  */
 const acceptedLatin1Symbols: string = acceptedLatin1Characters.filter((character: string): boolean => {
     return !/\p{L}/u.test(character);
@@ -180,7 +174,6 @@ const acceptedLatin1Symbols: string = acceptedLatin1Characters.filter((character
  * The accepted Latin-1 Supplement lowercase letters, joined into one string.
  *
  * @type {string}
- * @private
  */
 const acceptedLatin1LowercaseLetters: string = acceptedLatin1Characters.filter((character: string): boolean => {
     return /\p{Ll}/u.test(character);
@@ -190,7 +183,6 @@ const acceptedLatin1LowercaseLetters: string = acceptedLatin1Characters.filter((
  * The accepted Latin-1 Supplement uppercase letters, joined into one string.
  *
  * @type {string}
- * @private
  */
 const acceptedLatin1UppercaseLetters: string = acceptedLatin1Characters.filter((character: string): boolean => {
     return /\p{Lu}/u.test(character);
@@ -200,7 +192,6 @@ const acceptedLatin1UppercaseLetters: string = acceptedLatin1Characters.filter((
  * Words with no cased letters: digits, symbols, the bullet (U+2022), and emoji.
  *
  * @type {string[]}
- * @private
  */
 const caselessWords: string[] = ['1234567890', asciiSymbols, acceptedLatin1Symbols, '\u2022', ...emojiInputs];
 
@@ -208,7 +199,6 @@ const caselessWords: string[] = ['1234567890', asciiSymbols, acceptedLatin1Symbo
  * Words that contain both lowercase and uppercase letters.
  *
  * @type {string[]}
- * @private
  */
 const mixedCaseWords: string[] = ['Example', 'wOrD', 'CaF\u00E9', 'caf\u00C9', `${acceptedLatin1UppercaseLetters}${acceptedLatin1LowercaseLetters}`];
 
@@ -216,7 +206,6 @@ const mixedCaseWords: string[] = ['Example', 'wOrD', 'CaF\u00E9', 'caf\u00C9', `
  * Words whose letters are all lowercase.
  *
  * @type {string[]}
- * @private
  */
 const lowercaseWords: string[] = ['example', 'word', 'caf\u00E9', acceptedLatin1LowercaseLetters];
 
@@ -224,7 +213,6 @@ const lowercaseWords: string[] = ['example', 'word', 'caf\u00E9', acceptedLatin1
  * Words whose letters are all uppercase.
  *
  * @type {string[]}
- * @private
  */
 const uppercaseWords: string[] = ['EXAMPLE', 'WORD', 'CAF\u00C9', acceptedLatin1UppercaseLetters];
 
@@ -232,7 +220,6 @@ const uppercaseWords: string[] = ['EXAMPLE', 'WORD', 'CAF\u00C9', acceptedLatin1
  * Every Basic Multilingual Plane character that matches `\s`.
  *
  * @type {string[]}
- * @private
  */
 const allWhitespaceCharacters: string[] = stringUtils.charactersFromCodePointRange(0x0000, 0xFFFF).filter((character: string): boolean => {
     return /^\s$/.test(character);
@@ -242,7 +229,6 @@ const allWhitespaceCharacters: string[] = stringUtils.charactersFromCodePointRan
  * Characters that are not text characters, including a lone carriage return, control and format characters, non-text whitespace, rejected Latin-1 Supplement characters, tag characters, blank fillers, combining marks, look-alike and non-Latin letters, symbols outside the text set, private use, unassigned, and lone surrogate code points.
  *
  * @type {string[]}
- * @private
  */
 const nonTextCharacters: string[] = [
     '\r',
@@ -295,7 +281,6 @@ const nonTextCharacters: string[] = [
  * Every pair of text whitespace characters, in both orders.
  *
  * @type {string[]}
- * @private
  */
 const consecutiveTextWhitespace: string[] = stringUtils.pairStrings(textWhitespaceCharacters, textWhitespaceCharacters);
 
@@ -306,7 +291,6 @@ const consecutiveTextWhitespace: string[] = stringUtils.pairStrings(textWhitespa
  *
  * @returns {string[]} The strings that are not single-line.
  *
- * @private
  */
 function buildSingleLineFailureInputs(tokens: string[]): string[] {
     return [
