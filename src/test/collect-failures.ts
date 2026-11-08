@@ -20,52 +20,90 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Scenario, isMultiInputScenario, isValueScenario } from '../scenario';
+import { ErrorClass } from '../error';
+import { Scenario, isValueScenario, isSingleInputScenario } from '../scenario';
 
-export function collectFailures(methodToTest: (input: unknown) => unknown, scenario: Scenario): { input: unknown; expected: unknown; actual: unknown; }[] {
-    if (isMultiInputScenario(scenario)) {
-        return [];
+import { Failure } from './failure';
+
+function equalValue(expected: unknown, actual: unknown, isEqual?: (expected: unknown, actual: unknown) => boolean): boolean {
+    if (isEqual) return isEqual(expected, actual);
+    return expected === actual;
+}
+
+export function getInputs(scenario: Scenario): unknown[] {
+    if (isSingleInputScenario(scenario)) {
+        return [scenario.input];
     } else {
+        return [scenario.inputs];
+    }
+}
+
+export function checkValue(
+    method: (input: unknown) => unknown,
+    input: unknown,
+    expected: unknown,
+    isEqual?: (expected: unknown, actual: unknown) => boolean
+): Failure | undefined {
+    try {
+        const actual: unknown = method(input);
+
+        if (!equalValue(expected, actual, isEqual)) {
+            return {
+                input,
+                expected,
+                actual
+            };
+        }
+
+        return undefined;
+    } catch (error: unknown) {
+        return {
+            input,
+            expected,
+            actual: error
+        };
+    }
+}
+
+export function checkError(method: (input: unknown) => unknown, input: unknown, expectedError: ErrorClass): Failure | undefined {
+    try {
+        const actual: unknown = method(input);
+
+        return {
+            input,
+            expected: expectedError,
+            actual
+        };
+    } catch (error: unknown) {
+        if (!(error instanceof expectedError)) {
+            return {
+                input,
+                expected: expectedError,
+                actual: error
+            };
+        }
+
+        return undefined;
+    }
+}
+
+export function collectFailures(methodToTest: (input: unknown) => unknown, scenario: Scenario, isEqual?: (expected: unknown, actual: unknown) => boolean): Failure[] {
+    const failures: Failure[] = [];
+    const inputs: unknown[] = getInputs(scenario);
+
+    for (const input of inputs) {
+        let failure: Failure | undefined;
+
         if (isValueScenario(scenario)) {
-            try {
-                const actual: unknown = methodToTest(scenario.input);
-
-                if (actual !== scenario.expected) {
-                    return [{
-                        input: scenario.input,
-                        expected: scenario.expected,
-                        actual
-                    }];
-                }
-
-                return [];
-            } catch (error: unknown) {
-                return [{
-                    input: scenario.input,
-                    expected: scenario.expected,
-                    actual: error
-                }];
-            }
+            failure = checkValue(methodToTest, input, scenario.expected, isEqual);
         } else {
-            try {
-                const actual: unknown = methodToTest(scenario.input);
+            failure = checkError(methodToTest, input, scenario.expectedError);
+        }
 
-                return [{
-                    input: scenario.input,
-                    expected: scenario.expectedError,
-                    actual
-                }];
-            } catch (error: unknown) {
-                if (!(error instanceof scenario.expectedError)) {
-                    return [{
-                        input: scenario.input,
-                        expected: scenario.expectedError,
-                        actual: error
-                    }];
-                }
-
-                return []
-            }
+        if (failure) {
+            failures.push(failure);
         }
     }
+
+    return failures;
 }

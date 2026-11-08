@@ -21,3 +21,4 @@
  */
 
 export * from './collect-failures';
+export * from './failure';
