@@ -20,6 +20,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { ErrorClass } from '../error';
+
 /**
  * Represents a validation or matching failure encountered while processing an input value.
  *
@@ -42,14 +44,32 @@ export interface Failure {
      * @readonly
      * @since 0.1.0
      */
-    readonly expected: unknown;
+    readonly expected?: unknown;
 
     /**
-     * The actual value returned by the method
+     * The actual value returned by the method.
      *
      * @type {unknown}
      * @readonly
      * @since 0.1.0
      */
-    readonly actual: unknown;
+    readonly actual?: unknown;
+
+    /**
+     * The expected error thrown by the method.
+     *
+     * @type {ErrorClass}
+     * @readonly
+     * @since 0.1.0
+     */
+    readonly expectedError?: ErrorClass;
+
+    /**
+     * The actual error thrown by the method.
+     *
+     * @type {unknown}
+     * @readonly
+     * @since 0.1.0
+     */
+    readonly thrown?: unknown;
 }

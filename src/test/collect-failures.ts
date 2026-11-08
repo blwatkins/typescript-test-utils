@@ -21,24 +21,24 @@
  */
 
 import { ErrorClass } from '../error';
-import { Scenario, isValueScenario, isSingleInputScenario } from '../scenario';
+import { Scenario, isValueScenario, isSingleInputScenario, isErrorScenario } from '../scenario';
 
 import { Failure } from './failure';
 
 function equalValue(expected: unknown, actual: unknown, isEqual?: (expected: unknown, actual: unknown) => boolean): boolean {
     if (isEqual) return isEqual(expected, actual);
-    return expected === actual;
+    return Object.is(expected, actual);
 }
 
-export function getInputs(scenario: Scenario): unknown[] {
+function getInputs(scenario: Scenario): unknown[] {
     if (isSingleInputScenario(scenario)) {
         return [scenario.input];
     } else {
-        return [scenario.inputs];
+        return scenario.inputs;
     }
 }
 
-export function checkValue(
+function checkValue(
     method: (input: unknown) => unknown,
     input: unknown,
     expected: unknown,
@@ -60,12 +60,12 @@ export function checkValue(
         return {
             input,
             expected,
-            actual: error
+            thrown: error
         };
     }
 }
 
-export function checkError(method: (input: unknown) => unknown, input: unknown, expectedError: ErrorClass): Failure | undefined {
+function checkError(method: (input: unknown) => unknown, input: unknown, expectedError: ErrorClass): Failure | undefined {
     try {
         const actual: unknown = method(input);
 
@@ -78,8 +78,8 @@ export function checkError(method: (input: unknown) => unknown, input: unknown, 
         if (!(error instanceof expectedError)) {
             return {
                 input,
-                expected: expectedError,
-                actual: error
+                expectedError,
+                thrown: error
             };
         }
 
@@ -88,6 +88,18 @@ export function checkError(method: (input: unknown) => unknown, input: unknown, 
 }
 
 export function collectFailures(methodToTest: (input: unknown) => unknown, scenario: Scenario, isEqual?: (expected: unknown, actual: unknown) => boolean): Failure[] {
+    if (typeof methodToTest !== 'function') {
+        throw new TypeError('methodToTest must be a function.');
+    }
+
+    if (!(isValueScenario(scenario) || isErrorScenario(scenario))) {
+        throw new TypeError('scenario must be a valid ValueScenario or ErrorScenario.');
+    }
+
+    if (isEqual !== undefined && typeof isEqual !== 'function') {
+        throw new TypeError('isEqual must be a function or undefined.');
+    }
+
     const failures: Failure[] = [];
     const inputs: unknown[] = getInputs(scenario);
 
