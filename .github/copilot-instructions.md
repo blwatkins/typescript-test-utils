@@ -53,6 +53,7 @@ Claude Code skips backticked and fenced content when parsing imports, but a bare
 src/
   array/            # Array utilities
   error/            # Error types
+  failure/          # Failure collection for scenarios
   input/            # Test input fixtures, grouped by type
   scenario/         # Scenario types and type guards
   string/           # String utilities
