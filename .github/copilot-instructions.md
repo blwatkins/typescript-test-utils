@@ -100,7 +100,7 @@ Custom error classes must:
 - Live in `src/error/` and be re-exported from that module's index file
 - Extend the most specific built-in error type that fits the failure (e.g., `TypeError` for invalid input types) rather than the base `Error`
 - Set `this.name` to the class name in the constructor so the error is identifiable at runtime and in stack traces
-- Accept an optional `message` parameter that defaults to the class's `defaultMessage`, and document the default in the constructor `@param`
+- Accept an optional `message` parameter that defaults to the class's `defaultMessage`
 - Expose a public static `defaultMessage` getter returning the default error message
 
 Custom error types intentionally do not expose a Node.js-style `code` property.
