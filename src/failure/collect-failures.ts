@@ -25,6 +25,19 @@ import { Scenario, isValueScenario, isSingleInputScenario, isErrorScenario } fro
 
 import { Failure } from './failure';
 
+/**
+ * Does `actual` equal `expected`?
+ *
+ * @remarks Uses `isEqual` when it is given, and `Object.is` otherwise.
+ *
+ * @param {unknown} expected - The expected value.
+ * @param {unknown} actual - The actual value.
+ * @param {(expected: unknown, actual: unknown) => boolean} [isEqual] - The optional comparison to use instead of `Object.is`.
+ *
+ * @returns {boolean} `true` when `actual` equals `expected`; `false` otherwise.
+ *
+ * @private
+ */
 function equalValue(expected: unknown, actual: unknown, isEqual?: (expected: unknown, actual: unknown) => boolean): boolean {
     if (isEqual) {
         return isEqual(expected, actual);
@@ -33,6 +46,15 @@ function equalValue(expected: unknown, actual: unknown, isEqual?: (expected: unk
     return Object.is(expected, actual);
 }
 
+/**
+ * Gets the inputs of a scenario as an array.
+ *
+ * @param {Scenario} scenario - The scenario to get the inputs of.
+ *
+ * @returns {unknown[]} The single input of a {@link SingleInputScenario} in an array, or the inputs of a {@link MultiInputScenario}.
+ *
+ * @private
+ */
 function getInputs(scenario: Scenario): unknown[] {
     if (isSingleInputScenario(scenario)) {
         return [scenario.input];
@@ -41,6 +63,18 @@ function getInputs(scenario: Scenario): unknown[] {
     }
 }
 
+/**
+ * Checks that `method` returns `expected` for `input`.
+ *
+ * @param {(input: unknown) => unknown} method - The method to test.
+ * @param {unknown} input - The input to pass to `method`.
+ * @param {unknown} expected - The value `method` is expected to return.
+ * @param {(expected: unknown, actual: unknown) => boolean} [isEqual] - The optional comparison to use instead of `Object.is`.
+ *
+ * @returns {Failure | undefined} A {@link Failure} when `method` returns a different value or throws; `undefined` otherwise.
+ *
+ * @private
+ */
 function checkValue(
     method: (input: unknown) => unknown,
     input: unknown,
@@ -68,6 +102,17 @@ function checkValue(
     }
 }
 
+/**
+ * Checks that `method` throws an instance of `expectedError` for `input`.
+ *
+ * @param {(input: unknown) => unknown} method - The method to test.
+ * @param {unknown} input - The input to pass to `method`.
+ * @param {ErrorClass} expectedError - The error class `method` is expected to throw.
+ *
+ * @returns {Failure | undefined} A {@link Failure} when `method` returns a value or throws a different error; `undefined` otherwise.
+ *
+ * @private
+ */
 function checkError(method: (input: unknown) => unknown, input: unknown, expectedError: ErrorClass): Failure | undefined {
     try {
         const actual: unknown = method(input);
@@ -90,6 +135,27 @@ function checkError(method: (input: unknown) => unknown, input: unknown, expecte
     }
 }
 
+/**
+ * Runs `methodToTest` on every input of `scenario` and collects the inputs that do not produce the expected outcome.
+ *
+ * @remarks For a {@link scenario.ValueScenario | ValueScenario}, an input fails when `methodToTest` returns a different value or throws.
+ * For an {@link scenario.ErrorScenario | ErrorScenario}, an input fails when `methodToTest` returns a value or throws an error that is not an instance of the scenario's `expectedError`.
+ *
+ * @see {@link isValueScenario}
+ * @see {@link isErrorScenario}
+ *
+ * @param {(input: unknown) => unknown} methodToTest - The method to test.
+ * @param {Scenario} scenario - The scenario that holds the inputs and the expected outcome.
+ * @param {(expected: unknown, actual: unknown) => boolean} [isEqual] - The optional comparison to use instead of `Object.is` for a {@link scenario.ValueScenario | ValueScenario}.
+ *
+ * @returns {Failure[]} A {@link Failure} for each input that does not produce the expected outcome, in input order.
+ *
+ * @throws {TypeError} When `methodToTest` is not a function.
+ * @throws {TypeError} When `scenario` is not a valid {@link scenario.ValueScenario | ValueScenario} or {@link scenario.ErrorScenario | ErrorScenario}.
+ * @throws {TypeError} When `isEqual` is neither a function nor `undefined`.
+ *
+ * @since 0.1.0
+ */
 export function collectFailures(methodToTest: (input: unknown) => unknown, scenario: Scenario, isEqual?: (expected: unknown, actual: unknown) => boolean): Failure[] {
     if (typeof methodToTest !== 'function') {
         throw new TypeError('methodToTest must be a function.');

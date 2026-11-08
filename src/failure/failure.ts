@@ -23,11 +23,11 @@
 import { ErrorClass } from '../error';
 
 /**
- * Represents a validation or matching failure encountered while processing an input value.
+ * The base interface for a failure, holding the input that failed.
  *
  * @since 0.1.0
  */
-export interface Failure {
+export interface BaseFailure {
     /**
      * The input given to the method.
      *
@@ -36,16 +36,14 @@ export interface Failure {
      * @since 0.1.0
      */
     readonly input: unknown;
+}
 
-    /**
-     * The expected output of the method.
-     *
-     * @type {unknown}
-     * @readonly
-     * @since 0.1.0
-     */
-    readonly expected?: unknown;
-
+/**
+ * The outcome of a method that returned a value.
+ *
+ * @since 0.1.0
+ */
+export interface ReturnedOutcome {
     /**
      * The actual value returned by the method.
      *
@@ -53,17 +51,26 @@ export interface Failure {
      * @readonly
      * @since 0.1.0
      */
-    readonly actual?: unknown;
+    readonly actual: unknown;
 
     /**
-     * The expected error thrown by the method.
+     * The actual error thrown by the method.
      *
-     * @type {ErrorClass}
+     * @remarks A method that returned a value did not throw an error.
+     *
+     * @type {never}
      * @readonly
      * @since 0.1.0
      */
-    readonly expectedError?: ErrorClass;
+    readonly thrown?: never;
+}
 
+/**
+ * The outcome of a method that threw an error.
+ *
+ * @since 0.1.0
+ */
+export interface ThrownOutcome {
     /**
      * The actual error thrown by the method.
      *
@@ -71,5 +78,77 @@ export interface Failure {
      * @readonly
      * @since 0.1.0
      */
-    readonly thrown?: unknown;
+    readonly thrown: unknown;
+
+    /**
+     * The actual value returned by the method.
+     *
+     * @remarks A method that threw an error did not return a value.
+     *
+     * @type {never}
+     * @readonly
+     * @since 0.1.0
+     */
+    readonly actual?: never;
 }
+
+/**
+ * A failure for an input that was expected to return a value, but returned a different value or threw an error.
+ *
+ * @since 0.1.0
+ */
+export type ValueFailure = BaseFailure & (ReturnedOutcome | ThrownOutcome) & {
+    /**
+     * The expected output of the method.
+     *
+     * @type {unknown}
+     * @readonly
+     * @since 0.1.0
+     */
+    readonly expected: unknown;
+
+    /**
+     * The expected error thrown by the method.
+     *
+     * @remarks A {@link ValueFailure} never has an expected error.
+     *
+     * @type {never}
+     * @readonly
+     * @since 0.1.0
+     */
+    readonly expectedError?: never;
+};
+
+/**
+ * A failure for an input that was expected to throw an error, but returned a value or threw a different error.
+ *
+ * @since 0.1.0
+ */
+export type ErrorFailure = BaseFailure & (ReturnedOutcome | ThrownOutcome) & {
+    /**
+     * The expected error thrown by the method.
+     *
+     * @type {ErrorClass}
+     * @readonly
+     * @since 0.1.0
+     */
+    readonly expectedError: ErrorClass;
+
+    /**
+     * The expected output of the method.
+     *
+     * @remarks An {@link ErrorFailure} never has an expected output.
+     *
+     * @type {never}
+     * @readonly
+     * @since 0.1.0
+     */
+    readonly expected?: never;
+};
+
+/**
+ * Represents a validation or matching failure encountered while processing an input value.
+ *
+ * @since 0.1.0
+ */
+export type Failure = ValueFailure | ErrorFailure;
