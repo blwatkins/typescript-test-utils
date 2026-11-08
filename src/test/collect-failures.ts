@@ -71,7 +71,7 @@ function checkError(method: (input: unknown) => unknown, input: unknown, expecte
 
         return {
             input,
-            expected: expectedError,
+            expectedError,
             actual
         };
     } catch (error: unknown) {

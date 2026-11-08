@@ -25,3 +25,4 @@ export * from './error';
 export * from './input';
 export * from './scenario';
 export * from './string';
+export * from './test';
