@@ -8,10 +8,10 @@
   "entryPoints": [
     "./src/array/index.ts",
     "./src/error/index.ts",
+    "./src/failure/index.ts",
     "./src/input/index.ts",
     "./src/scenario/index.ts",
-    "./src/string/index.ts",
-    "./src/test/index.ts"
+    "./src/string/index.ts"
   ],
 
   "out": "./_doc",

@@ -22,7 +22,7 @@
 
 export * from './array';
 export * from './error';
+export * from './failure';
 export * from './input';
 export * from './scenario';
 export * from './string';
-export * from './test';
