@@ -100,7 +100,7 @@ Custom error classes must:
 - Live in `src/error/` and be re-exported from that module's index file
 - Extend the most specific built-in error type that fits the failure (e.g., `TypeError` for invalid input types) rather than the base `Error`
 - Set `this.name` to the class name in the constructor so the error is identifiable at runtime and in stack traces
-- Accept an optional `message` parameter that defaults to the class's `defaultMessage`, and document the default in the constructor `@param`
+- Accept an optional `message` parameter that defaults to the class's `defaultMessage`
 - Expose a public static `defaultMessage` getter returning the default error message
 
 Custom error types intentionally do not expose a Node.js-style `code` property.
@@ -276,8 +276,7 @@ The following preferences require manual review since no ESLint rule can check t
 - **Use consistent tense and voice:** Write documentation in the present tense and active voice for clarity.
 - **Write summaries in the third person:** Start a function or method summary with a third-person verb (e.g., `Returns...`, `Builds...`), not the imperative (`Return...`). A type guard's summary may be a question instead (e.g., `Is input a ...?`).
 - **Document default values:** For class fields, object properties, and module-level constants and variables that have a default or initial value, state the default via `@default` (e.g., `@default Math.random`). Arrays do not take `@default`.
-- **Document default parameter values:** Indicate default values for parameters in the `@param` annotation.
-- **Mark optional parameters:** Enclose an optional parameter's name in square brackets, and write the type it accepts without `| undefined` (e.g., `@param {string} [message] - The custom error message.`).
+- **Mark optional parameters:** Enclose the name of an optional parameter, including one with a default value, in square brackets, and write the type it accepts without `| undefined` (e.g., `@param {string} [message] - The custom error message.`).
 - **Document optional properties:** For optional properties, write the declared type in `@type`, without `| undefined`.
 - **Annotate abstract/readonly/private/protected/override members:** Use `@abstract`, `@readonly`, `@private`, `@protected`, and `@override`, respectively, matching the corresponding TypeScript modifier. `eslint.config.ts.mjs` validates these tags are well-formed where present, but does not require their presence for a given modifier.
 - **Scope `@public` to class members:** Apply `@public` to public class members and constructors. Do not add `@public` to the doc comment of an exported class, interface, type, enum, or constant itself, or to interface properties — in both cases the declaration is already the visibility signal.
