@@ -28,8 +28,6 @@ import * as arrayUtils from '../array';
  * @param {unknown[]} inputs - The array to check.
  *
  * @returns {boolean} `true` when every index holds a string; `false` otherwise.
- *
- * @private
  */
 function hasOnlyStrings(inputs: unknown[]): boolean {
     return Array.from(inputs).every((input: unknown): boolean => {
