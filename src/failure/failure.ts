@@ -23,11 +23,11 @@
 import { ErrorClass } from '../error';
 
 /**
- * The base interface for a failure, holding the input that failed.
+ * The base interface for a failure.
  *
  * @since 0.1.0
  */
-export interface BaseFailure {
+interface BaseFailure {
     /**
      * The input given to the method.
      *
@@ -39,13 +39,13 @@ export interface BaseFailure {
 }
 
 /**
- * The outcome of a method that returned a value.
+ * The value returned by the method.
  *
  * @since 0.1.0
  */
-export interface ReturnedOutcome {
+interface Returned {
     /**
-     * The actual value returned by the method.
+     * The value returned by the method.
      *
      * @type {unknown}
      * @readonly
@@ -54,9 +54,9 @@ export interface ReturnedOutcome {
     readonly actual: unknown;
 
     /**
-     * The actual error thrown by the method.
+     * The error thrown by the method.
      *
-     * @remarks A method that returned a value did not throw an error.
+     * @remarks A method that returned a value cannot throw an error.
      *
      * @type {never}
      * @readonly
@@ -66,13 +66,13 @@ export interface ReturnedOutcome {
 }
 
 /**
- * The outcome of a method that threw an error.
+ * The error thrown by the method.
  *
  * @since 0.1.0
  */
-export interface ThrownOutcome {
+interface Thrown {
     /**
-     * The actual error thrown by the method.
+     * The error thrown by the method.
      *
      * @type {unknown}
      * @readonly
@@ -81,9 +81,9 @@ export interface ThrownOutcome {
     readonly thrown: unknown;
 
     /**
-     * The actual value returned by the method.
+     * The value returned by the method.
      *
-     * @remarks A method that threw an error did not return a value.
+     * @remarks A method that threw an error cannot not return a value.
      *
      * @type {never}
      * @readonly
@@ -97,9 +97,9 @@ export interface ThrownOutcome {
  *
  * @since 0.1.0
  */
-export type ValueFailure = BaseFailure & (ReturnedOutcome | ThrownOutcome) & {
+type ValueFailure = BaseFailure & (Returned | Thrown) & {
     /**
-     * The expected output of the method.
+     * The expected value returned by the method.
      *
      * @type {unknown}
      * @readonly
@@ -124,7 +124,7 @@ export type ValueFailure = BaseFailure & (ReturnedOutcome | ThrownOutcome) & {
  *
  * @since 0.1.0
  */
-export type ErrorFailure = BaseFailure & (ReturnedOutcome | ThrownOutcome) & {
+type ErrorFailure = BaseFailure & (Returned | Thrown) & {
     /**
      * The expected error thrown by the method.
      *
@@ -135,9 +135,9 @@ export type ErrorFailure = BaseFailure & (ReturnedOutcome | ThrownOutcome) & {
     readonly expectedError: ErrorClass;
 
     /**
-     * The expected output of the method.
+     * The expected value returned by the method.
      *
-     * @remarks An {@link ErrorFailure} never has an expected output.
+     * @remarks An {@link ErrorFailure} never has an expected value.
      *
      * @type {never}
      * @readonly
