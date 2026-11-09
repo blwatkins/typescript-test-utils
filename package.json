@@ -76,6 +76,8 @@
     "testing",
     "unit-testing",
     "test-fixtures",
-    "test-inputs"
+    "test-inputs",
+    "test-scenarios",
+    "table-driven-tests"
   ]
 }

@@ -52,14 +52,14 @@ export type SingleInputScenario = BaseScenario & {
 /**
  * Is `input` a {@link SingleInputScenario}?
  *
- * @remarks For `input` to be a valid {@link SingleInputScenario}, it must have an `input` property, and it cannot have an `inputs` property.
+ * @remarks For `input` to be a valid {@link SingleInputScenario}, it must have an `input` property, and it cannot have a defined `inputs` property.
  * This `input` property will be interpreted as a single value, even if it contains multiple values (e.g., a set or array).
  *
  * @see {@link isBaseScenario}
  *
  * @param {unknown} input - The input to check.
  *
- * @returns {input is SingleInputScenario} `true` if input is a {@link SingleInputScenario} object; `false` otherwise.
+ * @returns {input is SingleInputScenario}
  *
  * @since 0.1.0
  */

@@ -21,7 +21,7 @@
  */
 
 /**
- * The base interface for a set of inputs that share an expected outcome.
+ * The base interface for every scenario, holding the label that describes its inputs.
  *
  * @since 0.1.0
  */
@@ -44,7 +44,7 @@ export interface BaseScenario {
  *
  * @param {unknown} input - The input to check.
  *
- * @returns {input is BaseScenario} `true` if input is a {@link BaseScenario} object; `false` otherwise.
+ * @returns {input is BaseScenario}
  *
  * @since 0.1.0
  */
