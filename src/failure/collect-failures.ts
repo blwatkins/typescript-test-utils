@@ -166,15 +166,22 @@ export function collectFailures(methodToTest: (input: unknown) => unknown, scena
 
     const failures: Failure[] = [];
     const inputs: unknown[] = getInputs(scenario);
+    let check: (input: unknown) => Failure | undefined;
+
+    if (isValueScenario(scenario)) {
+        const expected: unknown = scenario.expected;
+        check = (input: unknown): Failure | undefined => {
+            return checkValue(methodToTest, input, expected, isEqual);
+        }
+    } else {
+        const expectedError: ErrorClass = scenario.expectedError;
+        check = (input: unknown): Failure | undefined => {
+            return checkError(methodToTest, input, expectedError);
+        }
+    }
 
     for (const input of inputs) {
-        let failure: Failure | undefined;
-
-        if (isValueScenario(scenario)) {
-            failure = checkValue(methodToTest, input, scenario.expected, isEqual);
-        } else {
-            failure = checkError(methodToTest, input, scenario.expectedError);
-        }
+        let failure: Failure | undefined = check(input);
 
         if (failure) {
             failures.push(failure);
