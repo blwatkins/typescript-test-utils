@@ -21,7 +21,7 @@
  */
 
 /**
- * The base interface for every scenario, holding the label that describes its inputs.
+ * The base interface for every scenario.
  *
  * @since 0.1.0
  */
