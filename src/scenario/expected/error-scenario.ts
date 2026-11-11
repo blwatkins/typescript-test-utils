@@ -42,7 +42,7 @@ export type ErrorScenario = (MultiInputScenario | SingleInputScenario) & {
     /**
      * The outcome expected for every input.
      *
-     * @remarks An {@link ErrorScenario} should never have an expected outcome.
+     * @remarks An {@link ErrorScenario} never has an expected value.
      *
      * @type {never}
      * @readonly
@@ -54,19 +54,19 @@ export type ErrorScenario = (MultiInputScenario | SingleInputScenario) & {
 /**
  * Is `input` an {@link ErrorScenario}?
  *
- * @remarks For `input` to be a valid {@link ErrorScenario}, it must have an `expectedError` property, and it cannot have an `expected` property.
+ * @remarks For `input` to be a valid {@link ErrorScenario}, it must have an `expectedError` property that is a function, and it cannot have a defined `expected` property.
  *
  * @see {@link isMultiInputScenario}
  * @see {@link isSingleInputScenario}
  *
  * @param {unknown} input - The input to check.
  *
- * @returns {input is ErrorScenario} `true` if input is an {@link ErrorScenario} object; `false` otherwise.
+ * @returns {input is ErrorScenario}
  *
  * @since 0.1.0
  */
 export function isErrorScenario(input: unknown): input is ErrorScenario {
     return (isMultiInputScenario(input) || isSingleInputScenario(input))
-        && 'expectedError' in input
+        && 'expectedError' in input && typeof input.expectedError === 'function'
         && (!('expected' in input) || input.expected === undefined);
 }

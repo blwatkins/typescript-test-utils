@@ -40,7 +40,7 @@ export type ValueScenario = (MultiInputScenario | SingleInputScenario) & {
     /**
      * The error expected to be thrown for every input.
      *
-     * @remarks A {@link ValueScenario} should never throw an error.
+     * @remarks A {@link ValueScenario} never has an expected error.
      *
      * @type {never}
      * @readonly
@@ -52,14 +52,14 @@ export type ValueScenario = (MultiInputScenario | SingleInputScenario) & {
 /**
  * Is `input` a {@link ValueScenario}?
  *
- * @remarks For `input` to be a valid {@link ValueScenario}, it must have an `expected` property, and it cannot have an `expectedError` property.
+ * @remarks For `input` to be a valid {@link ValueScenario}, it must have an `expected` property, and it cannot have a defined `expectedError` property.
  *
  * @see {@link isMultiInputScenario}
  * @see {@link isSingleInputScenario}
  *
  * @param {unknown} input - The input to check.
  *
- * @returns {input is ValueScenario} `true` if input is a {@link ValueScenario} object; `false` otherwise.
+ * @returns {input is ValueScenario}
  *
  * @since 0.1.0
  */

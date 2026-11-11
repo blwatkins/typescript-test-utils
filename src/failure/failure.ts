@@ -56,7 +56,7 @@ export interface Returned {
     /**
      * The error thrown by the method.
      *
-     * @remarks A method that returned a value cannot throw an error.
+     * @remarks A {@link Returned} outcome never has a thrown error.
      *
      * @type {never}
      * @readonly
@@ -83,7 +83,7 @@ export interface Thrown {
     /**
      * The value returned by the method.
      *
-     * @remarks A method that threw an error cannot return a value.
+     * @remarks A {@link Thrown} outcome never has a returned value.
      *
      * @type {never}
      * @readonly

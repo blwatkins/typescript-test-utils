@@ -40,7 +40,7 @@ export type MultiInputScenario = BaseScenario & {
     /**
      * The single input the scenario describes.
      *
-     * @remarks A {@link MultiInputScenario} should never have a single input.
+     * @remarks A {@link MultiInputScenario} never has a single input.
      *
      * @type {never}
      * @readonly
@@ -52,14 +52,14 @@ export type MultiInputScenario = BaseScenario & {
 /**
  * Is `input` a {@link MultiInputScenario}?
  *
- * @remarks For `input` to be a valid {@link MultiInputScenario}, it must have an `inputs` property, and it cannot have an `input` property.
+ * @remarks For `input` to be a valid {@link MultiInputScenario}, it must have an `inputs` property, and it cannot have a defined `input` property.
  * The `inputs` property must be a non-empty array.
  *
  * @see {@link isBaseScenario}
  *
  * @param {unknown} input - The input to check.
  *
- * @returns {input is MultiInputScenario} `true` if input is a {@link MultiInputScenario} object; `false` otherwise.
+ * @returns {input is MultiInputScenario}
  *
  * @since 0.1.0
  */
