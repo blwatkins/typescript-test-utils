@@ -40,7 +40,7 @@ export type ValueScenario = (MultiInputScenario | SingleInputScenario) & {
     /**
      * The error expected to be thrown for every input.
      *
-     * @remarks A {@link ValueScenario} should never throw an error.
+     * @remarks A {@link ValueScenario} never has an expected error.
      *
      * @type {never}
      * @readonly

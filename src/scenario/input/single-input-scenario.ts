@@ -40,7 +40,7 @@ export type SingleInputScenario = BaseScenario & {
     /**
      * The inputs the scenario describes.
      *
-     * @remarks A {@link SingleInputScenario} should never have multiple inputs.
+     * @remarks A {@link SingleInputScenario} never has multiple inputs.
      *
      * @type {never}
      * @readonly

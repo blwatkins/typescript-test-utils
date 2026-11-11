@@ -42,7 +42,7 @@ export type ErrorScenario = (MultiInputScenario | SingleInputScenario) & {
     /**
      * The outcome expected for every input.
      *
-     * @remarks An {@link ErrorScenario} should never have an expected outcome.
+     * @remarks An {@link ErrorScenario} never has an expected value.
      *
      * @type {never}
      * @readonly
