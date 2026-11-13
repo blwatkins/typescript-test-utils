@@ -23,6 +23,7 @@
 import { describe, test, expect } from 'vitest';
 
 import {
+    ErrorClass,
     ErrorScenario,
     Failure,
     MultiInputScenario,
@@ -44,7 +45,6 @@ interface CollectFailuresArguments {
 
 type ArgumentErrorScenario = MultiInputScenario & ErrorScenario & {
     readonly inputs: CollectFailuresArguments[];
-    readonly expectedError: ErrorConstructor;
 };
 
 function identity(input: unknown): unknown {
@@ -161,7 +161,7 @@ describe('Collect Failures', (): void => {
         describe('Error scenarios', (): void => {
             test('Should return an empty array when every input throws the expected error or a subclass of it', (): void => {
                 expect(collectFailures((input: unknown): unknown => {
-                    throw new (input as ErrorConstructor)();
+                    throw new (input as ErrorClass)();
                 }, { label: 'label', inputs: [TypeError, CustomError], expectedError: TypeError })).toEqual([]);
             });
 
