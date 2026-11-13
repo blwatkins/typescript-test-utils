@@ -60,12 +60,15 @@ src/
   index.ts          # Package entry point (re-exports all modules)
 test/               # Vitest test suites (mirrors src/ module structure)
   array/            # Tests for the array module
+  failure/          # Tests for the failure module
   input/            # Tests for the input module
+  scenario/         # Tests for the scenario module
   string/           # Tests for the string module
   utils/            # Shared test helpers and check functions
     array/          # Shared array check functions
     error/          # Shared error check functions
     input/          # Shared input fixture test helpers and type check functions
+    scenario/       # Shared scenario test inputs
     string/         # Shared string check functions
 docs/               # GitHub Pages site content and manually maintained release documentation
   doc/              # Latest release TypeDoc output, committed manually and published with the site
