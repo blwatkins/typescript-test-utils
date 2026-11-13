@@ -20,7 +20,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-export function throwsError(action: () => void, errorType: ErrorConstructor): boolean {
+import { ErrorClass } from '../../../src';
+
+export function throwsError(action: () => void, errorType: ErrorClass): boolean {
     try {
         action();
     } catch (error: unknown) {

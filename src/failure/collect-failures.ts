@@ -76,18 +76,10 @@ function checkValue(
     expected: unknown,
     isEqual?: (expected: unknown, actual: unknown) => boolean
 ): Failure | undefined {
+    let actual: unknown;
+
     try {
-        const actual: unknown = methodToTest(input);
-
-        if (!equalValue(expected, actual, isEqual)) {
-            return {
-                input,
-                expected,
-                actual
-            };
-        }
-
-        return undefined;
+        actual = methodToTest(input);
     } catch (error: unknown) {
         return {
             input,
@@ -95,6 +87,16 @@ function checkValue(
             thrown: error
         };
     }
+
+    if (!equalValue(expected, actual, isEqual)) {
+        return {
+            input,
+            expected,
+            actual
+        };
+    }
+
+    return undefined;
 }
 
 /**
