@@ -26,19 +26,19 @@ import {
     MultiInputScenario,
     ValueScenario,
     isBaseScenario,
-    stringInputs,
+    denseArrayInputs,
     nonObjectInputs,
     sparseArrayInputs,
-    denseArrayInputs
+    stringInputs
 } from '../../../src';
 
 import { missingLabelScenarioInputs, nonStringLabelScenarioInputs } from '../../utils/scenario/scenario-inputs';
 
 describe('Base Scenario', (): void => {
-    type Scenario = MultiInputScenario & ValueScenario;
+    type TestScenario = MultiInputScenario & ValueScenario;
 
     describe('isBaseScenario', (): void => {
-        const scenarios: Scenario[] = [
+        const scenarios: TestScenario[] = [
             {
                 label: 'Objects with a string label',
                 inputs: [
@@ -56,7 +56,11 @@ describe('Base Scenario', (): void => {
             },
             {
                 label: 'Array inputs',
-                inputs: [...sparseArrayInputs, ...denseArrayInputs],
+                inputs: [
+                    ...sparseArrayInputs,
+                    ...denseArrayInputs,
+                    Object.assign([], { label: 'label' })
+                ],
                 expected: false
             },
             {
@@ -65,7 +69,7 @@ describe('Base Scenario', (): void => {
                 expected: false
             },
             {
-                label: 'Unlabeled scenarios',
+                label: 'Scenarios missing label',
                 inputs: missingLabelScenarioInputs,
                 expected: false
             },
@@ -78,7 +82,7 @@ describe('Base Scenario', (): void => {
 
         describe.each(
             scenarios
-        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: Scenario): void => {
+        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: TestScenario): void => {
             test('Should follow expected outcome for every input', (): void => {
                 expect(scenarioInputs.filter((input: unknown): boolean => {
                     return isBaseScenario(input) !== scenarioExpected;

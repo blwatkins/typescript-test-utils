@@ -41,6 +41,7 @@ export const nonStringLabelScenarioInputs: object[] = [...scenarioShapes, {}].fl
 });
 
 export const missingLabelScenarioInputs: object[] = scenarioShapes.map((scenario: Scenario): object => {
-    const { label, ...unlabeledScenario } = scenario;
-    return unlabeledScenario;
+    const scenarioCopy: { label?: string; } = { ...scenario };
+    delete scenarioCopy.label;
+    return scenarioCopy;
 });
