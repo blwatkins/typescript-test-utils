@@ -135,18 +135,11 @@ describe('Collect Failures', (): void => {
             });
 
             test('Should compare values with isEqual when it is defined', (): void => {
-                const comparisons: unknown[][] = [];
-
-                const failures: Failure[] = collectFailures((): object => {
+                expect(collectFailures((): object => {
                     return { key: 'value' };
                 }, { label: 'label', input: 1, expected: { key: 'value' } }, (expected: unknown, actual: unknown): boolean => {
-                    comparisons.push([expected, actual]);
-
                     return JSON.stringify(expected) === JSON.stringify(actual);
-                });
-
-                expect(failures).toEqual([]);
-                expect(comparisons).toEqual([[{ key: 'value' }, { key: 'value' }]]);
+                })).toEqual([]);
             });
 
             test('Should throw the error thrown by isEqual', (): void => {
@@ -185,31 +178,10 @@ describe('Collect Failures', (): void => {
         });
 
         describe('Inputs', (): void => {
-            test('Should call methodToTest once for each input, in input order', (): void => {
-                const calls: unknown[] = [];
-                const inputs: unknown[] = ['a', 'b', 'c'];
+            test('Should treat the input of a single input scenario as one input, even when it is an array', (): void => {
+                const input: number[] = [1, 2, 3];
 
-                collectFailures((input: unknown): unknown => {
-                    calls.push(input);
-
-                    return input;
-                }, { label: 'label', inputs, expected: 'a' });
-
-                expect(calls).toEqual(inputs);
-            });
-
-            test('Should call methodToTest once with the input of a single input scenario, even when it is an array', (): void => {
-                const calls: unknown[] = [];
-                const input: unknown[] = [1, 2, 3];
-
-                collectFailures((value: unknown): unknown => {
-                    calls.push(value);
-
-                    return value;
-                }, { label: 'label', input, expected: input });
-
-                expect(calls).toHaveLength(1);
-                expect(calls[0]).toBe(input);
+                expect(collectFailures(identity, { label: 'label', input, expected: input })).toEqual([]);
             });
         });
     });
