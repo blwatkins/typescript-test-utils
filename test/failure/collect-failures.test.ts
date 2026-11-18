@@ -28,6 +28,8 @@ import {
     Failure,
     MultiInputScenario,
     Scenario,
+    SingleInputScenario,
+    ValueScenario,
     collectFailures,
     definedNonFunctionInputs,
     nonFunctionInputs,
@@ -35,7 +37,7 @@ import {
 } from '../../src';
 
 import { throwsError } from '../utils/error/error-checks';
-import { invalidBaseScenarioInputs } from '../utils/scenario/scenario-inputs';
+import { nonObjectScenarioInputs, nonStringLabelScenarioInputs, unlabeledScenarioInputs } from '../utils/scenario/scenario-inputs';
 
 describe('Collect Failures', (): void => {
     interface CollectFailuresArguments {
@@ -46,6 +48,11 @@ describe('Collect Failures', (): void => {
 
     type ArgumentErrorScenario = MultiInputScenario & ErrorScenario & {
         readonly inputs: CollectFailuresArguments[];
+    };
+
+    type ResultScenario = SingleInputScenario & ValueScenario & {
+        readonly input: CollectFailuresArguments;
+        readonly expected: Failure[];
     };
 
     function identity(input: unknown): unknown {
@@ -69,7 +76,9 @@ describe('Collect Failures', (): void => {
                 {
                     label: 'Invalid scenario argument',
                     inputs: [
-                        ...invalidBaseScenarioInputs,
+                        ...nonObjectScenarioInputs,
+                        ...unlabeledScenarioInputs,
+                        ...nonStringLabelScenarioInputs,
                         { label: 'label', inputs: [1] },
                         { label: 'label', inputs: [1], expected: 1, expectedError: TypeError }
                     ].map((input: unknown): CollectFailuresArguments => {
@@ -103,42 +112,141 @@ describe('Collect Failures', (): void => {
             });
         });
 
-        describe('Value scenarios', (): void => {
-            test('Should return an empty array when every input returns the expected value', (): void => {
-                expect(collectFailures((input: unknown): boolean => {
-                    return typeof input === 'string';
-                }, { label: 'label', inputs: stringInputs, expected: true })).toEqual([]);
-            });
+        describe('Results', (): void => {
+            const error: Error = new Error();
+            const rangeError: RangeError = new RangeError();
+            const arrayInput: number[] = [1, 2, 3];
+            const resultScenarios: ResultScenario[] = [
+                {
+                    label: 'Value scenario where every input returns the expected value',
+                    input: {
+                        methodToTest: (input: unknown): boolean => {
+                            return typeof input === 'string';
+                        },
+                        scenario: { label: 'label', inputs: stringInputs, expected: true },
+                        isEqual: undefined
+                    },
+                    expected: []
+                },
+                {
+                    label: 'Value scenario where some inputs return a different value',
+                    input: {
+                        methodToTest: identity,
+                        scenario: { label: 'label', inputs: [1, 2, 1, 3], expected: 1 },
+                        isEqual: undefined
+                    },
+                    expected: [
+                        { input: 2, expected: 1, actual: 2 },
+                        { input: 3, expected: 1, actual: 3 }
+                    ]
+                },
+                {
+                    label: 'Value scenario where the input throws',
+                    input: {
+                        methodToTest: (): unknown => {
+                            throw error;
+                        },
+                        scenario: { label: 'label', input: 1, expected: 1 },
+                        isEqual: undefined
+                    },
+                    expected: [{ input: 1, expected: 1, thrown: error }]
+                },
+                {
+                    label: 'Value scenario compared with Object.is where NaN matches NaN',
+                    input: {
+                        methodToTest: identity,
+                        scenario: { label: 'label', input: Number.NaN, expected: Number.NaN },
+                        isEqual: undefined
+                    },
+                    expected: []
+                },
+                {
+                    label: 'Value scenario compared with Object.is where -0 does not match 0',
+                    input: {
+                        methodToTest: identity,
+                        scenario: { label: 'label', input: -0, expected: 0 },
+                        isEqual: undefined
+                    },
+                    expected: [{ input: -0, expected: 0, actual: -0 }]
+                },
+                {
+                    label: 'Value scenario compared with Object.is where separate equal objects do not match',
+                    input: {
+                        methodToTest: identity,
+                        scenario: { label: 'label', input: {}, expected: {} },
+                        isEqual: undefined
+                    },
+                    expected: [{ input: {}, expected: {}, actual: {} }]
+                },
+                {
+                    label: 'Value scenario compared with isEqual',
+                    input: {
+                        methodToTest: (): object => {
+                            return { key: 'value' };
+                        },
+                        scenario: { label: 'label', input: 1, expected: { key: 'value' } },
+                        isEqual: (expected: unknown, actual: unknown): boolean => {
+                            return JSON.stringify(expected) === JSON.stringify(actual);
+                        }
+                    },
+                    expected: []
+                },
+                {
+                    label: 'Single input scenario where the input is an array',
+                    input: {
+                        methodToTest: identity,
+                        scenario: { label: 'label', input: arrayInput, expected: arrayInput },
+                        isEqual: undefined
+                    },
+                    expected: []
+                },
+                {
+                    label: 'Error scenario where every input throws the expected error or a subclass of it',
+                    input: {
+                        methodToTest: (input: unknown): unknown => {
+                            throw new (input as ErrorClass)();
+                        },
+                        scenario: { label: 'label', inputs: [TypeError, CustomError], expectedError: TypeError },
+                        isEqual: undefined
+                    },
+                    expected: []
+                },
+                {
+                    label: 'Error scenario where the inputs return a value',
+                    input: {
+                        methodToTest: identity,
+                        scenario: { label: 'label', inputs: [1, undefined], expectedError: TypeError },
+                        isEqual: undefined
+                    },
+                    expected: [
+                        { input: 1, expectedError: TypeError, actual: 1 },
+                        { input: undefined, expectedError: TypeError, actual: undefined }
+                    ]
+                },
+                {
+                    label: 'Error scenario where the inputs throw a different error or a non-error',
+                    input: {
+                        methodToTest: (input: unknown): unknown => {
+                            throw input;
+                        },
+                        scenario: { label: 'label', inputs: [rangeError, 'error'], expectedError: TypeError },
+                        isEqual: undefined
+                    },
+                    expected: [
+                        { input: rangeError, expectedError: TypeError, thrown: rangeError },
+                        { input: 'error', expectedError: TypeError, thrown: 'error' }
+                    ]
+                }
+            ];
 
-            test('Should return a failure with the actual value for each input that returns a different value', (): void => {
-                expect(collectFailures(identity, { label: 'label', inputs: [1, 2, 1, 3], expected: 1 })).toEqual([
-                    { input: 2, expected: 1, actual: 2 },
-                    { input: 3, expected: 1, actual: 3 }
-                ]);
-            });
-
-            test('Should return a failure with the thrown error for each input that throws', (): void => {
-                const error: Error = new Error();
-                const failures: Failure[] = collectFailures((): unknown => {
-                    throw error;
-                }, { label: 'label', input: 1, expected: 1 });
-
-                expect(failures).toEqual([{ input: 1, expected: 1, thrown: error }]);
-                expect(failures[0]?.thrown).toBe(error);
-            });
-
-            test('Should compare values with Object.is when isEqual is undefined', (): void => {
-                expect(collectFailures(identity, { label: 'label', input: Number.NaN, expected: Number.NaN })).toEqual([]);
-                expect(collectFailures(identity, { label: 'label', input: -0, expected: 0 })).toHaveLength(1);
-                expect(collectFailures(identity, { label: 'label', input: {}, expected: {} })).toHaveLength(1);
-            });
-
-            test('Should compare values with isEqual when it is defined', (): void => {
-                expect(collectFailures((): object => {
-                    return { key: 'value' };
-                }, { label: 'label', input: 1, expected: { key: 'value' } }, (expected: unknown, actual: unknown): boolean => {
-                    return JSON.stringify(expected) === JSON.stringify(actual);
-                })).toEqual([]);
+            test.each(
+                resultScenarios
+            )('%# - $label', ({ input: testInput, expected: testExpected }: ResultScenario): void => {
+                expect(collectFailures(
+                    testInput.methodToTest as (input: unknown) => unknown,
+                    testInput.scenario as Scenario,
+                    testInput.isEqual as (expected: unknown, actual: unknown) => boolean
+                )).toEqual(testExpected);
             });
 
             test('Should throw the error thrown by isEqual', (): void => {
@@ -147,40 +255,6 @@ describe('Collect Failures', (): void => {
                         throw new RangeError();
                     });
                 }, RangeError)).toBe(true);
-            });
-        });
-
-        describe('Error scenarios', (): void => {
-            test('Should return an empty array when every input throws the expected error or a subclass of it', (): void => {
-                expect(collectFailures((input: unknown): unknown => {
-                    throw new (input as ErrorClass)();
-                }, { label: 'label', inputs: [TypeError, CustomError], expectedError: TypeError })).toEqual([]);
-            });
-
-            test('Should return a failure with the actual value for each input that returns a value', (): void => {
-                expect(collectFailures(identity, { label: 'label', inputs: [1, undefined], expectedError: TypeError })).toEqual([
-                    { input: 1, expectedError: TypeError, actual: 1 },
-                    { input: undefined, expectedError: TypeError, actual: undefined }
-                ]);
-            });
-
-            test('Should return a failure with the thrown value for each input that throws a different error or a non-error', (): void => {
-                const error: RangeError = new RangeError();
-
-                expect(collectFailures((input: unknown): unknown => {
-                    throw input;
-                }, { label: 'label', inputs: [error, 'error'], expectedError: TypeError })).toEqual([
-                    { input: error, expectedError: TypeError, thrown: error },
-                    { input: 'error', expectedError: TypeError, thrown: 'error' }
-                ]);
-            });
-        });
-
-        describe('Inputs', (): void => {
-            test('Should treat the input of a single input scenario as one input, even when it is an array', (): void => {
-                const input: number[] = [1, 2, 3];
-
-                expect(collectFailures(identity, { label: 'label', input, expected: input })).toEqual([]);
             });
         });
     });

@@ -22,76 +22,88 @@
 
 import { describe, test, expect } from 'vitest';
 
-import { denseArrayInputs, isValueScenario, nonObjectInputs } from '../../../src';
+import { MultiInputScenario, ValueScenario, denseArrayInputs, isValueScenario, nonObjectInputs } from '../../../src';
 
-import { invalidBaseScenarioInputs } from '../../utils/scenario/scenario-inputs';
+import { nonObjectScenarioInputs, nonStringLabelScenarioInputs, unlabeledScenarioInputs } from '../../utils/scenario/scenario-inputs';
 
 describe('Value Scenario', (): void => {
-    const anyInputs: unknown[] = [
-        ...nonObjectInputs,
-        ...denseArrayInputs,
-        {}
-    ];
-
+    const anyInputs: unknown[] = [...nonObjectInputs, ...denseArrayInputs, {}];
     const definedInputs: unknown[] = anyInputs.filter((input: unknown): boolean => {
         return input !== undefined;
     });
-
-    const inputShapes: Record<string, unknown>[] = [
+    const inputShapes: object[] = [
         { label: 'label', input: 1 },
         { label: 'label', inputs: [1] }
     ];
 
     describe('isValueScenario', (): void => {
-        test('Should return true for single and multi input scenarios with any expected value', (): void => {
-            const inputs: unknown[] = inputShapes.flatMap((shape: Record<string, unknown>): unknown[] => {
-                return anyInputs.flatMap((expected: unknown): unknown[] => {
-                    return [
-                        { ...shape, expected },
-                        { ...shape, expected, expectedError: undefined }
-                    ];
-                });
+        const scenarios: (MultiInputScenario & ValueScenario)[] = [
+            {
+                label: 'Single and multi input scenarios with any expected value',
+                inputs: inputShapes.flatMap((shape: object): object[] => {
+                    return anyInputs.map((expected: unknown): object => {
+                        return { ...shape, expected };
+                    });
+                }),
+                expected: true
+            },
+            {
+                label: 'Single and multi input scenarios with any expected value and an undefined expected error',
+                inputs: inputShapes.flatMap((shape: object): object[] => {
+                    return anyInputs.map((expected: unknown): object => {
+                        return { ...shape, expected, expectedError: undefined };
+                    });
+                }),
+                expected: true
+            },
+            {
+                label: 'Scenarios that are neither single nor multi input',
+                inputs: [
+                    { label: 'label', expected: 1 },
+                    { label: 'label', input: 1, inputs: [1], expected: 1 },
+                    { label: 'label', inputs: [], expected: 1 }
+                ],
+                expected: false
+            },
+            {
+                label: 'Missing expected value',
+                inputs: inputShapes,
+                expected: false
+            },
+            {
+                label: 'Defined expected error',
+                inputs: inputShapes.flatMap((shape: object): object[] => {
+                    return [TypeError, ...definedInputs].map((expectedError: unknown): object => {
+                        return { ...shape, expected: 1, expectedError };
+                    });
+                }),
+                expected: false
+            },
+            {
+                label: 'Non-object inputs',
+                inputs: nonObjectScenarioInputs,
+                expected: false
+            },
+            {
+                label: 'Unlabeled scenarios',
+                inputs: unlabeledScenarioInputs,
+                expected: false
+            },
+            {
+                label: 'Scenarios with a non-string label',
+                inputs: nonStringLabelScenarioInputs,
+                expected: false
+            }
+        ];
+
+        describe.each(
+            scenarios
+        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: MultiInputScenario & ValueScenario): void => {
+            test(`Should return ${String(scenarioExpected)} for every input`, (): void => {
+                expect(scenarioInputs.filter((input: unknown): boolean => {
+                    return isValueScenario(input) !== scenarioExpected;
+                })).toEqual([]);
             });
-
-            expect(inputs.filter((input: unknown): boolean => {
-                return !isValueScenario(input);
-            })).toEqual([]);
-        });
-
-        test('Should return false for invalid base scenarios', (): void => {
-            expect(invalidBaseScenarioInputs.filter((input: unknown): boolean => {
-                return isValueScenario(input);
-            })).toEqual([]);
-        });
-
-        test('Should return false for scenarios that are neither single nor multi input', (): void => {
-            const inputs: unknown[] = [
-                { label: 'label', expected: 1 },
-                { label: 'label', input: 1, inputs: [1], expected: 1 },
-                { label: 'label', inputs: [], expected: 1 }
-            ];
-
-            expect(inputs.filter((input: unknown): boolean => {
-                return isValueScenario(input);
-            })).toEqual([]);
-        });
-
-        test('Should return false for a missing expected value', (): void => {
-            expect(inputShapes.filter((input: unknown): boolean => {
-                return isValueScenario(input);
-            })).toEqual([]);
-        });
-
-        test('Should return false for a defined expected error', (): void => {
-            const inputs: unknown[] = inputShapes.flatMap((shape: Record<string, unknown>): unknown[] => {
-                return [TypeError, ...definedInputs].map((expectedError: unknown): unknown => {
-                    return { ...shape, expected: 1, expectedError };
-                });
-            });
-
-            expect(inputs.filter((input: unknown): boolean => {
-                return isValueScenario(input);
-            })).toEqual([]);
         });
     });
 });

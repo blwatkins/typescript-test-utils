@@ -22,29 +22,48 @@
 
 import { describe, test, expect } from 'vitest';
 
-import { isBaseScenario, stringInputs } from '../../../src';
+import { MultiInputScenario, ValueScenario, isBaseScenario, stringInputs } from '../../../src';
 
-import { invalidBaseScenarioInputs } from '../../utils/scenario/scenario-inputs';
+import { nonObjectScenarioInputs, nonStringLabelScenarioInputs, unlabeledScenarioInputs } from '../../utils/scenario/scenario-inputs';
 
 describe('Base Scenario', (): void => {
     describe('isBaseScenario', (): void => {
-        test('Should return true for objects with a string label', (): void => {
-            const inputs: unknown[] = [
-                ...stringInputs.map((label: string): unknown => {
-                    return { label };
-                }),
-                { label: 'label', extra: 1 }
-            ];
+        const scenarios: (MultiInputScenario & ValueScenario)[] = [
+            {
+                label: 'Objects with a string label',
+                inputs: [
+                    ...stringInputs.map((label: string): object => {
+                        return { label };
+                    }),
+                    { label: 'label', extra: 1 }
+                ],
+                expected: true
+            },
+            {
+                label: 'Non-object inputs',
+                inputs: nonObjectScenarioInputs,
+                expected: false
+            },
+            {
+                label: 'Unlabeled scenarios',
+                inputs: unlabeledScenarioInputs,
+                expected: false
+            },
+            {
+                label: 'Scenarios with a non-string label',
+                inputs: nonStringLabelScenarioInputs,
+                expected: false
+            }
+        ];
 
-            expect(inputs.filter((input: unknown): boolean => {
-                return !isBaseScenario(input);
-            })).toEqual([]);
-        });
-
-        test('Should return false for invalid base scenarios', (): void => {
-            expect(invalidBaseScenarioInputs.filter((input: unknown): boolean => {
-                return isBaseScenario(input);
-            })).toEqual([]);
+        describe.each(
+            scenarios
+        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: MultiInputScenario & ValueScenario): void => {
+            test(`Should return ${String(scenarioExpected)} for every input`, (): void => {
+                expect(scenarioInputs.filter((input: unknown): boolean => {
+                    return isBaseScenario(input) !== scenarioExpected;
+                })).toEqual([]);
+            });
         });
     });
 });
