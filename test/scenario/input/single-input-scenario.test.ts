@@ -22,51 +22,69 @@
 
 import { describe, test, expect } from 'vitest';
 
-import { denseArrayInputs, isSingleInputScenario, nonObjectInputs } from '../../../src';
+import { MultiInputScenario, ValueScenario, denseArrayInputs, isSingleInputScenario, nonObjectInputs } from '../../../src';
 
-import { invalidBaseScenarioInputs } from '../../utils/scenario/scenario-inputs';
+import { nonObjectScenarioInputs, nonStringLabelScenarioInputs, unlabeledScenarioInputs } from '../../utils/scenario/scenario-inputs';
 
 describe('Single Input Scenario', (): void => {
-    const anyInputs: unknown[] = [
-        ...nonObjectInputs,
-        ...denseArrayInputs,
-        {}
-    ];
-
+    const anyInputs: unknown[] = [...nonObjectInputs, ...denseArrayInputs, {}];
     const definedInputs: unknown[] = anyInputs.filter((input: unknown): boolean => {
         return input !== undefined;
     });
 
     describe('isSingleInputScenario', (): void => {
-        test('Should return true for a label and any input', (): void => {
-            const inputs: unknown[] = anyInputs.flatMap((inputValue: unknown): unknown[] => {
-                return [
-                    { label: 'label', input: inputValue },
-                    { label: 'label', input: inputValue, inputs: undefined }
-                ];
+        const scenarios: (MultiInputScenario & ValueScenario)[] = [
+            {
+                label: 'Any input',
+                inputs: anyInputs.map((input: unknown): object => {
+                    return { label: 'label', input };
+                }),
+                expected: true
+            },
+            {
+                label: 'Any input with undefined inputs',
+                inputs: anyInputs.map((input: unknown): object => {
+                    return { label: 'label', input, inputs: undefined };
+                }),
+                expected: true
+            },
+            {
+                label: 'Missing input',
+                inputs: [{ label: 'label' }],
+                expected: false
+            },
+            {
+                label: 'Defined inputs',
+                inputs: definedInputs.map((inputs: unknown): object => {
+                    return { label: 'label', input: 1, inputs };
+                }),
+                expected: false
+            },
+            {
+                label: 'Non-object inputs',
+                inputs: nonObjectScenarioInputs,
+                expected: false
+            },
+            {
+                label: 'Unlabeled scenarios',
+                inputs: unlabeledScenarioInputs,
+                expected: false
+            },
+            {
+                label: 'Scenarios with a non-string label',
+                inputs: nonStringLabelScenarioInputs,
+                expected: false
+            }
+        ];
+
+        describe.each(
+            scenarios
+        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: MultiInputScenario & ValueScenario): void => {
+            test(`Should return ${String(scenarioExpected)} for every input`, (): void => {
+                expect(scenarioInputs.filter((input: unknown): boolean => {
+                    return isSingleInputScenario(input) !== scenarioExpected;
+                })).toEqual([]);
             });
-
-            expect(inputs.filter((input: unknown): boolean => {
-                return !isSingleInputScenario(input);
-            })).toEqual([]);
-        });
-
-        test('Should return false for invalid base scenarios', (): void => {
-            expect(invalidBaseScenarioInputs.filter((input: unknown): boolean => {
-                return isSingleInputScenario(input);
-            })).toEqual([]);
-        });
-
-        test('Should return false for a missing input', (): void => {
-            expect(isSingleInputScenario({ label: 'label' })).toBe(false);
-        });
-
-        test('Should return false for defined inputs', (): void => {
-            expect(definedInputs.map((inputsValue: unknown): unknown => {
-                return { label: 'label', input: 1, inputs: inputsValue };
-            }).filter((input: unknown): boolean => {
-                return isSingleInputScenario(input);
-            })).toEqual([]);
         });
     });
 });

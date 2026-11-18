@@ -22,27 +22,18 @@
 
 import { denseArrayInputs, nonObjectInputs, nonStringInputs, sparseArrayInputs } from '../../../src';
 
-const labeledScenarioShapes: Record<string, unknown>[] = [
-    { label: 'label', input: 1, expected: 1 },
-    { label: 'label', inputs: [1], expected: 1 },
-    { label: 'label', input: 1, expectedError: TypeError },
-    { label: 'label', inputs: [1], expectedError: TypeError }
+export const nonObjectScenarioInputs: unknown[] = [...nonObjectInputs, ...denseArrayInputs, ...sparseArrayInputs, Object.assign([], { label: 'label' })];
+
+export const unlabeledScenarioInputs: object[] = [
+    {},
+    { input: 1, expected: 1 },
+    { inputs: [1], expected: 1 },
+    { input: 1, expectedError: TypeError },
+    { inputs: [1], expectedError: TypeError }
 ];
 
-export const invalidBaseScenarioInputs: unknown[] = [
-    ...nonObjectInputs,
-    ...denseArrayInputs,
-    ...sparseArrayInputs,
-    Object.assign([], { label: 'label' }),
-    {},
-    ...labeledScenarioShapes.map((shape: Record<string, unknown>): Record<string, unknown> => {
-        return Object.fromEntries(Object.entries(shape).filter(([key]: [string, unknown]): boolean => {
-            return key !== 'label';
-        }));
-    }),
-    ...labeledScenarioShapes.flatMap((shape: Record<string, unknown>): Record<string, unknown>[] => {
-        return nonStringInputs.map((label: unknown): Record<string, unknown> => {
-            return { ...shape, label };
-        });
-    })
-];
+export const nonStringLabelScenarioInputs: object[] = unlabeledScenarioInputs.flatMap((scenario: object): object[] => {
+    return nonStringInputs.map((label: unknown): object => {
+        return { ...scenario, label };
+    });
+});
