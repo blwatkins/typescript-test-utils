@@ -83,7 +83,7 @@ describe('Base Scenario', (): void => {
         describe.each(
             scenarios
         )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: TestScenario): void => {
-            test('Should follow expected outcome for every input', (): void => {
+            test('Should return the expected value for every input', (): void => {
                 expect(scenarioInputs.filter((input: unknown): boolean => {
                     return isBaseScenario(input) !== scenarioExpected;
                 })).toEqual([]);
