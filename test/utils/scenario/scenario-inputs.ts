@@ -20,20 +20,27 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { denseArrayInputs, nonObjectInputs, nonStringInputs, sparseArrayInputs } from '../../../src';
+import { Scenario, nonStringInputs } from '../../../src';
 
-export const nonObjectScenarioInputs: unknown[] = [...nonObjectInputs, ...denseArrayInputs, ...sparseArrayInputs, Object.assign([], { label: 'label' })];
-
-export const unlabeledScenarioInputs: object[] = [
-    {},
-    { input: 1, expected: 1 },
-    { inputs: [1], expected: 1 },
-    { input: 1, expectedError: TypeError },
-    { inputs: [1], expectedError: TypeError }
+export const inputScenarioShapes: object[] = [
+    { label: 'label', input: 1 },
+    { label: 'label', inputs: [1] }
 ];
 
-export const nonStringLabelScenarioInputs: object[] = unlabeledScenarioInputs.flatMap((scenario: object): object[] => {
+export const scenarioShapes: Scenario[] = [
+    { label: 'label', input: 1, expected: 1 },
+    { label: 'label', inputs: [1], expected: 1 },
+    { label: 'label', input: 1, expectedError: TypeError },
+    { label: 'label', inputs: [1], expectedError: TypeError }
+];
+
+export const nonStringLabelScenarioInputs: object[] = [...scenarioShapes, {}].flatMap((scenario: object): object[] => {
     return nonStringInputs.map((label: unknown): object => {
         return { ...scenario, label };
     });
+});
+
+export const missingLabelScenarioInputs: object[] = scenarioShapes.map((scenario: Scenario): object => {
+    const { label, ...unlabeledScenario } = scenario;
+    return unlabeledScenario;
 });

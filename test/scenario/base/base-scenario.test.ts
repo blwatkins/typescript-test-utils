@@ -22,9 +22,17 @@
 
 import { describe, test, expect } from 'vitest';
 
-import { MultiInputScenario, ValueScenario, isBaseScenario, stringInputs } from '../../../src';
+import {
+    MultiInputScenario,
+    ValueScenario,
+    isBaseScenario,
+    stringInputs,
+    nonObjectInputs,
+    sparseArrayInputs,
+    denseArrayInputs
+} from '../../../src';
 
-import { nonObjectScenarioInputs, nonStringLabelScenarioInputs, unlabeledScenarioInputs } from '../../utils/scenario/scenario-inputs';
+import { missingLabelScenarioInputs, nonStringLabelScenarioInputs } from '../../utils/scenario/scenario-inputs';
 
 describe('Base Scenario', (): void => {
     type Scenario = MultiInputScenario & ValueScenario;
@@ -37,18 +45,28 @@ describe('Base Scenario', (): void => {
                     ...stringInputs.map((label: string): object => {
                         return { label };
                     }),
-                    { label: 'label', extra: 1 }
+                    { label: 'label', key: 'value' }
                 ],
                 expected: true
             },
             {
                 label: 'Non-object inputs',
-                inputs: nonObjectScenarioInputs,
+                inputs: nonObjectInputs,
+                expected: false
+            },
+            {
+                label: 'Array inputs',
+                inputs: [...sparseArrayInputs, ...denseArrayInputs],
+                expected: false
+            },
+            {
+                label: 'Empty object inputs',
+                inputs: [{}],
                 expected: false
             },
             {
                 label: 'Unlabeled scenarios',
-                inputs: unlabeledScenarioInputs,
+                inputs: missingLabelScenarioInputs,
                 expected: false
             },
             {
