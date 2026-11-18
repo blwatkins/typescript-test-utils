@@ -37,21 +37,21 @@ import {
 import { throwsError } from '../utils/error/error-checks';
 import { invalidBaseScenarioInputs } from '../utils/scenario/scenario-inputs';
 
-interface CollectFailuresArguments {
-    readonly methodToTest: unknown;
-    readonly scenario: unknown;
-    readonly isEqual: unknown;
-}
-
-type ArgumentErrorScenario = MultiInputScenario & ErrorScenario & {
-    readonly inputs: CollectFailuresArguments[];
-};
-
-function identity(input: unknown): unknown {
-    return input;
-}
-
 describe('Collect Failures', (): void => {
+    interface CollectFailuresArguments {
+        readonly methodToTest: unknown;
+        readonly scenario: unknown;
+        readonly isEqual: unknown;
+    }
+
+    type ArgumentErrorScenario = MultiInputScenario & ErrorScenario & {
+        readonly inputs: CollectFailuresArguments[];
+    };
+
+    function identity(input: unknown): unknown {
+        return input;
+    }
+
     class CustomError extends TypeError {}
 
     const validScenario: Scenario = { label: 'label', inputs: [1], expected: 1 };
@@ -119,7 +119,6 @@ describe('Collect Failures', (): void => {
 
             test('Should return a failure with the thrown error for each input that throws', (): void => {
                 const error: Error = new Error();
-
                 const failures: Failure[] = collectFailures((): unknown => {
                     throw error;
                 }, { label: 'label', input: 1, expected: 1 });
