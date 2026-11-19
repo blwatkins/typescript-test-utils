@@ -33,14 +33,14 @@ import { inputScenarioShapes, invalidInputScenarioShapes } from '../../utils/sce
 import { invalidBaseScenarioScenarios } from '../../utils/scenario/scenario-scenarios';
 
 describe('Error Scenario', (): void => {
-    type Scenario = MultiInputScenario & ValueScenario;
+    type TestScenario = MultiInputScenario & ValueScenario;
 
     class CustomError extends TypeError {}
 
     const errorClassInputs: unknown[] = [Error, TypeError, RangeError, CustomError];
 
     describe('isErrorScenario', (): void => {
-        const scenarios: Scenario[] = [
+        const scenarios: TestScenario[] = [
             {
                 label: 'Scenarios with an error class',
                 inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
@@ -94,7 +94,7 @@ describe('Error Scenario', (): void => {
 
         describe.each(
             scenarios
-        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: Scenario): void => {
+        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: TestScenario): void => {
             test('Should return the expected value for every input', (): void => {
                 expect(scenarioInputs.filter((input: unknown): boolean => {
                     return isErrorScenario(input) !== scenarioExpected;
