@@ -29,7 +29,8 @@ import {
     definedNonObjectInputs
 } from '../../../src';
 
-import {inputScenarioShapes} from '../../utils/scenario/scenario-inputs';
+import { inputScenarioShapes, invalidInputScenarioShapes } from '../../utils/scenario/scenario-inputs';
+import { invalidBaseScenarioScenarios } from '../../utils/scenario/scenario-scenarios';
 
 describe('Value Scenario', (): void => {
     type TestScenario = MultiInputScenario & ValueScenario;
@@ -70,44 +71,30 @@ describe('Value Scenario', (): void => {
                 }),
                 expected: true
             },
-            // {
-            //     label: 'Scenarios that are neither single nor multi input',
-            //     inputs: [
-            //         { label: 'label', expected: 1 },
-            //         { label: 'label', input: 1, inputs: [1], expected: 1 },
-            //         { label: 'label', inputs: [], expected: 1 }
-            //     ],
-            //     expected: false
-            // },
-            // {
-            //     label: 'Missing expected value',
-            //     inputs: inputShapes,
-            //     expected: false
-            // },
-            // {
-            //     label: 'Defined expected error',
-            //     inputs: inputShapes.flatMap((shape: object): object[] => {
-            //         return [TypeError, ...definedInputs].map((expectedError: unknown): object => {
-            //             return { ...shape, expected: 1, expectedError };
-            //         });
-            //     }),
-            //     expected: false
-            // },
-            // {
-            //     label: 'Non-object inputs',
-            //     inputs: nonObjectScenarioInputs,
-            //     expected: false
-            // },
-            // {
-            //     label: 'Unlabeled scenarios',
-            //     inputs: unlabeledScenarioInputs,
-            //     expected: false
-            // },
-            // {
-            //     label: 'Scenarios with a non-string label',
-            //     inputs: nonStringLabelScenarioInputs,
-            //     expected: false
-            // }
+            {
+                label: 'Objects missing expected value',
+                inputs: inputScenarioShapes,
+                expected: false
+            },
+            {
+                label: 'Objects that are neither single nor multi input scenarios',
+                inputs: invalidInputScenarioShapes.flatMap((shape: object): object[] => {
+                    return anyTypeInputs.map((expected: unknown): object => {
+                        return { ...shape, expected };
+                    });
+                }),
+                expected: false
+            },
+            {
+                label: 'Object with a defined expected error',
+                inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
+                    return [TypeError, ...anyTypeInputs].map((expectedError: unknown): object => {
+                        return { ...shape, expected: 1, expectedError };
+                    });
+                }),
+                expected: false
+            },
+            ...invalidBaseScenarioScenarios
         ];
 
         describe.each(
