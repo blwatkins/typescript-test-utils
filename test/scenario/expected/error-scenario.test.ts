@@ -74,7 +74,7 @@ describe('Error Scenario', (): void => {
             {
                 label: 'Defined expected value',
                 inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
-                    return ['value', 1, 0, '', null, false, {}, [], { key: 'value'}, [1]].map((expected: unknown): object => {
+                    return ['value', 1, 0, '', null, false, {}, [], { key: 'value' }, [1]].map((expected: unknown): object => {
                         return { ...shape, expectedError: TypeError, expected };
                     });
                 }),

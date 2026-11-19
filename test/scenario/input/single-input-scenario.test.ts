@@ -22,7 +22,13 @@
 
 import { describe, test, expect } from 'vitest';
 
-import { MultiInputScenario, ValueScenario, denseArrayInputs, isSingleInputScenario, nonObjectInputs } from '../../../src';
+import {
+    MultiInputScenario,
+    ValueScenario,
+    isSingleInputScenario,
+    denseArrayInputs,
+    nonObjectInputs
+} from '../../../src';
 
 import { nonObjectScenarioInputs, nonStringLabelScenarioInputs, unlabeledScenarioInputs } from '../../utils/scenario/scenario-inputs';
 

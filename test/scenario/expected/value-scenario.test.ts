@@ -20,9 +20,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, test, expect } from 'vitest';
+import { expect, describe, test } from 'vitest';
 
-import { MultiInputScenario, ValueScenario, denseArrayInputs, isValueScenario, nonObjectInputs } from '../../../src';
+import {
+    MultiInputScenario,
+    ValueScenario,
+    isValueScenario,
+    denseArrayInputs,
+    nonObjectInputs
+} from '../../../src';
 
 import { nonObjectScenarioInputs, nonStringLabelScenarioInputs, unlabeledScenarioInputs } from '../../utils/scenario/scenario-inputs';
 
