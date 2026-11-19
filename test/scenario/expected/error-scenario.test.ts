@@ -26,7 +26,8 @@ import {
     MultiInputScenario,
     ValueScenario,
     isErrorScenario,
-    nonFunctionInputs
+    nonFunctionInputs,
+    definedNonObjectInputs
 } from '../../../src';
 
 import { inputScenarioShapes, invalidInputScenarioShapes } from '../../utils/scenario/scenario-inputs';
@@ -38,6 +39,8 @@ describe('Error Scenario', (): void => {
     class CustomError extends TypeError {}
 
     const errorClassInputs: unknown[] = [Error, TypeError, RangeError, CustomError];
+
+    const anyTypeInputs: unknown[] = [...definedNonObjectInputs, [], {}, { key: 'value' }, [1]];
 
     describe('isErrorScenario', (): void => {
         const scenarios: TestScenario[] = [
@@ -60,7 +63,7 @@ describe('Error Scenario', (): void => {
                 expected: true
             },
             {
-                label: 'Missing or non-function expected error',
+                label: 'Objects with a missing or non-function expected error',
                 inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
                     return [
                         shape,
@@ -72,16 +75,16 @@ describe('Error Scenario', (): void => {
                 expected: false
             },
             {
-                label: 'Defined expected value',
+                label: 'Objects with a defined expected value',
                 inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
-                    return ['value', 1, 0, '', null, false, {}, [], { key: 'value' }, [1]].map((expected: unknown): object => {
+                    return anyTypeInputs.map((expected: unknown): object => {
                         return { ...shape, expectedError: TypeError, expected };
                     });
                 }),
                 expected: false
             },
             {
-                label: 'Error scenarios that are neither single nor multi input',
+                label: 'Objects that are neither single nor multi input scenarios',
                 inputs: invalidInputScenarioShapes.flatMap((shape: object): object[] => {
                     return errorClassInputs.map((expectedError: unknown): object => {
                         return { ...shape, expectedError };
