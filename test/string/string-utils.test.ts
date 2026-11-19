@@ -20,18 +20,18 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, test, expect } from 'vitest';
+import { expect, describe, test } from 'vitest';
 
 import {
     buildSingleLineInputs,
     charactersFromCodePointRange,
     mixStrings,
+    pairStrings,
     negativeSafeIntegerInputs,
     nonArrayInputs,
     nonFiniteNumberInputs,
     nonNumberInputs,
     nonStringInputs,
-    pairStrings,
     safeFloatInputs,
     sparseArrayInputs,
     unsafeNumberInputs

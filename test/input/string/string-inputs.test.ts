@@ -44,7 +44,15 @@ import {
 } from '../../../src';
 
 import { isEntryOf } from '../../utils/array/array-checks';
-import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
+
+import {
+    testDefinedInputArray,
+    testInputArrayDuplicates,
+    testNonEmptyArray,
+    testNonTypeInputArray,
+    testTypeInputArray
+} from '../../utils/input/input-tests';
+
 import { isString } from '../../utils/input/type-checks';
 import { isCaseless, isLowercase, isMixedCase, isUppercase } from '../../utils/string/string-case-checks';
 

@@ -20,7 +20,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { test, expect } from 'vitest';
+import { expect, test } from 'vitest';
 
 export function testNonEmptyArray(inputs: unknown[]): void {
     test('Should be a non-empty array', (): void => {

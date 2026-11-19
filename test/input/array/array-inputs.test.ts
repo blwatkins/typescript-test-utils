@@ -20,11 +20,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, test, expect } from 'vitest';
+import { expect, describe, test } from 'vitest';
 
 import { definedNonArrayInputs, denseArrayInputs, nonArrayInputs, sparseArrayInputs } from '../../../src';
 
-import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
+import {
+    testDefinedInputArray,
+    testInputArrayDuplicates,
+    testNonEmptyArray,
+    testNonTypeInputArray,
+    testTypeInputArray
+} from '../../utils/input/input-tests';
 
 describe('Array Inputs', (): void => {
     const type: string = 'array';

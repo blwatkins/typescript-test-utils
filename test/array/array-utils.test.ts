@@ -20,9 +20,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, test, expect } from 'vitest';
+import { expect, describe, test  } from 'vitest';
 
-import { denseArrayInputs, nonArrayInputs, sparseArrayInputs, unique } from '../../src';
+import {  unique, denseArrayInputs, nonArrayInputs, sparseArrayInputs } from '../../src';
 
 import { throwsError } from '../utils/error/error-checks';
 

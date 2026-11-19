@@ -44,7 +44,13 @@ import {
     zeroInputs
 } from '../../../src';
 
-import { testDefinedInputArray, testInputArrayDuplicates, testNonEmptyArray, testNonTypeInputArray, testTypeInputArray } from '../../utils/input/input-tests';
+import {
+    testDefinedInputArray,
+    testInputArrayDuplicates,
+    testNonEmptyArray,
+    testNonTypeInputArray,
+    testTypeInputArray
+} from '../../utils/input/input-tests';
 import { isNumber } from '../../utils/input/type-checks';
 
 describe('Number Inputs', (): void => {
