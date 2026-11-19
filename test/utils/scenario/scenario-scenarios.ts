@@ -25,7 +25,7 @@ import {
     ValueScenario,
     denseArrayInputs,
     nonObjectInputs,
-    sparseArrayInputs,
+    sparseArrayInputs
 } from '../../../src';
 
 import { missingLabelScenarioInputs, nonStringLabelScenarioInputs } from './scenario-inputs';
@@ -61,18 +61,3 @@ export const invalidBaseScenarioScenarios: (MultiInputScenario & ValueScenario)[
         expected: false
     }
 ];
-
-export const invalidInputScenarioScenarios: (MultiInputScenario & ValueScenario)[] = [
-    {
-        label: 'Error scenarios that are neither single nor multi input',
-        inputs: [
-            { label: 'label', expectedError: TypeError },
-            { label: 'label', input: 1, inputs: [1], expectedError: TypeError },
-            { label: 'label', input: 1, inputs: [], expectedError: TypeError },
-            { label: 'label', inputs: [], expectedError: TypeError }
-        ],
-        expected: false
-    }
-];
-
-

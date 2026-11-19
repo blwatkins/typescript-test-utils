@@ -22,9 +22,11 @@
 
 import { Scenario, nonStringInputs } from '../../../src';
 
-export const inputScenarioShapes: object[] = [
-    { label: 'label', input: 1 },
-    { label: 'label', inputs: [1] }
+export const invalidInputScenarioShapes: object[] = [
+    { label: 'label' },
+    { label: 'label', input: 1, inputs: [1] },
+    { label: 'label', input: 1, inputs: [] },
+    { label: 'label', inputs: [] }
 ];
 
 export const scenarioShapes: Scenario[] = [
@@ -45,3 +47,8 @@ export const missingLabelScenarioInputs: object[] = scenarioShapes.map((scenario
     delete scenarioCopy.label;
     return scenarioCopy;
 });
+
+export const inputScenarioShapes: object[] = [
+    { label: 'label', input: 1 },
+    { label: 'label', inputs: [1] }
+];

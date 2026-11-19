@@ -26,11 +26,11 @@ import {
     MultiInputScenario,
     ValueScenario,
     isErrorScenario,
-    nonFunctionInputs,
+    nonFunctionInputs
 } from '../../../src';
 
-import { inputScenarioShapes } from '../../utils/scenario/scenario-inputs';
-import { invalidBaseScenarioScenarios, invalidInputScenarioScenarios } from '../../utils/scenario/scenario-scenarios';
+import { inputScenarioShapes, invalidInputScenarioShapes } from '../../utils/scenario/scenario-inputs';
+import { invalidBaseScenarioScenarios } from '../../utils/scenario/scenario-scenarios';
 
 describe('Error Scenario', (): void => {
     type Scenario = MultiInputScenario & ValueScenario;
@@ -73,13 +73,23 @@ describe('Error Scenario', (): void => {
             },
             {
                 label: 'Defined expected value',
-                inputs: inputScenarioShapes.map((shape: object): object => {
-                        return { ...shape, expectedError: Error, expected: 'value' };
+                inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
+                    return ['value', 1, 0, '', null, false, {}, [], { key: 'value'}, [1]].map((expected: unknown): object => {
+                        return { ...shape, expectedError: TypeError, expected };
+                    });
                 }),
                 expected: false
             },
-            ...invalidBaseScenarioScenarios,
-            ...invalidInputScenarioScenarios
+            {
+                label: 'Error scenarios that are neither single nor multi input',
+                inputs: invalidInputScenarioShapes.flatMap((shape: object): object[] => {
+                    return errorClassInputs.map((expectedError: unknown): object => {
+                        return { ...shape, expectedError };
+                    });
+                }),
+                expected: false
+            },
+            ...invalidBaseScenarioScenarios
         ];
 
         describe.each(
