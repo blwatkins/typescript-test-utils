@@ -20,7 +20,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, test, expect } from 'vitest';
+import { expect, describe, test } from 'vitest';
 
 import {
     definedInvalidSafePositiveIntegerInputs,
@@ -51,6 +51,7 @@ import {
     testNonTypeInputArray,
     testTypeInputArray
 } from '../../utils/input/input-tests';
+
 import { isNumber } from '../../utils/input/type-checks';
 
 describe('Number Inputs', (): void => {
