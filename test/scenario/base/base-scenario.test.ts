@@ -26,13 +26,10 @@ import {
     MultiInputScenario,
     ValueScenario,
     isBaseScenario,
-    denseArrayInputs,
-    nonObjectInputs,
-    sparseArrayInputs,
     stringInputs
 } from '../../../src';
 
-import { missingLabelScenarioInputs, nonStringLabelScenarioInputs } from '../../utils/scenario/scenario-inputs';
+import { invalidBaseScenarioScenarios } from '../../utils/scenario/scenario-scenarios';
 
 describe('Base Scenario', (): void => {
     type TestScenario = MultiInputScenario & ValueScenario;
@@ -49,35 +46,7 @@ describe('Base Scenario', (): void => {
                 ],
                 expected: true
             },
-            {
-                label: 'Non-object inputs',
-                inputs: nonObjectInputs,
-                expected: false
-            },
-            {
-                label: 'Array inputs',
-                inputs: [
-                    ...sparseArrayInputs,
-                    ...denseArrayInputs,
-                    Object.assign([], { label: 'label' })
-                ],
-                expected: false
-            },
-            {
-                label: 'Empty object inputs',
-                inputs: [{}],
-                expected: false
-            },
-            {
-                label: 'Scenarios missing label',
-                inputs: missingLabelScenarioInputs,
-                expected: false
-            },
-            {
-                label: 'Scenarios with a non-string label',
-                inputs: nonStringLabelScenarioInputs,
-                expected: false
-            }
+            ...invalidBaseScenarioScenarios
         ];
 
         describe.each(

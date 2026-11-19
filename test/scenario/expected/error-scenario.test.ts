@@ -20,29 +20,30 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, test, expect } from 'vitest';
+import { expect, describe, test } from 'vitest';
 
-import { MultiInputScenario, ValueScenario, denseArrayInputs, isErrorScenario, nonFunctionInputs, nonObjectInputs } from '../../../src';
+import {
+    MultiInputScenario,
+    ValueScenario,
+    isErrorScenario,
+    nonFunctionInputs,
+} from '../../../src';
 
-import { nonObjectScenarioInputs, nonStringLabelScenarioInputs, unlabeledScenarioInputs } from '../../utils/scenario/scenario-inputs';
+import { inputScenarioShapes } from '../../utils/scenario/scenario-inputs';
+import { invalidBaseScenarioScenarios, invalidInputScenarioScenarios } from '../../utils/scenario/scenario-scenarios';
 
 describe('Error Scenario', (): void => {
+    type Scenario = MultiInputScenario & ValueScenario;
+
     class CustomError extends TypeError {}
 
     const errorClassInputs: unknown[] = [Error, TypeError, RangeError, CustomError];
-    const definedInputs: unknown[] = [...nonObjectInputs, ...denseArrayInputs, {}].filter((input: unknown): boolean => {
-        return input !== undefined;
-    });
-    const inputShapes: object[] = [
-        { label: 'label', input: 1 },
-        { label: 'label', inputs: [1] }
-    ];
 
     describe('isErrorScenario', (): void => {
-        const scenarios: (MultiInputScenario & ValueScenario)[] = [
+        const scenarios: Scenario[] = [
             {
-                label: 'Single and multi input scenarios with an error class',
-                inputs: inputShapes.flatMap((shape: object): object[] => {
+                label: 'Scenarios with an error class',
+                inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
                     return errorClassInputs.map((expectedError: unknown): object => {
                         return { ...shape, expectedError };
                     });
@@ -50,8 +51,8 @@ describe('Error Scenario', (): void => {
                 expected: true
             },
             {
-                label: 'Single and multi input scenarios with an error class and an undefined expected value',
-                inputs: inputShapes.flatMap((shape: object): object[] => {
+                label: 'Scenarios with an error class and an undefined expected value',
+                inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
                     return errorClassInputs.map((expectedError: unknown): object => {
                         return { ...shape, expectedError, expected: undefined };
                     });
@@ -59,17 +60,8 @@ describe('Error Scenario', (): void => {
                 expected: true
             },
             {
-                label: 'Scenarios that are neither single nor multi input',
-                inputs: [
-                    { label: 'label', expectedError: TypeError },
-                    { label: 'label', input: 1, inputs: [1], expectedError: TypeError },
-                    { label: 'label', inputs: [], expectedError: TypeError }
-                ],
-                expected: false
-            },
-            {
                 label: 'Missing or non-function expected error',
-                inputs: inputShapes.flatMap((shape: object): object[] => {
+                inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
                     return [
                         shape,
                         ...nonFunctionInputs.map((expectedError: unknown): object => {
@@ -81,34 +73,19 @@ describe('Error Scenario', (): void => {
             },
             {
                 label: 'Defined expected value',
-                inputs: inputShapes.flatMap((shape: object): object[] => {
-                    return definedInputs.map((expected: unknown): object => {
-                        return { ...shape, expected, expectedError: TypeError };
-                    });
+                inputs: inputScenarioShapes.map((shape: object): object => {
+                        return { ...shape, expectedError: Error, expected: 'value' };
                 }),
                 expected: false
             },
-            {
-                label: 'Non-object inputs',
-                inputs: nonObjectScenarioInputs,
-                expected: false
-            },
-            {
-                label: 'Unlabeled scenarios',
-                inputs: unlabeledScenarioInputs,
-                expected: false
-            },
-            {
-                label: 'Scenarios with a non-string label',
-                inputs: nonStringLabelScenarioInputs,
-                expected: false
-            }
+            ...invalidBaseScenarioScenarios,
+            ...invalidInputScenarioScenarios
         ];
 
         describe.each(
             scenarios
-        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: MultiInputScenario & ValueScenario): void => {
-            test(`Should return ${String(scenarioExpected)} for every input`, (): void => {
+        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: Scenario): void => {
+            test('Should return the expected value for every input', (): void => {
                 expect(scenarioInputs.filter((input: unknown): boolean => {
                     return isErrorScenario(input) !== scenarioExpected;
                 })).toEqual([]);
