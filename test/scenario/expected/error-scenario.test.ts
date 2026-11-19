@@ -26,8 +26,8 @@ import {
     MultiInputScenario,
     ValueScenario,
     isErrorScenario,
-    nonFunctionInputs,
-    definedNonObjectInputs
+    definedNonObjectInputs,
+    nonFunctionInputs
 } from '../../../src';
 
 import { inputScenarioShapes, invalidInputScenarioShapes } from '../../utils/scenario/scenario-inputs';
