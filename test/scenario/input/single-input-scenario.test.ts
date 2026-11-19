@@ -20,7 +20,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import {  expect, describe, test } from 'vitest';
+import { expect, describe, test } from 'vitest';
 
 import {
     MultiInputScenario,

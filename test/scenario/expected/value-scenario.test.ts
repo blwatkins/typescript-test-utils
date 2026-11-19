@@ -22,12 +22,7 @@
 
 import { expect, describe, test } from 'vitest';
 
-import {
-    MultiInputScenario,
-    ValueScenario,
-    isValueScenario,
-    definedNonObjectInputs
-} from '../../../src';
+import { MultiInputScenario, ValueScenario, isValueScenario, definedNonObjectInputs } from '../../../src';
 
 import { inputScenarioShapes, invalidInputScenarioShapes } from '../../utils/scenario/scenario-inputs';
 import { invalidBaseScenarioScenarios } from '../../utils/scenario/scenario-scenarios';
