@@ -86,7 +86,7 @@ describe('Value Scenario', (): void => {
                 expected: false
             },
             {
-                label: 'Object with a defined expected error',
+                label: 'Objects with a defined expected error',
                 inputs: inputScenarioShapes.flatMap((shape: object): object[] => {
                     return [TypeError, ...anyTypeInputs].map((expectedError: unknown): object => {
                         return { ...shape, expected: 1, expectedError };
@@ -99,7 +99,7 @@ describe('Value Scenario', (): void => {
 
         describe.each(
             scenarios
-        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: MultiInputScenario & ValueScenario): void => {
+        )('%# - $label', ({ inputs: scenarioInputs, expected: scenarioExpected }: TestScenario): void => {
             test('Should return the expected value for every input', (): void => {
                 expect(scenarioInputs.filter((input: unknown): boolean => {
                     return isValueScenario(input) !== scenarioExpected;
